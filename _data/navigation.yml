@@ -9,22 +9,22 @@
 
 main:
   - title: "Publications"
-    url: /publications/
+    url: "https://messinavincenzo.github.io/publications/"
 
   #- title: "Talks"
   #  url: /talks/    
 
   - title: "Teaching"
-    url: /teaching/    
+    url: "https://messinavincenzo.github.io/teaching/"    
     
   #- title: "Portfolio"
   #  url: /portfolio/
         
   - title: "Blog Posts"
-    url: /year-archive/
+    url: "https://messinavincenzo.github.io/year-archive/"
     
   - title: "CV"
-    url: /cv/
+    url: "https://messinavincenzo.github.io/cv/"
     
   # - title: "CV"
   #   url: /cv-json/
