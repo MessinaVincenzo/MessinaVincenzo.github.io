@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Welcome to my website!"
+title: "Hi :) Welcome to my website!"
 author_profile: true
 redirect_from: 
   - /about/
@@ -12,3 +12,4 @@ My research focuses on proposing and analysing methods for optimizing decentrali
 
 I am working now to develop my first website, so it is still a bit rudimental, sorry for that!
 
+---
