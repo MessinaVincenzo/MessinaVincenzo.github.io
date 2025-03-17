@@ -22,7 +22,7 @@ repository               : ""
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "thumbnail_IMG_1270.jpg"
+  avatar           : "PersonalPhotoLamp.jpg"
   name             : "Vincenzo"
   pronouns         : # example: "she/her"  
   bio              : "Research Associate and Doctoral Candidate at the Technical University of Munich"
