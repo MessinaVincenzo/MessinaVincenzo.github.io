@@ -6,10 +6,13 @@ author_profile: true
 redirect_from:
   - /resume
 ---
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8f9fa;">
+  <iframe src="/_pages/CV_VincenzoMessina_MarchV2.pdf" width="100%" height="600px">
+      This browser does not support PDFs. Please download the PDF to view it: <a href="/_pages/CV_VincenzoMessina_MarchV2.pdf">Download PDF</a>.
+  </iframe>
+</div>
+<!--
 
-<iframe src="/_pages/CV_VincenzoMessina_MarchV2.pdf" width="100%" height="600px">
-    This browser does not support PDFs. Please download the PDF to view it: <a href="/_pages/CV_VincenzoMessina_MarchV2.pdf">Download PDF</a>.
-</iframe>
 {% include base_path %}
 
 Education
@@ -65,3 +68,5 @@ Teaching
 Service and leadership
 ======
 * Currently signed in to 43 different slack teams
+-->
+
