@@ -7,10 +7,17 @@ redirect_from:
   - /resume
 ---
 <div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8f9fa;">
+  <iframe src="/_pages/CV_VincenzoMessina_MarchV2.pdf" style="width: 210mm; height: 297mm; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      This browser does not support PDFs. Please download the PDF to view it: <a href="/_pages/CV_VincenzoMessina_MarchV2.pdf">Download PDF</a>.
+  </iframe>
+</div>
+<!--
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8f9fa;">
   <iframe src="/_pages/CV_VincenzoMessina_MarchV2.pdf" width="100%" height="600px">
       This browser does not support PDFs. Please download the PDF to view it: <a href="/_pages/CV_VincenzoMessina_MarchV2.pdf">Download PDF</a>.
   </iframe>
 </div>
+-->
 <!--
 
 {% include base_path %}
