@@ -9,6 +9,8 @@
 .sidebar {
   -webkit-transform: translate3d(0, 0 , 0);
           transform: translate3d(0, 0 , 0);
+  background: linear-gradient(135deg, var(--global-bg-color) 0%, rgba(204, 231, 255, 0.3) 100%);
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
 
   @include clearfix();
   margin-bottom: 1em;
@@ -245,6 +247,14 @@
 
   li {
     white-space: nowrap;
+  }
+
+  a {
+    transition: all 0.3s ease;
+    &:hover {
+      color: var(--global-link-color);
+      transform: translateX(5px);
+    }
   }
 
   a {
