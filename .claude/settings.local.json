@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Remove-Item \"c:\\\\Users\\\\Vincenzo Messina\\\\OneDrive - TUM\\\\Desktop\\\\MessinaVincenzo.github.io-master\\\\_pages\\\\CV_VincenzoMessina_MarchV2.pdf\")"
+    ]
+  }
+}
