@@ -401,8 +401,11 @@ body::after {
 }
 
 /* The header is a flex row with the date pushed right. On a phone that
-   squeezes the title into a narrow column, so stack instead. */
-.cv-item-header {
+   squeezes the title into a narrow column, so stack instead.
+   Qualified with .cv-container because cv-style.css is loaded after main.css
+   and sets `display: flex` at the same specificity, which would otherwise win
+   regardless of the media query. */
+.cv-container .cv-item-header {
   flex-wrap: wrap;
   gap: 0.15em 1em;
 
