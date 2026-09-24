@@ -11,3 +11,10 @@ Gemfile.lock
 # Ingore files created by npm
 node_modules
 package-lock.json
+
+# Ignore gems installed locally by bundler
+vendor/
+.bundle/
+
+# Ignore local Claude Code settings
+.claude/settings.local.json
