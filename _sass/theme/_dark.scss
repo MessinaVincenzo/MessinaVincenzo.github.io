@@ -21,8 +21,8 @@ $light-blue                 : #cce7ff;
 
 /* Color codes used for the site */
 $danger-color               : #ee5f5b;
-$info-color                 : #{$blue};
-$notice-color               : #{$gray};
+$info-color                 : $blue;
+$notice-color               : $gray;
 $success-color              : #62c462;
 $warning-color              : #f89406;
 

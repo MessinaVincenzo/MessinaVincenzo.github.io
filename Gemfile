@@ -10,3 +10,7 @@ group :jekyll_plugins do
 end
 
 gem 'github-pages'
+
+# Windows has no zoneinfo database, so tzinfo needs one supplied as a gem.
+# No-op on Linux, so this does not affect the GitHub Pages build.
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
