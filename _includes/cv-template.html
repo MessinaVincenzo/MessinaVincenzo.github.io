@@ -6,30 +6,30 @@
     <!-- Deliberately not a top-level heading: the page title already provides
          one, and two per page is ambiguous for screen readers. -->
     <p class="cv-name">{{ cv.basics.name }}</p>
-    {% if cv.basics.label %}
+    {% if cv.basics.label != blank %}
     <p class="cv-label">{{ cv.basics.label }}</p>
     {% endif %}
     
     <div class="cv-contact">
-      {% if cv.basics.email %}
+      {% if cv.basics.email != blank %}
       <div class="cv-contact-item">
         <i class="fas fa-envelope"></i> {{ cv.basics.email }}
       </div>
       {% endif %}
       
-      {% if cv.basics.phone %}
+      {% if cv.basics.phone != blank %}
       <div class="cv-contact-item">
         <i class="fas fa-phone"></i> {{ cv.basics.phone }}
       </div>
       {% endif %}
       
-      {% if cv.basics.website %}
+      {% if cv.basics.website != blank %}
       <div class="cv-contact-item">
         <i class="fas fa-globe"></i> <a href="{{ cv.basics.website }}" target="_blank">{{ cv.basics.website }}</a>
       </div>
       {% endif %}
       
-      {% if cv.basics.location.city %}
+      {% if cv.basics.location.city != blank %}
       <div class="cv-contact-item">
         <!-- Liquid treats "" as truthy, so compare explicitly or an empty
              field emits a stray comma ("Munich, , Germany"). -->
@@ -49,7 +49,7 @@
     {% endif %}
   </div>
   
-  {% if cv.basics.summary %}
+  {% if cv.basics.summary != blank %}
   <!-- Summary -->
   <div class="cv-section">
     <h2>Summary</h2>
@@ -70,7 +70,7 @@
         </div>
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ education.institution }}</div>
-          {% if education.gpa %}
+          {% if education.gpa != blank %}
           <div class="cv-item-detail">GPA: {{ education.gpa }}</div>
           {% endif %}
           {% if education.courses.size > 0 %}
@@ -94,11 +94,11 @@
       <li class="cv-item">
         <div class="cv-item-header">
           <div class="cv-item-title">{{ work.position }}</div>
-          <div class="cv-item-date">{{ work.startDate }}{% if work.endDate %} &ndash; {{ work.endDate }}{% endif %}</div>
+          <div class="cv-item-date">{{ work.startDate }}{% if work.endDate != blank %} &ndash; {{ work.endDate }}{% endif %}</div>
         </div>
         <div class="cv-item-content">
-          <div class="cv-item-subtitle">{{ work.company }}{% if work.location %} &middot; {{ work.location }}{% endif %}</div>
-          {% if work.summary %}
+          <div class="cv-item-subtitle">{{ work.company }}{% if work.location != blank %} &middot; {{ work.location }}{% endif %}</div>
+          {% if work.summary != blank %}
           <div class="cv-item-detail">{{ work.summary }}</div>
           {% endif %}
           {% if work.highlights.size > 0 %}
@@ -147,10 +147,10 @@
         </div>
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ publication.publisher }}</div>
-          {% if publication.summary %}
+          {% if publication.summary != blank %}
           <div class="cv-item-detail">{{ publication.summary }}</div>
           {% endif %}
-          {% if publication.website %}
+          {% if publication.website != blank %}
           <div class="cv-item-detail">
             <a href="{{ publication.website }}" target="_blank">View Publication</a>
           </div>
@@ -175,10 +175,10 @@
         </div>
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ talk.event }}</div>
-          {% if talk.location %}
+          {% if talk.location != blank %}
           <div class="cv-item-detail">{{ talk.location }}</div>
           {% endif %}
-          {% if talk.description %}
+          {% if talk.description != blank %}
           <div class="cv-item-detail">{{ talk.description }}</div>
           {% endif %}
         </div>
@@ -201,10 +201,10 @@
         </div>
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ teaching.institution }}</div>
-          {% if teaching.role %}
+          {% if teaching.role != blank %}
           <div class="cv-item-detail">Role: {{ teaching.role }}</div>
           {% endif %}
-          {% if teaching.description %}
+          {% if teaching.description != blank %}
           <div class="cv-item-detail">{{ teaching.description }}</div>
           {% endif %}
         </div>
@@ -227,10 +227,10 @@
         </div>
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ item.category | capitalize }}</div>
-          {% if item.description %}
+          {% if item.description != blank %}
           <div class="cv-item-detail">{{ item.description }}</div>
           {% endif %}
-          {% if item.url %}
+          {% if item.url != blank %}
           <div class="cv-item-detail">
             <a href="{{ item.url }}" target="_blank">View Project</a>
           </div>
@@ -270,12 +270,12 @@
           <div class="cv-item-title">{{ award.title }}</div>
           <div class="cv-item-date">{{ award.date }}</div>
         </div>
-        {% if award.awarder or award.summary %}
+        {% if award.awarder != blank or award.summary != blank %}
         <div class="cv-item-content">
-          {% if award.awarder %}
+          {% if award.awarder != blank %}
           <div class="cv-item-subtitle">{{ award.awarder }}</div>
           {% endif %}
-          {% if award.summary %}
+          {% if award.summary != blank %}
           <div class="cv-item-detail">{{ award.summary }}</div>
           {% endif %}
         </div>
@@ -297,7 +297,7 @@
           <div class="cv-item-title">{{ certificate.name }}</div>
           <div class="cv-item-date">{{ certificate.date }}</div>
         </div>
-        {% if certificate.issuer %}
+        {% if certificate.issuer != blank %}
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ certificate.issuer }}</div>
         </div>
@@ -317,11 +317,11 @@
       <li class="cv-item">
         <div class="cv-item-header">
           <div class="cv-item-title">{{ volunteer.position }}</div>
-          <div class="cv-item-date">{{ volunteer.startDate }}{% if volunteer.endDate %} &ndash; {{ volunteer.endDate }}{% endif %}</div>
+          <div class="cv-item-date">{{ volunteer.startDate }}{% if volunteer.endDate != blank %} &ndash; {{ volunteer.endDate }}{% endif %}</div>
         </div>
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ volunteer.organization }}</div>
-          {% if volunteer.summary %}
+          {% if volunteer.summary != blank %}
           <div class="cv-item-detail">{{ volunteer.summary }}</div>
           {% endif %}
         </div>
@@ -359,7 +359,7 @@
       <li class="cv-item">
         <div class="cv-item-content">
           <div class="cv-item-title">{{ reference.name }}</div>
-          {% if reference.reference %}
+          {% if reference.reference != blank %}
           <div class="cv-item-detail">{{ reference.reference }}</div>
           {% endif %}
         </div>
