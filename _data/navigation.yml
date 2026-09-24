@@ -4,27 +4,26 @@
 # links. Removing a link prevents it from showing in the header, but does not
 # prevent it from being included in the site.
 #
-# NOTE that only one of the CV options should be selected, the first is for the
-#      Markdown formatted page while the second is generated using JSON.
+# Keep these URLs relative (starting with "/"). An absolute URL such as
+# "https://messinavincenzo.github.io/teaching/" always points at the published
+# site, so the link would jump away from a local preview and would break if the
+# domain ever changed.
 
 main:
   - title: "News"
-    url: "https://messinavincenzo.github.io/year-archive/"
+    url: /year-archive/
 
   - title: "Projects"
     url: /portfolio/
 
   - title: "Teaching"
-    url: "https://messinavincenzo.github.io/teaching/"
+    url: /teaching/
 
   - title: "Publications"
-    url: "https://messinavincenzo.github.io/publications/"
+    url: /publications/
 
   - title: "CV"
-    url: "https://messinavincenzo.github.io/cv/"
-    
-  # - title: "CV"
-  #   url: /cv-json/
-    
-  #- title: "Guide"
-   # url: /markdown/
+    url: /cv/
+
+  - title: "Photos"
+    url: /photos/

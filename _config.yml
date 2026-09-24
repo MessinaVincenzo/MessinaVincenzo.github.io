@@ -12,8 +12,8 @@ site_theme               : "default"
 title                    : "Vincenzo Messina"
 title_separator          : "-"
 name                     : &name "Vincenzo"
-description              : &description "personal description"
-url                      : "https://messinavincenzo.github.io/" # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
+description              : &description "Research Associate and doctoral candidate at the Chair of Spacecraft Systems, Technical University of Munich, working on decentralized coordination for distributed satellite systems."
+url                      : "https://messinavincenzo.github.io" # No trailing slash: base_path appends to this, so a trailing slash produces links like ...github.io//teaching/
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : ""
 
@@ -45,7 +45,7 @@ author:
   bitbucket        : # Username - Update with your username on the site
   codepen          : # Username
   dribbble         : # Username
-  github           : #
+  github           : # Username only. Left empty on purpose - no GitHub link on the site.
   kaggle           : # Username  
   stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 
@@ -59,7 +59,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : "https://www.linkedin.com/in/vincenzo-messina/"
+  linkedin         : "vincenzo-messina" # Username only - the theme prepends https://www.linkedin.com/in/
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username
@@ -83,6 +83,8 @@ publication_category:
     title: 'Journal Articles'    
   conferences:
     title: 'Conference Papers'
+  theses:
+    title: 'Theses'
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"

@@ -1,152 +1,207 @@
 {
   "basics": {
-    "name": "Your Sidebar Name",
-    "email": "none@example.org",
+    "name": "Vincenzo Messina",
+    "label": "Space Engineer · Research Associate at the Technical University of Munich",
+    "email": "vincenzo.messina@tum.de",
     "phone": "",
-    "website": "https://academicpages.github.io",
-    "summary": "Currently employed at Red Brick University. Short biography for the left-hand sidebar",
+    "website": "https://messinavincenzo.github.io/",
+    "summary": "Research Associate and doctoral candidate at the Chair of Spacecraft Systems, Technical University of Munich. My research develops algorithms and methodologies for optimizing the operations and coordination of decentralized federations of autonomous satellites, enabling them to pursue collective objectives while operating independently under the limited computational capabilities and resources available on board.",
     "location": {
       "address": "",
       "postalCode": "",
-      "city": "Earth",
-      "countryCode": "US",
+      "city": "Munich",
+      "countryCode": "Germany",
       "region": ""
     },
     "profiles": [
       {
         "network": "Google Scholar",
         "username": "",
-        "url": "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
+        "url": "https://scholar.google.com/citations?user=TuWfdAMAAAAJ&hl"
       },
       {
         "network": "ORCID",
-        "username": "",
-        "url": "http://orcid.org/yourorcidurl"
+        "username": "0009-0003-2626-635X",
+        "url": "https://orcid.org/0009-0003-2626-635X"
       },
       {
-        "network": "GitHub",
-        "username": "academicpages",
-        "url": "https://github.com/academicpages"
+        "network": "LinkedIn",
+        "username": "vincenzo-messina",
+        "url": "https://www.linkedin.com/in/vincenzo-messina/"
       }
     ]
   },
-  "work": [],
+
+  "work": [
+    {
+      "company": "Technical University of Munich (TUM)",
+      "position": "Research Associate",
+      "location": "Munich, Germany",
+      "startDate": "09/2022",
+      "endDate": "Present",
+      "summary": "",
+      "highlights": [
+        "Conducting research to develop novel algorithms and methodologies for optimizing the operations and coordination of a decentralized federation of autonomous satellites, enabling them to achieve collective objectives while maintaining independent operation, with consideration of the limited computational capabilities and resources available on board.",
+        "Teaching theoretical and practical courses across space engineering and systems engineering, and supervising master's and bachelor's theses.",
+        "Identifying research funding calls, writing proposals, publishing papers, presenting at conferences, and writing a PhD thesis dissertation."
+      ]
+    },
+    {
+      "company": "Technical University of Munich (TUM) Asia",
+      "position": "Lecturer of Space Mission Design",
+      "location": "Singapore",
+      "startDate": "09/2026",
+      "endDate": "",
+      "summary": "Lecturer for the Space Mission Design course delivered at TUM Asia.",
+      "highlights": []
+    },
+    {
+      "company": "University of Southampton",
+      "position": "Research Technician in Chemical Propulsion",
+      "location": "Southampton, United Kingdom",
+      "startDate": "12/2021",
+      "endDate": "05/2022",
+      "summary": "",
+      "highlights": [
+        "Design, manufacturing and testing of a 50N hybrid thruster using High-Test Peroxide as oxidizer and paraffin or high-density polyethylene as fuel."
+      ]
+    }
+  ],
+
   "education": [
     {
-      "institution": "GitHub University",
-      "area": "Ph.D in Version Control Theory",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2018",
+      "institution": "Arizona State University (ASU)",
+      "area": "Visiting Scholar, Ira A. Fulton Schools of Engineering",
+      "studyType": "Visiting Scholar",
+      "startDate": "08/2025",
+      "endDate": "12/2025",
       "gpa": null,
+      "courses": [
+        "Research on Distributed Satellite Systems for Monsoon Monitoring",
+        "Advisor: Dr. Paul Grogan"
+      ]
+    },
+    {
+      "institution": "Technical University of Munich (TUM)",
+      "area": "PhD in Aerospace and Geodesy, Chair of Spacecraft Systems",
+      "studyType": "PhD",
+      "startDate": "09/2022",
+      "endDate": "Present",
+      "gpa": null,
+      "courses": [
+        "Thesis (working title): “Collaborative Satellite Network: A cooperative method for optimizing decentralized satellite operations”",
+        "Advisor: Prof. Dr. Alessandro Golkar"
+      ]
+    },
+    {
+      "institution": "Politecnico di Milano (PoliMi)",
+      "area": "Master's in Space Engineering",
+      "studyType": "MSc",
+      "startDate": "09/2019",
+      "endDate": "09/2021",
+      "gpa": "110/110",
       "courses": []
     },
     {
-      "institution": "GitHub University",
-      "area": "M.S. in Jekyll",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2014",
+      "institution": "University of Southampton",
+      "area": "Exchange Semester, M.Sc. Space Systems Engineering",
+      "studyType": "MSc Exchange",
+      "startDate": "01/2021",
+      "endDate": "08/2021",
       "gpa": null,
-      "courses": []
+      "courses": [
+        "Master's Thesis: “Design of a propellant delivery system for porous electrospray thrusters”, in collaboration with the University of Illinois Urbana-Champaign"
+      ]
     },
     {
-      "institution": "GitHub University",
-      "area": "B.S. in GitHub",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2012",
+      "institution": "Politecnico di Torino (PoliTo)",
+      "area": "Bachelor's in Aerospace Engineering",
+      "studyType": "BSc",
+      "startDate": "09/2016",
+      "endDate": "07/2019",
       "gpa": null,
-      "courses": []
+      "courses": [
+        "Young Talents Project: selective (top 5%) programme for talented students",
+        "ASP winter school: “The Fourth Industrial Revolution”"
+      ]
     }
   ],
-  "skills": [],
-  "languages": [],
+
+  "skills": [
+    {
+      "name": "Programming, Design and Analysis",
+      "level": "",
+      "keywords": [
+        "Python", "MATLAB", "C", "SolidWorks", "Simulink", "STK", "GMAT",
+        "LabView", "NASA CEARUN", "ESA MASTER", "ESA DRAMA"
+      ]
+    }
+  ],
+
+  "languages": [
+    { "language": "Italian", "fluency": "Native" },
+    { "language": "Sicilian", "fluency": "Native" },
+    { "language": "English", "fluency": "C1" },
+    { "language": "Spanish", "fluency": "B2" },
+    { "language": "German", "fluency": "B1" }
+  ],
+
+  "awards": [
+    {
+      "title": "Project Management Championship Italy 2021, Winning Team",
+      "date": "2021",
+      "awarder": "",
+      "summary": ""
+    },
+    {
+      "title": "Young Talent Recognition",
+      "date": "2019",
+      "awarder": "Politecnico di Torino",
+      "summary": ""
+    }
+  ],
+
+  "certificates": [
+    {
+      "name": "ESA Academy's Online Space Debris Training Course 2021",
+      "date": "05/2021",
+      "issuer": "ESA Academy"
+    },
+    {
+      "name": "Introductory Certificate in Project Management",
+      "date": "2021",
+      "issuer": "IPMA Italy"
+    }
+  ],
+
+  "volunteer": [
+    {
+      "organization": "Space Day 2025",
+      "position": "Supporting Team",
+      "startDate": "2025",
+      "endDate": "",
+      "summary": ""
+    },
+    {
+      "organization": "Space Day 2024",
+      "position": "Supporting Team",
+      "startDate": "2024",
+      "endDate": "",
+      "summary": ""
+    },
+    {
+      "organization": "TUM Science Hackathon 2023",
+      "position": "Moderator of the Autonomous Spacecraft Challenge",
+      "startDate": "2023",
+      "endDate": "",
+      "summary": ""
+    }
+  ],
+
+  "publications": [],
+  "presentations": [],
+  "teaching": [],
+  "portfolio": [],
   "interests": [],
-  "references": [],
-  "publications": [
-    {
-      "name": "Paper Title Number 1",
-      "publisher": "Journal 1",
-      "releaseDate": "2009-10-01",
-      "website": "http://academicpages.github.io/files/paper1.pdf",
-      "summary": "This paper is about the number 1. The number 2 is left for future work."
-    },
-    {
-      "name": "Paper Title Number 2",
-      "publisher": "Journal 1",
-      "releaseDate": "2010-10-01",
-      "website": "http://academicpages.github.io/files/paper2.pdf",
-      "summary": "This paper is about the number 2. The number 3 is left for future work."
-    },
-    {
-      "name": "Paper Title Number 3",
-      "publisher": "Journal 1",
-      "releaseDate": "2015-10-01",
-      "website": "http://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about the number 3. The number 4 is left for future work."
-    },
-    {
-      "name": "Paper Title Number 4",
-      "publisher": "GitHub Journal of Bugs",
-      "releaseDate": "2024-02-17",
-      "website": "http://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about fixing template issue #693."
-    }
-  ],
-  "presentations": [
-    {
-      "name": "Talk 1 on Relevant Topic in Your Field",
-      "event": "UC San Francisco, Department of Testing",
-      "date": "2012-03-01",
-      "location": "San Francisco, CA, USA",
-      "description": ""
-    },
-    {
-      "name": "Tutorial 1 on Relevant Topic in Your Field",
-      "event": "UC-Berkeley Institute for Testing Science",
-      "date": "2013-03-01",
-      "location": "Berkeley, CA, USA",
-      "description": ""
-    },
-    {
-      "name": "Talk 2 on Relevant Topic in Your Field",
-      "event": "London School of Testing",
-      "date": "2014-02-01",
-      "location": "London, UK",
-      "description": ""
-    },
-    {
-      "name": "Conference Proceeding talk 3 on Relevant Topic in Your Field",
-      "event": "Testing Institute of America 2014 Annual Conference",
-      "date": "2014-03-01",
-      "location": "Los Angeles, CA, USA",
-      "description": ""
-    }
-  ],
-  "teaching": [
-    {
-      "course": "Teaching experience 1",
-      "institution": "University 1, Department",
-      "date": "2014-01-01",
-      "role": "Undergraduate course",
-      "description": ""
-    },
-    {
-      "course": "Teaching experience 2",
-      "institution": "University 1, Department",
-      "date": "2015-01-01",
-      "role": "Workshop",
-      "description": ""
-    }
-  ],
-  "portfolio": [
-    {
-      "name": "Portfolio item number 1",
-      "category": "portfolio",
-      "date": "",
-      "url": "",
-      "description": "Short description of portfolio item number 1<br/><img src='/images/500x300.png'>"
-    }
-  ]
+  "references": []
 }

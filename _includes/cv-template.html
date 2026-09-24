@@ -3,9 +3,11 @@
 <div class="cv-container">
   <!-- Basic Information -->
   <div class="cv-section cv-header">
-    <h1>{{ cv.basics.name }}</h1>
+    <!-- Deliberately not a top-level heading: the page title already provides
+         one, and two per page is ambiguous for screen readers. -->
+    <p class="cv-name">{{ cv.basics.name }}</p>
     {% if cv.basics.label %}
-    <h2>{{ cv.basics.label }}</h2>
+    <p class="cv-label">{{ cv.basics.label }}</p>
     {% endif %}
     
     <div class="cv-contact">
@@ -29,7 +31,9 @@
       
       {% if cv.basics.location.city %}
       <div class="cv-contact-item">
-        <i class="fas fa-map-marker-alt"></i> {{ cv.basics.location.city }}{% if cv.basics.location.region %}, {{ cv.basics.location.region }}{% endif %}{% if cv.basics.location.countryCode %}, {{ cv.basics.location.countryCode }}{% endif %}
+        <!-- Liquid treats "" as truthy, so compare explicitly or an empty
+             field emits a stray comma ("Munich, , Germany"). -->
+        <i class="fas fa-map-marker-alt"></i> {{ cv.basics.location.city }}{% if cv.basics.location.region != blank %}, {{ cv.basics.location.region }}{% endif %}{% if cv.basics.location.countryCode != blank %}, {{ cv.basics.location.countryCode }}{% endif %}
       </div>
       {% endif %}
     </div>
@@ -62,7 +66,7 @@
       <li class="cv-item">
         <div class="cv-item-header">
           <div class="cv-item-title">{{ education.area }}</div>
-          <div class="cv-item-date">{{ education.endDate }}</div>
+          <div class="cv-item-date">{% if education.startDate %}{{ education.startDate }}{% if education.endDate %} &ndash; {{ education.endDate }}{% endif %}{% else %}{{ education.endDate }}{% endif %}</div>
         </div>
         <div class="cv-item-content">
           <div class="cv-item-subtitle">{{ education.institution }}</div>
@@ -90,10 +94,10 @@
       <li class="cv-item">
         <div class="cv-item-header">
           <div class="cv-item-title">{{ work.position }}</div>
-          <div class="cv-item-date">{{ work.startDate }}{% if work.endDate %} - {{ work.endDate }}{% endif %}</div>
+          <div class="cv-item-date">{{ work.startDate }}{% if work.endDate %} &ndash; {{ work.endDate }}{% endif %}</div>
         </div>
         <div class="cv-item-content">
-          <div class="cv-item-subtitle">{{ work.company }}</div>
+          <div class="cv-item-subtitle">{{ work.company }}{% if work.location %} &middot; {{ work.location }}{% endif %}</div>
           {% if work.summary %}
           <div class="cv-item-detail">{{ work.summary }}</div>
           {% endif %}
@@ -255,6 +259,78 @@
   </div>
   {% endif %}
   
+  {% if cv.awards.size > 0 %}
+  <!-- Honors and Awards -->
+  <div class="cv-section">
+    <h2>Honors and Awards</h2>
+    <ul class="cv-list">
+      {% for award in cv.awards %}
+      <li class="cv-item">
+        <div class="cv-item-header">
+          <div class="cv-item-title">{{ award.title }}</div>
+          <div class="cv-item-date">{{ award.date }}</div>
+        </div>
+        {% if award.awarder or award.summary %}
+        <div class="cv-item-content">
+          {% if award.awarder %}
+          <div class="cv-item-subtitle">{{ award.awarder }}</div>
+          {% endif %}
+          {% if award.summary %}
+          <div class="cv-item-detail">{{ award.summary }}</div>
+          {% endif %}
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if cv.certificates.size > 0 %}
+  <!-- Certifications -->
+  <div class="cv-section">
+    <h2>Certifications</h2>
+    <ul class="cv-list">
+      {% for certificate in cv.certificates %}
+      <li class="cv-item">
+        <div class="cv-item-header">
+          <div class="cv-item-title">{{ certificate.name }}</div>
+          <div class="cv-item-date">{{ certificate.date }}</div>
+        </div>
+        {% if certificate.issuer %}
+        <div class="cv-item-content">
+          <div class="cv-item-subtitle">{{ certificate.issuer }}</div>
+        </div>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if cv.volunteer.size > 0 %}
+  <!-- Volunteering -->
+  <div class="cv-section">
+    <h2>Volunteering</h2>
+    <ul class="cv-list">
+      {% for volunteer in cv.volunteer %}
+      <li class="cv-item">
+        <div class="cv-item-header">
+          <div class="cv-item-title">{{ volunteer.position }}</div>
+          <div class="cv-item-date">{{ volunteer.startDate }}{% if volunteer.endDate %} &ndash; {{ volunteer.endDate }}{% endif %}</div>
+        </div>
+        <div class="cv-item-content">
+          <div class="cv-item-subtitle">{{ volunteer.organization }}</div>
+          {% if volunteer.summary %}
+          <div class="cv-item-detail">{{ volunteer.summary }}</div>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   {% if cv.interests.size > 0 %}
   <!-- Interests -->
   <div class="cv-section">

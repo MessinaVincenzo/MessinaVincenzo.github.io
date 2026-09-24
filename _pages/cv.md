@@ -2,78 +2,45 @@
 layout: archive
 title: "CV"
 permalink: /cv/
-author_profile: true
+author_profile: false
 redirect_from:
   - /resume
+  - /cv-json
+  - /resume-json
 ---
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8f9fa;">
-  <iframe src="/files/CV_VincenzoMessina_MarchV2.pdf" style="width: 210mm; height: 297mm; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-      This browser does not support PDFs. Please download the PDF to view it: <a href="/files/CV_VincenzoMessina_MarchV2.pdf">Download PDF</a>.
-  </iframe>
-</div>
-<!--
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f8f9fa;">
-  <iframe src="/_pages/CV_VincenzoMessina_MarchV2.pdf" width="100%" height="600px">
-      This browser does not support PDFs. Please download the PDF to view it: <a href="/_pages/CV_VincenzoMessina_MarchV2.pdf">Download PDF</a>.
-  </iframe>
-</div>
--->
-<!--
 
 {% include base_path %}
 
-Education
-======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+<link rel="stylesheet" href="{{ base_path }}/assets/css/cv-style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-Work experience
-======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+<style>
+  .archive {
+    width: 80%;
+    margin: 0 auto;
+    float: none;
+    padding-right: 0;
+  }
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+  @media (min-width: 80em) {
+    .archive {
+      width: 70%;
+    }
+  }
+</style>
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+{% include cv-template.html %}
 
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
--->
+<div class="cv-container">
+  <div class="cv-section">
+    <p>
+      See <a href="{{ base_path }}/publications/">Publications</a>,
+      <a href="{{ base_path }}/teaching/">Teaching</a> and
+      <a href="{{ base_path }}/portfolio/">Projects</a> for the full lists.
+    </p>
+  </div>
+</div>
 
+<div class="cv-download-links">
+  <a href="{{ base_path }}/files/CV_VincenzoMessina_September2026.pdf" class="btn btn--primary">Download CV as PDF</a>
+</div>

@@ -1,0 +1,795 @@
+/* ==========================================================================
+   SPACE THEME
+   Visual layer on top of the academicpages base. Imported last in main.scss
+   so it can refine the defaults without editing vendor partials.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  --space-deep              : #070b18;
+  --space-deep-2            : #111a38;
+  --space-deep-3            : #1d2b5e;
+  --space-accent            : #4da3ff;
+  --space-accent-2          : #8b6cff;
+  --space-on-dark           : rgba(255, 255, 255, 0.92);
+  --space-on-dark-dim       : rgba(255, 255, 255, 0.60);
+
+  --space-card-bg           : #ffffff;
+  --space-card-border       : rgba(15, 23, 42, 0.09);
+  --space-card-shadow       : 0 1px 2px rgba(15, 23, 42, 0.05), 0 10px 28px rgba(15, 23, 42, 0.07);
+  --space-card-shadow-hover : 0 2px 4px rgba(15, 23, 42, 0.06), 0 18px 42px rgba(29, 78, 216, 0.16);
+
+  /* Page-level starfield is dark-theme only; the masthead always has one. */
+  --space-page-stars        : 0;
+}
+
+html[data-theme="dark"] {
+  --space-card-bg           : #34373d;
+  --space-card-border       : rgba(255, 255, 255, 0.10);
+  --space-card-shadow       : 0 1px 2px rgba(0, 0, 0, 0.40), 0 10px 28px rgba(0, 0, 0, 0.35);
+  --space-card-shadow-hover : 0 2px 6px rgba(0, 0, 0, 0.45), 0 18px 42px rgba(77, 163, 255, 0.22);
+  --space-page-stars        : 1;
+}
+
+/* --------------------------------------------------------------------------
+   Starfield
+   Three tiled gradient layers drifting at different speeds for parallax.
+   -------------------------------------------------------------------------- */
+
+@mixin starfield($opacity: 1) {
+  background-image:
+    radial-gradient(1.6px 1.6px at 12% 18%, rgba(255, 255, 255, $opacity), transparent 55%),
+    radial-gradient(1.2px 1.2px at 68% 32%, rgba(255, 255, 255, $opacity * 0.8), transparent 55%),
+    radial-gradient(1.8px 1.8px at 84% 74%, rgba(255, 255, 255, $opacity * 0.9), transparent 55%),
+    radial-gradient(1px 1px   at 33% 82%, rgba(255, 255, 255, $opacity * 0.7), transparent 55%),
+    radial-gradient(1.3px 1.3px at 52% 56%, rgba(255, 255, 255, $opacity * 0.75), transparent 55%),
+    radial-gradient(1px 1px   at 91% 12%, rgba(255, 255, 255, $opacity * 0.6), transparent 55%);
+  background-size: 260px 200px, 360px 280px, 300px 240px, 420px 320px, 280px 220px, 340px 260px;
+}
+
+@keyframes space-drift {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to   { background-position: 260px 200px, -360px 280px, 300px -240px, -420px 320px, 280px 220px, -340px 260px; }
+}
+
+@keyframes space-twinkle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
+}
+
+@keyframes space-orbit {
+  from { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+}
+
+@keyframes space-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   Masthead - always deep space, in both themes
+   -------------------------------------------------------------------------- */
+
+.masthead {
+  background: linear-gradient(115deg,
+              var(--space-deep) 0%,
+              var(--space-deep-2) 52%,
+              var(--space-deep-3) 100%);
+  box-shadow: 0 2px 18px rgba(7, 11, 24, 0.28);
+
+  /* Drifting stars. Bounded by the masthead box, so no overflow clipping is
+     needed and the nav dropdown still escapes correctly. */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 0;
+    @include starfield(0.85);
+    animation: space-drift 240s linear infinite;
+  }
+
+  /* Accent hairline instead of the default grey one. */
+  &::after {
+    height: 2px;
+    background: linear-gradient(90deg,
+                transparent 0%,
+                var(--space-accent) 35%,
+                var(--space-accent-2) 65%,
+                transparent 100%);
+    opacity: 0.85;
+    z-index: 1;
+  }
+
+  &__inner-wrap {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.masthead__menu-item {
+  background-color: transparent;
+}
+
+.greedy-nav {
+  background: transparent;
+
+  .visible-links a {
+    color: var(--space-on-dark-dim);
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      color: #fff;
+    }
+  }
+
+  /* The site title. */
+  .site-title,
+  .visible-links .masthead__menu-item--lg a {
+    color: var(--space-on-dark);
+  }
+
+  /* Underline sweep on the active/hovered link. */
+  .visible-links a::before {
+    background: linear-gradient(90deg, var(--space-accent), var(--space-accent-2));
+    height: 2px;
+  }
+
+  button {
+    color: var(--space-on-dark);
+
+    &::before {
+      color: var(--space-on-dark);
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Page backdrop
+   -------------------------------------------------------------------------- */
+
+/* The base sets an opaque background on <body>, which would paint over any
+   negative z-index pseudo-element. Move the fill to <html> so the backdrop
+   below is actually visible. */
+html {
+  background-color: var(--global-bg-color);
+}
+
+body {
+  background-color: transparent;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--space-page-stars);
+  @include starfield(0.55);
+  animation: space-drift 420s linear infinite;
+}
+
+/* A faint cosmic wash behind light-theme pages. */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 520px;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 100% at 18% 0%, rgba(77, 163, 255, 0.10) 0%, transparent 70%),
+    radial-gradient(50% 90%  at 82% 0%, rgba(139, 108, 255, 0.09) 0%, transparent 70%);
+}
+
+/* --------------------------------------------------------------------------
+   Author profile - orbiting satellite around the avatar
+   -------------------------------------------------------------------------- */
+
+.sidebar .author__avatar {
+  @include breakpoint($large) {
+    position: relative;
+    --orbit-radius: 82px;
+
+    /* Orbit path */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 170px;
+      height: 170px;
+      margin: -85px 0 0 -85px;
+      border: 1px dashed rgba(77, 163, 255, 0.35);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* The satellite */
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 9px;
+      height: 9px;
+      margin: -4.5px 0 0 -4.5px;
+      border-radius: 50%;
+      background: var(--space-accent);
+      box-shadow: 0 0 8px 2px rgba(77, 163, 255, 0.65);
+      pointer-events: none;
+      animation: space-orbit 18s linear infinite;
+    }
+  }
+
+  img {
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
+
+    @include breakpoint($large) {
+      border-color: rgba(77, 163, 255, 0.35);
+      box-shadow: 0 0 0 1px rgba(77, 163, 255, 0.12),
+                  0 8px 26px rgba(15, 23, 42, 0.14);
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(77, 163, 255, 0.35),
+                  0 12px 34px rgba(77, 163, 255, 0.26);
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Archive lists as cards
+   -------------------------------------------------------------------------- */
+
+.archive .list__item,
+.archive .grid__item {
+  position: relative;
+  margin-bottom: 1.1em;
+  padding: 1.15em 1.3em;
+  background: var(--space-card-bg);
+  border: 1px solid var(--space-card-border);
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  box-shadow: var(--space-card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-left-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--space-card-shadow-hover);
+    border-left-color: var(--space-accent);
+  }
+
+  .archive__item-title {
+    margin-top: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* "Published in <venue>, <year>" and similar meta lines. */
+  > article > p:not(.archive__item-excerpt) {
+    margin-bottom: 0.4em;
+    color: var(--global-text-color-light);
+    font-size: $type-size-6;
+  }
+}
+
+/* Year headings on the News archive, section headings on Publications. */
+.archive__subtitle,
+.page__content h2 {
+  position: relative;
+  padding-bottom: 0.35em;
+  border-bottom: none;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 56px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--space-accent), var(--space-accent-2));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Page furniture
+   -------------------------------------------------------------------------- */
+
+.page__title {
+  letter-spacing: -0.02em;
+}
+
+.page__content {
+  animation: space-rise 0.5s ease both;
+
+  a:not(.btn) {
+    transition: color 0.2s ease;
+  }
+}
+
+/* Buttons - keep the shape, sharpen the palette. */
+.btn--primary,
+.cv-download-links .btn {
+  background: linear-gradient(135deg, var(--space-accent) 0%, var(--space-accent-2) 100%);
+  box-shadow: 0 4px 14px rgba(77, 163, 255, 0.30);
+
+  &:hover {
+    background: linear-gradient(135deg, var(--space-accent-2) 0%, var(--space-accent) 100%);
+    box-shadow: 0 6px 20px rgba(139, 108, 255, 0.38);
+  }
+}
+
+.page__footer {
+  background: linear-gradient(115deg, var(--space-deep) 0%, var(--space-deep-2) 100%);
+  color: var(--space-on-dark-dim);
+
+  a {
+    color: var(--space-on-dark-dim);
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CV page
+   -------------------------------------------------------------------------- */
+
+.cv-section {
+  h2 {
+    &::after {
+      width: 56px;
+    }
+  }
+}
+
+.cv-name {
+  margin: 0 0 0.15em;
+  font-family: $header-font-family;
+  font-size: $type-size-2;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--global-text-color);
+}
+
+.cv-label {
+  margin: 0 0 0.9em;
+  color: var(--space-accent);
+  font-size: $type-size-4;
+  font-weight: 500;
+}
+
+.cv-item {
+  transition: border-color 0.25s ease;
+}
+
+/* --------------------------------------------------------------------------
+   Home hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  margin: 0 0 2.5em;
+  padding: 2.6em 2.2em 2.3em;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(120deg,
+              var(--space-deep) 0%,
+              var(--space-deep-2) 55%,
+              var(--space-deep-3) 100%);
+  color: var(--space-on-dark);
+  box-shadow: 0 18px 46px rgba(7, 11, 24, 0.28);
+
+  /* Drifting stars inside the hero. */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    @include starfield(0.9);
+    animation: space-drift 200s linear infinite;
+  }
+
+  /* Soft limb glow, like a planet edge catching the sun. */
+  &::after {
+    content: "";
+    position: absolute;
+    top: -190px;
+    right: -130px;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle,
+                rgba(77, 163, 255, 0.30) 0%,
+                rgba(139, 108, 255, 0.14) 45%,
+                transparent 68%);
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @include breakpoint(max-width $small) {
+    padding: 1.8em 1.3em 1.6em;
+    border-radius: 12px;
+  }
+}
+
+.hero__eyebrow {
+  margin: 0 0 0.6em;
+  color: var(--space-accent);
+  font-size: $type-size-6;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  margin: 0 0 0.3em;
+  color: #fff;
+  font-size: $type-size-1;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.hero__lede {
+  margin: 0 0 1.5em;
+  max-width: 44em;
+  color: var(--space-on-dark-dim);
+  font-size: $type-size-4;
+  line-height: 1.55;
+}
+
+.hero__chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 1.7em;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0 0.5em 0.5em 0;
+    padding: 0.38em 0.9em;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--space-on-dark);
+    font-size: $type-size-6;
+    white-space: nowrap;
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  .btn {
+    margin: 0 0.6em 0.5em 0;
+  }
+}
+
+/* Secondary button for use on the dark hero. */
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: none;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero scene - Earth limb, orbits and an inter-satellite network
+   -------------------------------------------------------------------------- */
+
+.hero .hero__scene {
+  position: absolute;
+  right: -60px;
+  bottom: -90px;
+  width: 620px;
+  height: 460px;
+  z-index: 0;
+  pointer-events: none;
+
+  @include breakpoint(max-width $large) {
+    right: -160px;
+    opacity: 0.55;
+  }
+
+  @include breakpoint(max-width $small) {
+    display: none;
+  }
+}
+
+/* Dashes travelling along the orbit read as motion without moving anything. */
+.hero__orbit-path {
+  fill: none;
+  stroke: rgba(122, 190, 255, 0.55);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 13;
+  animation: orbit-dash 26s linear infinite;
+}
+
+.hero__orbit-path--b {
+  stroke: rgba(139, 108, 255, 0.45);
+  animation-duration: 38s;
+  animation-direction: reverse;
+}
+
+.hero__orbit-path--c {
+  stroke: rgba(122, 190, 255, 0.32);
+  animation-duration: 52s;
+}
+
+@keyframes orbit-dash {
+  to { stroke-dashoffset: -360; }
+}
+
+.hero__link {
+  stroke: rgba(122, 190, 255, 0.40);
+  stroke-width: 1;
+  fill: none;
+  animation: link-pulse 5s ease-in-out infinite;
+}
+
+@keyframes link-pulse {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 0.85; }
+}
+
+.hero__node {
+  fill: #b9dcff;
+  animation: node-pulse 3.4s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.40; }
+  50%      { opacity: 1; }
+}
+
+.hero__sat {
+  fill: #ffffff;
+  animation: node-pulse 2.6s ease-in-out infinite;
+}
+
+/* Staggered so the network never pulses in unison. */
+.hero__d1 { animation-delay: 0.0s; }
+.hero__d2 { animation-delay: 0.7s; }
+.hero__d3 { animation-delay: 1.4s; }
+.hero__d4 { animation-delay: 2.1s; }
+.hero__d5 { animation-delay: 2.8s; }
+
+/* A meteor crossing the hero every few seconds. */
+.hero__shooting {
+  position: absolute;
+  top: 14%;
+  left: -12%;
+  width: 130px;
+  height: 2px;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.95) 60%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0;
+  animation: shooting-star 11s ease-in infinite;
+}
+
+.hero__shooting--b {
+  top: 46%;
+  width: 90px;
+  animation-duration: 17s;
+  animation-delay: 6s;
+}
+
+@keyframes shooting-star {
+  0%   { opacity: 0; transform: translate3d(0, 0, 0) rotate(19deg); }
+  4%   { opacity: 0.9; }
+  16%  { opacity: 0; transform: translate3d(760px, 260px, 0) rotate(19deg); }
+  100% { opacity: 0; transform: translate3d(760px, 260px, 0) rotate(19deg); }
+}
+
+/* --------------------------------------------------------------------------
+   Home sections
+   -------------------------------------------------------------------------- */
+
+.home-news {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 0.85em 0;
+    border-bottom: 1px solid var(--global-border-color);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .home-news__date {
+    display: inline-block;
+    min-width: 6.5em;
+    color: var(--global-text-color-light);
+    font-size: $type-size-6;
+    font-variant-numeric: tabular-nums;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  @include breakpoint(max-width $small) {
+    .home-news__date {
+      display: block;
+      min-width: 0;
+      margin-bottom: 0.15em;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Photo gallery
+   Column layout rather than grid: the photos mix portrait and landscape, and
+   columns let each keep its own height without cropping.
+   -------------------------------------------------------------------------- */
+
+.gallery-grid {
+  margin: 1.5em 0 0;
+  column-count: 3;
+  column-gap: 14px;
+
+  @include breakpoint(max-width $medium) {
+    column-count: 2;
+  }
+
+  @include breakpoint(max-width $small) {
+    column-count: 1;
+  }
+}
+
+.gallery-item {
+  position: relative;
+  display: block;
+  margin: 0 0 14px;
+  overflow: hidden;
+  border-radius: 10px;
+  break-inside: avoid;
+  page-break-inside: avoid; /* older Firefox */
+  box-shadow: var(--space-card-shadow);
+  text-decoration: none !important;
+  line-height: 0;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.55s ease;
+  }
+
+  &:hover img,
+  &:focus img {
+    transform: scale(1.06);
+  }
+
+  /* Caption sits over a gradient so it stays readable on any photo. */
+  .gallery-item__caption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 2.2em 0.9em 0.75em;
+    color: #fff;
+    font-size: $type-size-6;
+    line-height: 1.35;
+    background: linear-gradient(to top, rgba(7, 11, 24, 0.82) 0%, rgba(7, 11, 24, 0.45) 55%, transparent 100%);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  &:hover .gallery-item__caption,
+  &:focus .gallery-item__caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Touch devices have no hover, so keep captions visible there. */
+  @media (hover: none) {
+    .gallery-item__caption {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility
+   -------------------------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--space-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .masthead::before,
+  body::before,
+  .hero::before,
+  .hero__orbit-path,
+  .hero__link,
+  .hero__node,
+  .hero__sat,
+  .hero__shooting,
+  .sidebar .author__avatar::after,
+  .page__content {
+    animation: none !important;
+  }
+
+  /* Without its animation the meteor would sit frozen across the hero. */
+  .hero__shooting {
+    display: none;
+  }
+
+  .archive .list__item,
+  .archive .grid__item,
+  .sidebar .author__avatar img,
+  .gallery-item img,
+  .gallery-item .gallery-item__caption {
+    transition: none !important;
+  }
+
+  .archive .list__item:hover,
+  .archive .grid__item:hover,
+  .sidebar .author__avatar img:hover,
+  .gallery-item:hover img {
+    transform: none !important;
+  }
+
+  /* No hover animation means the caption must not depend on it. */
+  .gallery-item .gallery-item__caption {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,157 @@
+# Personal photo gallery.
+# Captions were identified from the images - correct anything wrong.
+# Files live in images/gallery/. Order here is the display order:
+# categories are deliberately interleaved rather than grouped.
+
+- image: gallery-03.jpg
+  thumb: gallery-03-thumb.jpg
+  caption: "Monument Valley, Utah"
+  category: Travel
+- image: gallery-29.jpg
+  thumb: gallery-29-thumb.jpg
+  caption: "Seafood lunch by the sea"
+  category: Food
+- image: gallery-04.jpg
+  thumb: gallery-04-thumb.jpg
+  caption: "All Souls College, Oxford"
+  category: Travel
+- image: gallery-05.jpg
+  thumb: gallery-05-thumb.jpg
+  caption: "The Colosseum at night, Rome"
+  category: Travel
+- image: gallery-06.jpg
+  thumb: gallery-06-thumb.jpg
+  caption: "Cefalu, Sicily"
+  category: Travel
+- image: gallery-30.jpg
+  thumb: gallery-30-thumb.jpg
+  caption: "Pizza with burrata, prosciutto and figs"
+  category: Food
+- image: gallery-07.jpg
+  thumb: gallery-07-thumb.jpg
+  caption: "Spiaggia dei Conigli, Lampedusa"
+  category: Travel
+- image: gallery-08.jpg
+  thumb: gallery-08-thumb.jpg
+  caption: "Boats off Lampedusa"
+  category: Travel
+- image: gallery-31.jpg
+  thumb: gallery-31-thumb.jpg
+  caption: "Seafood paella"
+  category: Food
+- image: gallery-09.jpg
+  thumb: gallery-09-thumb.jpg
+  caption: "Clear water, Lampedusa"
+  category: Travel
+- image: gallery-10.jpg
+  thumb: gallery-10-thumb.jpg
+  caption: "Volcanic cliffs, Lampedusa"
+  category: Travel
+- image: gallery-11.jpg
+  thumb: gallery-11-thumb.jpg
+  caption: "Sunset over the Mediterranean"
+  category: Travel
+- image: gallery-32.jpg
+  thumb: gallery-32-thumb.jpg
+  caption: "Grilled calamari with potatoes"
+  category: Food
+- image: gallery-12.jpg
+  thumb: gallery-12-thumb.jpg
+  caption: "Belvedere Palace, Vienna"
+  category: Travel
+- image: gallery-13.jpg
+  thumb: gallery-13-thumb.jpg
+  caption: "The Dancing House, Prague"
+  category: Travel
+- image: gallery-14.jpg
+  thumb: gallery-14-thumb.jpg
+  caption: "Plitvice Lakes, Croatia"
+  category: Travel
+- image: gallery-33.jpg
+  thumb: gallery-33-thumb.jpg
+  caption: "Breaded veal chop with a pistachio crust"
+  category: Food
+- image: gallery-15.jpg
+  thumb: gallery-15-thumb.jpg
+  caption: "Cathedral of St. Domnius, Split"
+  category: Travel
+- image: gallery-02.jpg
+  thumb: gallery-02-thumb.jpg
+  caption: "Vienna State Opera"
+  category: Opera
+- image: gallery-01.jpg
+  thumb: gallery-01-thumb.jpg
+  caption: "Space Shuttle stack at the Kennedy Space Center, Florida"
+  category: Space
+- image: gallery-16.jpg
+  thumb: gallery-16-thumb.jpg
+  caption: "Old town steps, Dubrovnik"
+  category: Travel
+- image: gallery-34.jpg
+  thumb: gallery-34-thumb.jpg
+  caption: "Schnitzel with roast potatoes and crispy onions"
+  category: Food
+- image: gallery-17.jpg
+  thumb: gallery-17-thumb.jpg
+  caption: "Palace of the Shirvanshahs, Baku"
+  category: Travel
+- image: gallery-18.jpg
+  thumb: gallery-18-thumb.jpg
+  caption: "Angkor Wat at dawn, Cambodia"
+  category: Travel
+- image: gallery-19.jpg
+  thumb: gallery-19-thumb.jpg
+  caption: "Ta Prohm, Angkor, Cambodia"
+  category: Travel
+- image: gallery-35.jpg
+  thumb: gallery-35-thumb.jpg
+  caption: "Brunch, at length"
+  category: Food
+- image: gallery-20.jpg
+  thumb: gallery-20-thumb.jpg
+  caption: "The Mekong Delta, Vietnam"
+  category: Travel
+- image: gallery-21.jpg
+  thumb: gallery-21-thumb.jpg
+  caption: "The Merlion, Singapore"
+  category: Travel
+- image: gallery-36.jpg
+  thumb: gallery-36-thumb.jpg
+  caption: "Eggs Benedict with smoked salmon"
+  category: Food
+- image: gallery-22.jpg
+  thumb: gallery-22-thumb.jpg
+  caption: "Marina Bay, Singapore"
+  category: Travel
+- image: gallery-23.jpg
+  thumb: gallery-23-thumb.jpg
+  caption: "Grand Canyon, Arizona"
+  category: Travel
+- image: gallery-24.jpg
+  thumb: gallery-24-thumb.jpg
+  caption: "Grand Canyon, Arizona"
+  category: Travel
+- image: gallery-37.jpg
+  thumb: gallery-37-thumb.jpg
+  caption: "Homemade salami and cheese rolls"
+  category: Food
+- image: gallery-25.jpg
+  thumb: gallery-25-thumb.jpg
+  caption: "Grand Canyon at sunset, Arizona"
+  category: Travel
+- image: gallery-26.jpg
+  thumb: gallery-26-thumb.jpg
+  caption: "Monument Valley, Utah"
+  category: Travel
+- image: gallery-27.jpg
+  thumb: gallery-27-thumb.jpg
+  caption: "Sonoran Desert, Arizona"
+  category: Travel
+- image: gallery-38.jpg
+  thumb: gallery-38-thumb.jpg
+  caption: "Homemade chocolate-dipped biscuits with pistachio"
+  category: Food
+- image: gallery-28.jpg
+  thumb: gallery-28-thumb.jpg
+  caption: "Paragliding weather"
+  category: Travel
