@@ -1,13 +1,13 @@
 ---
 layout: archive
-title: "Photos"
+title: "Beyond Work"
 permalink: /photos/
 author_profile: true
 ---
 
 {% include base_path %}
 
-Space, opera, food and travel.
+Where I end up when I am not pointing satellites &mdash; space, opera, food and travel.
 
 <div class="gallery-grid">
 {% for photo in site.data.gallery %}
