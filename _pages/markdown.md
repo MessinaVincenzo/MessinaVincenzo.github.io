@@ -5,6 +5,8 @@ author_profile: true
 redirect_from: 
   - /md/
   - /markdown.html
+sitemap: false        # theme scaffolding - kept working, but hidden from
+                      # /sitemap/ and from sitemap.xml
 ---
 
 ## Locations of key files/directories

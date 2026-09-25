@@ -19,6 +19,12 @@ A list of all the posts and pages found on the site. For you robots out there, t
   an empty string. Testing the title for truthiness does not work, because
   Liquid treats an empty string as true.
 
+  Pages carrying "sitemap: false" are skipped too. That is jekyll-sitemap's own
+  flag, so one setting keeps a page out of both this list and sitemap.xml. It
+  marks the theme's scaffolding pages (Markdown, Page not in menu, the category
+  and tag archives, Talk map), which still work but are not part of the site
+  anyone is meant to browse.
+
   Do not write Liquid tag delimiters inside a comment block - Liquid still
   parses tags in here, and an if written out in full breaks the build.
 {% endcomment %}
@@ -26,7 +32,7 @@ A list of all the posts and pages found on the site. For you robots out there, t
 <h2>Pages</h2>
 {% for post in site.pages %}
   {% assign entry_title = post.title | default: "" | strip %}
-  {% if entry_title != "" %}
+  {% if entry_title != "" and post.sitemap != false %}
     {% include archive-single.html %}
   {% endif %}
 {% endfor %}
@@ -34,25 +40,32 @@ A list of all the posts and pages found on the site. For you robots out there, t
 <h2>Posts</h2>
 {% for post in site.posts %}
   {% assign entry_title = post.title | default: "" | strip %}
-  {% if entry_title != "" %}
+  {% if entry_title != "" and post.sitemap != false %}
     {% include archive-single.html %}
   {% endif %}
 {% endfor %}
 
-{% capture written_label %}'None'{% endcapture %}
+{% comment %}
+  The heading is only emitted when the collection actually holds documents -
+  otherwise an empty collection, such as talks, left a bare heading behind.
+{% endcomment %}
+
+{% comment %}
+  Keep the HTML below flush against the left margin. This file is Markdown, so
+  a line indented by four spaces or more is parsed as a code block - an
+  indented heading renders as literal text in a grey box instead of a heading.
+{% endcomment %}
 
 {% for collection in site.collections %}
 {% unless collection.output == false or collection.label == "posts" %}
-  {% capture label %}{{ collection.label }}{% endcapture %}
-  {% if label != written_label %}
-  <h2>{{ label }}</h2>
-  {% capture written_label %}{{ label }}{% endcapture %}
-  {% endif %}
-{% endunless %}
+{% if collection.docs.size > 0 %}
+<h2>{{ collection.label | capitalize }}</h2>
 {% for post in collection.docs %}
   {% assign entry_title = post.title | default: "" | strip %}
-  {% unless collection.output == false or collection.label == "posts" or entry_title == "" %}
+  {% if entry_title != "" and post.sitemap != false %}
   {% include archive-single.html %}
-  {% endunless %}
+  {% endif %}
 {% endfor %}
+{% endif %}
+{% endunless %}
 {% endfor %}

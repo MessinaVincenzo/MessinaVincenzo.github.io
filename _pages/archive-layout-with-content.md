@@ -2,6 +2,8 @@
 title: "Archive Layout with Content"
 layout: archive
 permalink: /archive-layout-with-content/
+sitemap: false        # theme scaffolding - kept working, but hidden from
+                      # /sitemap/ and from sitemap.xml
 ---
 
 A variety of common markup showing how the theme styles them.
