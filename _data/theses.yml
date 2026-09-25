@@ -1,0 +1,198 @@
+# Supervised student theses - the single source for both the Projects pages
+# (_portfolio/, grouped by `theme`) and the Thesis Supervision section of
+# _pages/teaching.html (grouped by `degree`).
+#
+# theme    : key from _data/thesis_themes.yml
+# degree   : "Master's" | "Semester" | "Bachelor's" - rendered as "<degree> theses"
+# HTML entities are used for non-ASCII characters, matching the rest of the site.
+
+# --- Decentralised coordination and task allocation -------------------------
+
+- name: "Marco Camporeale"
+  degree: "Semester"
+  year: 2025
+  theme: coordination
+  title: "Multiple Task Allocation for Federated Satellite Systems"
+  description: >-
+    Extended the reward-based selective propagation framework from single-task to
+    multi-task allocation in federated satellite systems. More than 250 simulations,
+    with up to 5,000 satellites and 500 concurrent tasks, showed convergence below
+    100&nbsp;s with as few as 5% central nodes. The work also found a power-law
+    relation between network size, central node fraction and link efficiency.
+  publication: /publication/role-of-central-nodes-multi-task-allocation
+  publication_label: "The Role of Central Nodes in Multi-Task Allocation for Distributed Space-Based Observation Systems"
+
+- name: "Clemente Javier Juan Oliver"
+  degree: "Master's"
+  year: 2024
+  theme: coordination
+  title: "Deep Reinforcement Learning for Decentralized Autonomous Decision-Making in Federated Satellite Systems: Enhancing Space Operations with AI"
+  description: >-
+    Developed a modular FSS simulation environment covering coordination models from
+    fully centralised to fully decentralised. In it he trained DQN, SAC and PPO agents
+    to observe targets, share data and manage energy and storage, in a scenario with
+    20 observers and 20 targets. He then benchmarked the agents on an NVIDIA Jetson to
+    show they could run on board.
+
+- name: "Sarvesh Jagadish"
+  degree: "Semester"
+  year: 2024
+  theme: coordination
+  title: "Effect of Ground Stations in Satellite Networks for Task Distribution in Centralized and Decentralized Approaches"
+  description: >-
+    Studied how ground stations affect task distribution in centralised, partially
+    centralised and decentralised networks. After benchmarking 44 optimisation
+    algorithms for constellation coverage, he found that denser ground station
+    networks cut delays sharply in centralised setups but helped much less in
+    decentralised ones.
+
+- name: "Simone Scrocciolani"
+  degree: "Master's"
+  year: 2023
+  theme: coordination
+  title: "Advancing Satellite Network Performance: Network Analysis for Federated Satellite Systems"
+  note: "Laurea Magistrale in Space Engineering, Politecnico di Milano. Co-advisor: Prof. Alessandro Golkar."
+  description: >-
+    Developed an HLA-based, hardware-in-the-loop-capable simulator for a 100-CubeSat
+    federation with UHF inter-satellite links. The work measured how onboard resource
+    limits affect message spreading and used graph-theoretic centrality metrics to
+    predict it. It then tested sequential, parallel and reverse bidding in a flood
+    rapid-mapping case (Emilia-Romagna, 2023), reaching consensus on an imager in
+    under 8 hours.
+  publication: /publication/advancing-satellite-network-performance
+  publication_label: "Advancing Satellite Network Performance, IEEE Access, 2024"
+  more: /portfolio/fss-hla-simulation/
+  more_label: "Full project page"
+
+- name: "Florian Strasser"
+  degree: "Master's"
+  year: 2023
+  theme: coordination
+  title: "Schedule Optimization for a Heterogeneous Earth Observation Constellation"
+  note: "In collaboration with OroraTech."
+  description: >-
+    Built a scheduling optimisation for OroraTech's wildfire-monitoring constellation,
+    starting from the FOREST-1 operational approach and preparing for FOREST-2.
+    Scenarios ranged from two satellites to 18 orbital planes. Data budget turned out
+    to be the limiting resource, and constellations sized plane by plane for continuous
+    coverage fulfilled imaging orders far better than randomly assembled ones.
+  publication: /publication/schedule-optimization-earth-observation-constellation
+  publication_label: "Schedule Optimization for a Heterogeneous Earth Observation Satellite Constellation, IAC 2023"
+
+# --- Collision avoidance and formation flight -------------------------------
+
+- name: "Alessandro Tinucci Mo&ntilde;ibas"
+  degree: "Master's"
+  year: 2024
+  theme: collision
+  title: "Orbital Manoeuvring Optimization Techniques for Collision Avoidance through Cooperative Algorithms"
+  description: >-
+    Proposed a decentralised framework in which satellites decide cooperatively when
+    and how to manoeuvre to avoid collisions. It optimises propellant, energy and data
+    exchange while cutting the communication overhead of centralised control. The
+    approach was validated against conventional thrust-based manoeuvres.
+  publication: /publication/orbital-manoeuvring-optimization-collision-avoidance
+  publication_label: "Orbital Manoeuvring Optimization Techniques for Collision Avoidance through Decentralized Algorithms, IAC 2024"
+
+- name: "Sidhant Patra"
+  degree: "Master's"
+  year: 2024
+  theme: collision
+  title: "Adaptive Reconfiguration Framework for Decentralized Optimization in Spacecraft Formation Flight and Collision Avoidance"
+  description: >-
+    Developed a dynamic reconfiguration framework in MATLAB and STK that scores
+    manoeuvre strategies on propellant, energy, timing and satellite availability.
+    It showed that decentralised reconfiguration improves resource use and scalability
+    across formation sizes, with collision avoidance as the main application.
+
+# --- Satellite navigation ---------------------------------------------------
+
+- name: "Falk Ramin"
+  degree: "Semester"
+  year: 2024
+  theme: navigation
+  title: "Enhancing Navigation Accuracy through Cooperative Satellite Networks: Simulation Study on the Influence of Satellite Architecture on GDOP"
+  description: >-
+    Investigated how altitude, number of planes, inclination and receiver constraints
+    drive GDOP, to lay the groundwork for navigation tasks in cooperative satellite
+    networks. Higher altitudes converge to good GDOP with far fewer satellites, while
+    three-plane LEO designs fail because of near-planar geometry. The results point to
+    hybrid LEO/MEO cooperative architectures.
+  publication: /publication/enhancing-navigation-accuracy-cooperative-satellite-networks
+  publication_label: "Enhancing Navigation Accuracy through Cooperative Satellite Networks, IFAC-PapersOnLine, 2025"
+
+# --- Space-based communication infrastructure -------------------------------
+
+- name: "Jonas Heiderer"
+  degree: "Semester"
+  year: 2024
+  theme: communication
+  title: "Designing a Future Space-based Communication Infrastructure: From Demand Forecasting for Space Communication Networks to Assessing Architectures through Tradespace Exploration"
+  description: >-
+    Built a global bandwidth demand forecast to 2060 and linked it to a tradespace of
+    64 LEO architectures across altitude, inclination and frequency band. An X-band
+    constellation at 600&nbsp;km and 90&deg; inclination gave the best
+    coverage-to-cost ratio. Launch capacity turned out to be the key constraint on
+    meeting demand.
+
+# --- EventSat mission and lab infrastructure --------------------------------
+
+- name: "Leonhard Kessler"
+  degree: "Master's"
+  year: 2024
+  theme: eventsat
+  title: "Optimizing Digital Twin Methodology for CubeSats: Quantitative Analysis for Design, Performance, and Implementation Strategies"
+  description: >-
+    Assessed industry maturity in digital twins through a survey and expert interviews,
+    then proposed a reusable digital twin architecture for the full CubeSat lifecycle.
+    He implemented it for EventSat's power management, with a closed loop that
+    correlates real data with simulation to extend mission lifetime.
+  publication: /publication/advancing-digital-twin-implementation-cubesats
+  publication_label: "Advancing Digital Twin Implementation for CubeSats, IAC 2024"
+
+- name: "Sasha Malla"
+  degree: "Semester"
+  year: 2025
+  theme: eventsat
+  title: "Integrated ADCS Simulation, Verification and Payload Performance Analysis for the EventSat Mission"
+  description: >-
+    Built a 6-DoF ADCS simulator in MATLAB/Simulink for EventSat. It verified B-dot
+    detumbling and quaternion PD pointing within 0.5&deg;, including robustness to a
+    single reaction wheel failure. The work also quantified momentum dumping needs,
+    checked event-camera sun exposure limits and generated synthetic neuromorphic data.
+
+- name: "Eva Katharina Rieger"
+  degree: "Bachelor's"
+  year: 2024
+  theme: eventsat
+  title: "Modeling of Attitude Determination and Control Subsystem (ADCS) for a 6U CubeSat for Tracking Objects in Space"
+  description: >-
+    Built a Python ADCS simulation for a 6U CubeSat, modelling solar radiation
+    pressure, gravity gradient, aerodynamic and magnetic disturbances plus sensor
+    noise. Adding two reaction wheels to three magnetorquers gave faster, more
+    efficient detumbling. Pointing at a meteoroid proved to need a more advanced
+    controller.
+
+- name: "Saioa Armendariz Iba&ntilde;ez"
+  degree: "Bachelor's"
+  year: 2025
+  theme: eventsat
+  title: "Characterization of the Thermal Dissipation and Power Consumption of an NVIDIA Jetson Orin Nano for CubeSat Operations"
+  description: >-
+    Tested the Jetson Orin Nano in idle, observation (event camera) and post-processing
+    modes, in both air and vacuum, to judge its fit for EventSat. From the results she
+    derived passive thermal solutions that hold the unit at 55&nbsp;&deg;C: a sized
+    radiative heat sink or a flat heat pipe.
+
+- name: "Quirin Adrian Stebich"
+  degree: "Bachelor's"
+  year: 2026
+  theme: eventsat
+  title: "Design and &plusmn;1&nbsp;&mu;T Characterization of a Helmholtz Cage for CubeSats"
+  note: "Co-supervised with Rafael Iliasov."
+  description: >-
+    Designed and characterised a scaled Helmholtz cage prototype and reached
+    &plusmn;1&nbsp;&mu;T control accuracy over a 200&nbsp;&mu;T range. He mapped
+    ambient magnetic gradients in the SPS lab and tested coil-based and shielding
+    approaches to reduce them. The findings set the conditions for building a full
+    6U-sized cage.

@@ -1,0 +1,29 @@
+{% comment %}
+  Renders the supervised theses of one research theme, newest first.
+  Usage: {% include thesis-entries.html theme="coordination" %}
+  Data: _data/theses.yml, keyed on the `theme` column of _data/thesis_themes.yml.
+{% endcomment %}
+
+{% include base_path %}
+
+{% assign theme_items = site.data.theses | where: "theme", include.theme | sort: "year" | reverse %}
+
+<div class="thesis-entries">
+{% for t in theme_items %}
+  <article class="thesis-entry">
+    <h3 class="thesis-entry__title">{{ t.title }}</h3>
+    <p class="thesis-entry__meta">
+      <span class="thesis-entry__name">{{ t.name }}</span>
+      &middot; {{ t.degree }} thesis, {{ t.year }}{% if t.note %} &middot; {{ t.note }}{% endif %}
+    </p>
+    <p class="thesis-entry__body">{{ t.description }}</p>
+    {% if t.publication or t.more %}
+    <p class="thesis-entry__links">
+      {% if t.publication %}<a href="{{ base_path }}{{ t.publication }}">{{ t.publication_label }}</a>{% endif %}
+      {% if t.publication and t.more %} &middot; {% endif %}
+      {% if t.more %}<a href="{{ base_path }}{{ t.more }}">{{ t.more_label }}</a>{% endif %}
+    </p>
+    {% endif %}
+  </article>
+{% endfor %}
+</div>

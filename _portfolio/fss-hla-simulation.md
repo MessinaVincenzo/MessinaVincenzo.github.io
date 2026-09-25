@@ -43,3 +43,6 @@ assumes - but not so far as to invalidate the FSS paradigm for disaster response
 Related publication: [Advancing Satellite Network Performance: Network Analysis for
 Federated Satellite Systems](/publication/advancing-satellite-network-performance),
 *IEEE Access*, 2024.
+
+Part of the wider work on
+[decentralised coordination and task allocation](/portfolio/decentralised-coordination-task-allocation/).

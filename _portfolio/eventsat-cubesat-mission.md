@@ -20,3 +20,10 @@ I also support project management for the mission.
 Related publication: [Leveraging Event-Based Cameras for Enhanced Space Situational
 Awareness: A Nanosatellite Mission Architecture Study](/publication/event-based-cameras-space-situational-awareness),
 75th International Astronautical Congress, 2024.
+
+## Supervised theses
+
+Student work feeding the mission, from the digital twin and ADCS simulation to
+the onboard compute and the magnetic test facility the spacecraft is verified in.
+
+{% include thesis-entries.html theme="eventsat" %}

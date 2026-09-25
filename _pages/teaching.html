@@ -10,3 +10,52 @@ author_profile: true
 {% for post in site.teaching reversed %}
   {% include archive-single.html %}
 {% endfor %}
+
+{% comment %}
+  Thesis supervision is deliberately not a `teaching` collection entry: it is not a
+  course, and rendering it as one put a single card in the list above standing in for
+  every supervised thesis. It lives here instead, driven by _data/theses.yml, so that
+  the same source also feeds the Projects pages.
+{% endcomment %}
+
+<section class="thesis-supervision">
+
+  <h2 id="thesis-supervision">Thesis Supervision</h2>
+
+  <p>Master&rsquo;s, semester and bachelor&rsquo;s theses supervised at the Chair of
+  Spacecraft Systems. Each title links to the project it belongs to.</p>
+
+  {% assign degree_groups = "Master's,Semester,Bachelor's" | split: "," %}
+
+  {% for d in degree_groups %}
+    {% assign group = site.data.theses | where: "degree", d | sort: "year" | reverse %}
+    {% if group.size > 0 %}
+
+      <h3 class="thesis-supervision__degree">{{ d }} theses</h3>
+
+      <ul class="thesis-list">
+        {% for t in group %}
+          {% assign th = site.data.thesis_themes | where: "key", t.theme | first %}
+          <li class="thesis-list__item">
+            <div class="thesis-list__head">
+              <span class="thesis-list__name">{{ t.name }}</span>
+              <span class="thesis-list__year">{{ t.year }}</span>
+            </div>
+            <div class="thesis-list__title">
+              {% if th %}
+                <a href="{{ base_path }}{{ th.url }}">{{ t.title }}</a>
+              {% else %}
+                {{ t.title }}
+              {% endif %}
+            </div>
+            {% if t.note %}
+              <div class="thesis-list__note">{{ t.note }}</div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
+    {% endif %}
+  {% endfor %}
+
+</section>

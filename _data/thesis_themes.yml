@@ -1,0 +1,19 @@
+# Research themes used to group supervised theses.
+# `key` is referenced by _data/theses.yml; `url` is the Projects page for the theme.
+# Adding a theme means adding a page under _portfolio/ with a matching url.
+
+- key: coordination
+  name: "Decentralised coordination and task allocation"
+  url: /portfolio/decentralised-coordination-task-allocation/
+- key: collision
+  name: "Collision avoidance and formation flight"
+  url: /portfolio/collision-avoidance-formation-flight/
+- key: navigation
+  name: "Satellite navigation"
+  url: /portfolio/cooperative-satellite-navigation/
+- key: communication
+  name: "Space-based communication infrastructure"
+  url: /portfolio/space-based-communication-infrastructure/
+- key: eventsat
+  name: "EventSat mission and lab infrastructure"
+  url: /portfolio/eventsat-cubesat-mission/

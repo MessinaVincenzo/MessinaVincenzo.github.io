@@ -787,6 +787,164 @@ body::after {
   outline: 2px solid var(--space-accent);
   outline-offset: 2px;
 }
+/* --------------------------------------------------------------------------
+   Thesis supervision
+   Two presentations of the same data (_data/theses.yml): a compact roster on
+   the Teaching page, and full entries with abstracts on the Projects pages.
+   -------------------------------------------------------------------------- */
+
+.thesis-supervision {
+  margin-top: 2.5em;
+  padding-top: 1.75em;
+  border-top: 1px solid var(--global-border-color);
+}
+
+.thesis-supervision__degree {
+  margin: 1.8em 0 0.6em;
+  color: var(--global-text-color-light);
+  font-size: $type-size-6;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.thesis-list {
+  margin: 0 0 0.5em;
+  padding: 0;
+  list-style: none;
+}
+
+.thesis-list__item {
+  margin: 0;
+  padding: 0.7em 0 0.7em 0.9em;
+  border-left: 2px solid var(--global-border-color);
+  transition: border-left-color 0.25s ease, padding-left 0.25s ease;
+
+  &:hover {
+    border-left-color: var(--space-accent);
+    padding-left: 1.15em;
+  }
+}
+
+.thesis-list__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75em;
+}
+
+.thesis-list__name {
+  font-weight: 600;
+}
+
+.thesis-list__year {
+  flex: none;
+  color: var(--global-text-color-light);
+  font-size: $type-size-6;
+  font-variant-numeric: tabular-nums;
+}
+
+.thesis-list__title {
+  margin-top: 0.1em;
+  line-height: 1.45;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.thesis-list__note {
+  margin-top: 0.2em;
+  color: var(--global-text-color-light);
+  font-size: $type-size-6;
+}
+
+/* Full entries on the Projects pages. */
+
+.thesis-entries {
+  margin-top: 1.2em;
+}
+
+.thesis-entry {
+  margin-bottom: 1.1em;
+  padding: 1.15em 1.3em;
+  background: var(--space-card-bg);
+  border: 1px solid var(--space-card-border);
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  box-shadow: var(--space-card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-left-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--space-card-shadow-hover);
+    border-left-color: var(--space-accent);
+  }
+}
+
+.thesis-entry__title {
+  margin: 0;
+  font-size: $type-size-4;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.thesis-entry__meta {
+  margin: 0.35em 0 0.7em;
+  color: var(--global-text-color-light);
+  font-size: $type-size-6;
+}
+
+.thesis-entry__name {
+  font-weight: 600;
+  color: var(--global-text-color);
+}
+
+.thesis-entry__body {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.thesis-entry__links {
+  margin: 0.7em 0 0;
+  font-size: $type-size-6;
+}
+
+@include breakpoint(max-width $small) {
+  .thesis-list__head {
+    display: block;
+  }
+
+  .thesis-list__year {
+    display: block;
+    margin-top: 0.1em;
+  }
+
+  .thesis-entry {
+    padding: 1em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thesis-list__item,
+  .thesis-entry {
+    transition: none !important;
+  }
+
+  .thesis-entry:hover {
+    transform: none !important;
+  }
+
+  .thesis-list__item:hover {
+    padding-left: 0.9em;
+  }
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   .masthead::before,
