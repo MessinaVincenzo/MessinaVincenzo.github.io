@@ -254,8 +254,35 @@ body::after {
 }
 
 /* --------------------------------------------------------------------------
-   Archive lists as cards
+   Sidebar profile links
+   The theme sets `white-space: nowrap` on these list items, and the fixed
+   sidebar computes `overflow-x: auto` from its `overflow-y: auto` - so a long
+   affiliation ("Technical University of Munich") was clipped at the column
+   edge instead of wrapping.
    -------------------------------------------------------------------------- */
+
+.author__urls li {
+  white-space: normal;
+}
+
+/* Lay the icon and the label out as two columns so a wrapped label lines up
+   with the text above it rather than sliding under the icon.
+
+   Scoped to $large on purpose: below it these items live in the "Follow"
+   dropdown, where `.sidebar .author__desktop` sets `display: none` on two of
+   them. Overriding `display` outside this breakpoint would reveal them.  */
+@include breakpoint($large) {
+  .sidebar .author__urls li,
+  .sidebar .author__urls li > a {
+    display: flex;
+    align-items: baseline;
+  }
+
+  /* .icon-pad-right already supplies the gap; keep the icon from shrinking. */
+  .sidebar .author__urls .icon-pad-right {
+    flex: none;
+  }
+}
 
 .archive .list__item,
 .archive .grid__item {
