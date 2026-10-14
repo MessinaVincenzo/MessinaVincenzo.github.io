@@ -198,6 +198,40 @@
     }
   ],
 
+  "service": [
+    {
+      "role": "Vice-Chair for Scientific and Technical Activities",
+      "organization": "5th Symposium on Space Educational Activities (SSEA 2026)",
+      "date": "",
+      "url": "https://ssea.space/"
+    }
+  ],
+  "reviewing": [
+    {
+      "name": "IEEE Transactions on Aerospace and Electronic Systems",
+      "since": "2025",
+      "abbreviation": "IEEE TAES",
+      "type": "Journal"
+    },
+    {
+      "name": "AIAA SciTech Forum",
+      "since": "2025",
+      "abbreviation": "",
+      "type": "Conference"
+    },
+    {
+      "name": "IFAC Workshop on Control Aspects of Multi-Satellite Systems",
+      "since": "2025",
+      "abbreviation": "CAMSAT",
+      "type": "Workshop"
+    },
+    {
+      "name": "Journal of Sensors and Sensor Systems",
+      "since": "2024",
+      "abbreviation": "JSSS",
+      "type": "Journal"
+    }
+  ],
   "publications": [],
   "presentations": [],
   "teaching": [],

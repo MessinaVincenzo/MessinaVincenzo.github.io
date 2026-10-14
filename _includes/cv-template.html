@@ -214,6 +214,47 @@
   </div>
   {% endif %}
   
+  {% if cv.service.size > 0 %}
+  <!-- Academic Service -->
+  <div class="cv-section">
+    <h2>Academic Service</h2>
+    <ul class="cv-list">
+      {% for item in cv.service %}
+      <li class="cv-item">
+        <div class="cv-item-content">
+          <div class="cv-item-title">{{ item.role }}</div>
+          {% if item.organization != blank or item.date != blank %}
+          <div class="cv-item-subtitle">{% if item.url != blank %}<a href="{{ item.url }}" target="_blank">{{ item.organization }}</a>{% else %}{{ item.organization }}{% endif %}{% if item.organization != blank and item.date != blank %} &middot; {% endif %}{{ item.date }}</div>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  
+  {% if cv.reviewing.size > 0 %}
+  <!-- Peer Review -->
+  <div class="cv-section">
+    <h2>Peer Review</h2>
+    <ul class="cv-list">
+      {% for venue in cv.reviewing %}
+      <li class="cv-item">
+        <!-- Not the cv-item-header/cv-item-date pattern: these titles are long
+             enough that the flex row breaks, right-aligning the meta on some
+             rows and dropping it to the next line on others. -->
+        <div class="cv-item-content">
+          <div class="cv-item-title">{{ venue.name }}{% if venue.abbreviation != blank %} ({{ venue.abbreviation }}){% endif %}</div>
+          {% if venue.type != blank or venue.since != blank %}
+          <div class="cv-item-subtitle">{{ venue.type }}{% if venue.type != blank and venue.since != blank %} &middot; {% endif %}{% if venue.since != blank %}since {{ venue.since }}{% endif %}</div>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  
   {% if cv.portfolio.size > 0 %}
   <!-- Portfolio -->
   <div class="cv-section">
