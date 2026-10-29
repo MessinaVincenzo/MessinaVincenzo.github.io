@@ -7,8 +7,52 @@ author_profile: true
 
 {% include base_path %}
 
+{%- comment -%}
+  `featured: true` marks the principal line of work and gets the wide lead card.
+  Everything else follows in the grid, each carrying its own `flag` if it has one.
+{%- endcomment -%}
+{% assign lead = site.portfolio | where: "featured", true | first %}
+{% assign rest = site.portfolio | where_exp: "p", "p.featured != true" %}
 
-{% for post in site.portfolio %}
-  {% include archive-single.html %}
-{% endfor %}
+<p class="pubs__intro">
+  Research threads and engineering work, each linking the papers behind it and the
+  student theses it has carried.
+</p>
 
+{% if lead %}
+  <article class="lead-project">
+    <p class="lead-project__top">
+      {% if lead.flag %}<span class="projects__flag projects__flag--lead">{{ lead.flag }}</span>{% endif %}
+      {% if lead.status %}<span class="status status--active"><i aria-hidden="true"></i>{{ lead.status }}</span>{% endif %}
+    </p>
+    <h2 class="lead-project__h">
+      <a href="{{ base_path }}{{ lead.url }}">{{ lead.title }}</a>
+    </h2>
+    <p class="lead-project__p">{{ lead.excerpt | strip_html | strip }}</p>
+    <p class="projects__more"><a href="{{ base_path }}{{ lead.url }}">Read more &rarr;</a></p>
+  </article>
+{% endif %}
+
+<ul class="projects">
+  {% for post in rest %}
+    <li>
+      {% if post.header.teaser %}
+        <figure class="projects__thumb">
+          <img src="{{ base_path }}/images/{{ post.header.teaser }}"
+               alt="{{ post.image_alt | default: post.title | escape }}" loading="lazy">
+        </figure>
+      {% endif %}
+      <div class="projects__body">
+        {% if post.flag or post.status %}
+          <p class="projects__top">
+            {% if post.flag %}<span class="projects__flag">{{ post.flag }}</span>{% endif %}
+            {% if post.status %}<span class="status"><i aria-hidden="true"></i>{{ post.status }}</span>{% endif %}
+          </p>
+        {% endif %}
+        <h2 class="projects__h"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h2>
+        <p class="projects__p">{{ post.excerpt | strip_html | strip }}</p>
+        <p class="projects__more"><a href="{{ base_path }}{{ post.url }}">Read more &rarr;</a></p>
+      </div>
+    </li>
+  {% endfor %}
+</ul>

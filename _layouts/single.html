@@ -34,7 +34,13 @@ layout: default
           <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time></p>
         {% endif %}
         
-        {% if page.collection == 'teaching' %}
+        {%- comment -%}
+          Portfolio entries carry their own role-and-dates line in the body, so
+          the theme's "Published: <date>" would both duplicate it and misread a
+          project start date as a publication date.
+        {%- endcomment -%}
+        {% if page.collection == 'portfolio' %}
+        {% elsif page.collection == 'teaching' %}
           <p> {{ page.type }}, <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
         {% elsif page.venue and page.date %}
           <p>Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
@@ -45,6 +51,16 @@ layout: default
       {% endunless %}
 
       <section class="page__content" itemprop="text">
+        {% if page.header.teaser and page.image_alt %}
+          <figure class="postfig">
+            <img src="{{ base_path }}/images/{{ page.header.teaser }}"
+                 alt="{{ page.image_alt | escape }}" loading="lazy"
+                 {% if page.image_focus %}style="object-position: {{ page.image_focus }}"{% endif %}>
+            <figcaption>
+              {{ page.image_alt }}{% if page.image_credit %} <span class="postfig__credit">Photo: {{ page.image_credit }}</span>{% endif %}
+            </figcaption>
+          </figure>
+        {% endif %}
         {{ content }}
 
         {% if page.citation and page.paperurl and page.slidesurl %}

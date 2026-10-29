@@ -1,0 +1,1667 @@
+{
+ "generated_from": "_publications/*.md and _posts/*.md",
+ "totals": {
+  "papers": 19,
+  "coauthors": 35,
+  "places": 10,
+  "venues": 13
+ },
+ "nodes": [
+  {
+   "id": "Vincenzo Messina",
+   "n": 19,
+   "group": "me"
+  },
+  {
+   "id": "Alessandro Golkar",
+   "n": 15,
+   "group": "close",
+   "papers": [
+    {
+     "t": "Initial Formulation of a Time Varying Dynamic Graph Decentralized Optimization Framework for Scaled Satellite Network Infrastructure Operations",
+     "y": "2023",
+     "u": "/publication/time-varying-dynamic-graph-decentralized-optimization"
+    },
+    {
+     "t": "Schedule Optimization for a Heterogeneous Earth Observation Satellite Constellation",
+     "y": "2023",
+     "u": "/publication/schedule-optimization-earth-observation-constellation"
+    },
+    {
+     "t": "Advancing Satellite Network Performance: Network Analysis for Federated Satellite Systems",
+     "y": "2024",
+     "u": "/publication/advancing-satellite-network-performance"
+    },
+    {
+     "t": "Latency Optimization in Centralized and Decentralized Coordination of Time-Varying Scaled Satellite Networks: The Impact of Data Size",
+     "y": "2024",
+     "u": "/publication/latency-optimization-time-varying-satellite-networks"
+    },
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "t": "Trade Space Analysis and Conceptual Design for a Lunar Navigation and Communication Constellation",
+     "y": "2024",
+     "u": "/publication/tradespace-analysis-lunar-navigation-constellation"
+    },
+    {
+     "t": "Advancing Digital Twin Implementation for CubeSats: Integrating Theoretical Insights with Real-World Applications",
+     "y": "2024",
+     "u": "/publication/advancing-digital-twin-implementation-cubesats"
+    },
+    {
+     "t": "Orbital Maneuvering Optimization Techniques for Cooperative Formation Flight and Collision Avoidance Through Decentralized Algorithms",
+     "y": "2024",
+     "u": "/publication/orbital-manoeuvring-optimization-collision-avoidance"
+    },
+    {
+     "t": "Advancing Federated Satellite Systems Performance: A Collaborative Method for Improved Object Detection in Space",
+     "y": "2025",
+     "u": "/publication/advancing-federated-satellite-systems-object-detection"
+    },
+    {
+     "t": "Enhancing Navigation Accuracy through Cooperative Satellite Networks",
+     "y": "2025",
+     "u": "/publication/enhancing-navigation-accuracy-cooperative-satellite-networks"
+    },
+    {
+     "t": "Efficient and Responsive Task Allocation in Distributed Satellite Systems: The Role of Central Nodes",
+     "y": "2025",
+     "u": "/publication/efficient-responsive-task-allocation-central-nodes"
+    },
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    },
+    {
+     "t": "Autonomous Decision-Making for Satellite Systems: A Decentralized Multi-Agent Deep Reinforcement Learning Approach in Partially Observable Dynamic Environments",
+     "y": "2025",
+     "u": "/publication/autonomous-decision-making-multi-agent-reinforcement-learning"
+    },
+    {
+     "t": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "y": "2026",
+     "u": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    },
+    {
+     "t": "The Role of Central Nodes in Multi-Task Allocation for Distributed Space-Based Observation Systems",
+     "y": "2026",
+     "u": "/publication/role-of-central-nodes-multi-task-allocation"
+    }
+   ]
+  },
+  {
+   "id": "Ramón María García Alarcia",
+   "n": 4,
+   "group": "close",
+   "papers": [
+    {
+     "t": "Advancing Satellite Network Performance: Network Analysis for Federated Satellite Systems",
+     "y": "2024",
+     "u": "/publication/advancing-satellite-network-performance"
+    },
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    },
+    {
+     "t": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "y": "2026",
+     "u": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    }
+   ]
+  },
+  {
+   "id": "Jaspar Sindermann",
+   "n": 4,
+   "group": "close",
+   "papers": [
+    {
+     "t": "Advancing Satellite Network Performance: Network Analysis for Federated Satellite Systems",
+     "y": "2024",
+     "u": "/publication/advancing-satellite-network-performance"
+    },
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    },
+    {
+     "t": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "y": "2026",
+     "u": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    }
+   ]
+  },
+  {
+   "id": "Charles N. Ryan",
+   "n": 3,
+   "group": "close",
+   "papers": [
+    {
+     "t": "Plume Study of an Electrospray Thruster Using a HAN-Based Dual-Mode Ionic Liquid Propellant",
+     "y": "2022",
+     "u": "/publication/plume-study-electrospray-thruster-han-propellant"
+    },
+    {
+     "t": "Emission Characterization of Porous Electrospray Thrusters with Actively Controlled Flow Rate",
+     "y": "2022",
+     "u": "/publication/emission-characterization-porous-electrospray-thrusters"
+    },
+    {
+     "t": "Performance Evaluation of a 40N Hybrid Thruster Using Green Propellants for Space Applications",
+     "y": "2022",
+     "u": "/publication/performance-evaluation-40n-hybrid-thruster"
+    }
+   ]
+  },
+  {
+   "id": "Lara Schuberth",
+   "n": 3,
+   "group": "close",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    },
+    {
+     "t": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "y": "2026",
+     "u": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    }
+   ]
+  },
+  {
+   "id": "Sydney Dolan",
+   "n": 3,
+   "group": "close",
+   "papers": [
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    },
+    {
+     "t": "Autonomous Decision-Making for Satellite Systems: A Decentralized Multi-Agent Deep Reinforcement Learning Approach in Partially Observable Dynamic Environments",
+     "y": "2025",
+     "u": "/publication/autonomous-decision-making-multi-agent-reinforcement-learning"
+    },
+    {
+     "t": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "y": "2026",
+     "u": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    }
+   ]
+  },
+  {
+   "id": "Clemente J. Juan Oliver",
+   "n": 3,
+   "group": "close",
+   "papers": [
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    },
+    {
+     "t": "Autonomous Decision-Making for Satellite Systems: A Decentralized Multi-Agent Deep Reinforcement Learning Approach in Partially Observable Dynamic Environments",
+     "y": "2025",
+     "u": "/publication/autonomous-decision-making-multi-agent-reinforcement-learning"
+    },
+    {
+     "t": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "y": "2026",
+     "u": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    }
+   ]
+  },
+  {
+   "id": "Chengyu Ma",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Plume Study of an Electrospray Thruster Using a HAN-Based Dual-Mode Ionic Liquid Propellant",
+     "y": "2022",
+     "u": "/publication/plume-study-electrospray-thruster-han-propellant"
+    },
+    {
+     "t": "Emission Characterization of Porous Electrospray Thrusters with Actively Controlled Flow Rate",
+     "y": "2022",
+     "u": "/publication/emission-characterization-porous-electrospray-thrusters"
+    }
+   ]
+  },
+  {
+   "id": "Joshua L. Rovey",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Plume Study of an Electrospray Thruster Using a HAN-Based Dual-Mode Ionic Liquid Propellant",
+     "y": "2022",
+     "u": "/publication/plume-study-electrospray-thruster-han-propellant"
+    },
+    {
+     "t": "Emission Characterization of Porous Electrospray Thrusters with Actively Controlled Flow Rate",
+     "y": "2022",
+     "u": "/publication/emission-characterization-porous-electrospray-thrusters"
+    }
+   ]
+  },
+  {
+   "id": "Zachary R. Putnam",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Plume Study of an Electrospray Thruster Using a HAN-Based Dual-Mode Ionic Liquid Propellant",
+     "y": "2022",
+     "u": "/publication/plume-study-electrospray-thruster-han-propellant"
+    },
+    {
+     "t": "Emission Characterization of Porous Electrospray Thrusters with Actively Controlled Flow Rate",
+     "y": "2022",
+     "u": "/publication/emission-characterization-porous-electrospray-thrusters"
+    }
+   ]
+  },
+  {
+   "id": "Michael F. Lembeck",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Plume Study of an Electrospray Thruster Using a HAN-Based Dual-Mode Ionic Liquid Propellant",
+     "y": "2022",
+     "u": "/publication/plume-study-electrospray-thruster-han-propellant"
+    },
+    {
+     "t": "Emission Characterization of Porous Electrospray Thrusters with Actively Controlled Flow Rate",
+     "y": "2022",
+     "u": "/publication/emission-characterization-porous-electrospray-thrusters"
+    }
+   ]
+  },
+  {
+   "id": "Steven P. Berg",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Plume Study of an Electrospray Thruster Using a HAN-Based Dual-Mode Ionic Liquid Propellant",
+     "y": "2022",
+     "u": "/publication/plume-study-electrospray-thruster-han-propellant"
+    },
+    {
+     "t": "Emission Characterization of Porous Electrospray Thrusters with Actively Controlled Flow Rate",
+     "y": "2022",
+     "u": "/publication/emission-characterization-porous-electrospray-thrusters"
+    }
+   ]
+  },
+  {
+   "id": "Federico Sofio",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    }
+   ]
+  },
+  {
+   "id": "Alessandro Tinucci Monibas",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "t": "Orbital Maneuvering Optimization Techniques for Cooperative Formation Flight and Collision Avoidance Through Decentralized Algorithms",
+     "y": "2024",
+     "u": "/publication/orbital-manoeuvring-optimization-collision-avoidance"
+    }
+   ]
+  },
+  {
+   "id": "Leonhard Kessler",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "t": "Advancing Digital Twin Implementation for CubeSats: Integrating Theoretical Insights with Real-World Applications",
+     "y": "2024",
+     "u": "/publication/advancing-digital-twin-implementation-cubesats"
+    }
+   ]
+  },
+  {
+   "id": "Falk Ramin",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Trade Space Analysis and Conceptual Design for a Lunar Navigation and Communication Constellation",
+     "y": "2024",
+     "u": "/publication/tradespace-analysis-lunar-navigation-constellation"
+    },
+    {
+     "t": "Enhancing Navigation Accuracy through Cooperative Satellite Networks",
+     "y": "2025",
+     "u": "/publication/enhancing-navigation-accuracy-cooperative-satellite-networks"
+    }
+   ]
+  },
+  {
+   "id": "Francesco Salmaso",
+   "n": 2,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    },
+    {
+     "t": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "y": "2026",
+     "u": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    }
+   ]
+  },
+  {
+   "id": "G. T. Roberts",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Performance Evaluation of a 40N Hybrid Thruster Using Green Propellants for Space Applications",
+     "y": "2022",
+     "u": "/publication/performance-evaluation-40n-hybrid-thruster"
+    }
+   ]
+  },
+  {
+   "id": "L. Brady",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Performance Evaluation of a 40N Hybrid Thruster Using Green Propellants for Space Applications",
+     "y": "2022",
+     "u": "/publication/performance-evaluation-40n-hybrid-thruster"
+    }
+   ]
+  },
+  {
+   "id": "J. Ward",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Performance Evaluation of a 40N Hybrid Thruster Using Green Propellants for Space Applications",
+     "y": "2022",
+     "u": "/publication/performance-evaluation-40n-hybrid-thruster"
+    }
+   ]
+  },
+  {
+   "id": "A. Bouloubasis",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Performance Evaluation of a 40N Hybrid Thruster Using Green Propellants for Space Applications",
+     "y": "2022",
+     "u": "/publication/performance-evaluation-40n-hybrid-thruster"
+    }
+   ]
+  },
+  {
+   "id": "F. Strasser",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Schedule Optimization for a Heterogeneous Earth Observation Satellite Constellation",
+     "y": "2023",
+     "u": "/publication/schedule-optimization-earth-observation-constellation"
+    }
+   ]
+  },
+  {
+   "id": "V. Dornauer",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Schedule Optimization for a Heterogeneous Earth Observation Satellite Constellation",
+     "y": "2023",
+     "u": "/publication/schedule-optimization-earth-observation-constellation"
+    }
+   ]
+  },
+  {
+   "id": "Simone Scrocciolani",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Advancing Satellite Network Performance: Network Analysis for Federated Satellite Systems",
+     "y": "2024",
+     "u": "/publication/advancing-satellite-network-performance"
+    }
+   ]
+  },
+  {
+   "id": "Kian Bostani Nezhad",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    }
+   ]
+  },
+  {
+   "id": "Roberto Aldea Velayos",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    }
+   ]
+  },
+  {
+   "id": "Sofia Lennerstrand",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    }
+   ]
+  },
+  {
+   "id": "Julie Rollet",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "y": "2024",
+     "u": "/publication/event-based-cameras-space-situational-awareness"
+    }
+   ]
+  },
+  {
+   "id": "Matthias Kura",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Trade Space Analysis and Conceptual Design for a Lunar Navigation and Communication Constellation",
+     "y": "2024",
+     "u": "/publication/tradespace-analysis-lunar-navigation-constellation"
+    }
+   ]
+  },
+  {
+   "id": "Alexander Zieser",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Trade Space Analysis and Conceptual Design for a Lunar Navigation and Communication Constellation",
+     "y": "2024",
+     "u": "/publication/tradespace-analysis-lunar-navigation-constellation"
+    }
+   ]
+  },
+  {
+   "id": "Alexander Hoffmann",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Trade Space Analysis and Conceptual Design for a Lunar Navigation and Communication Constellation",
+     "y": "2024",
+     "u": "/publication/tradespace-analysis-lunar-navigation-constellation"
+    }
+   ]
+  },
+  {
+   "id": "Jayanth Narra",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Trade Space Analysis and Conceptual Design for a Lunar Navigation and Communication Constellation",
+     "y": "2024",
+     "u": "/publication/tradespace-analysis-lunar-navigation-constellation"
+    }
+   ]
+  },
+  {
+   "id": "Rugved Arge",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "Design and Analysis of an Event Camera Payload for Space-Based Object Detection on the EventSat 6U CubeSat Mission",
+     "y": "2025",
+     "u": "/publication/event-camera-payload-eventsat-design-analysis"
+    }
+   ]
+  },
+  {
+   "id": "Marco Camporeale",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "The Role of Central Nodes in Multi-Task Allocation for Distributed Space-Based Observation Systems",
+     "y": "2026",
+     "u": "/publication/role-of-central-nodes-multi-task-allocation"
+    }
+   ]
+  },
+  {
+   "id": "Rob A. Vingerhoeds",
+   "n": 1,
+   "group": "other",
+   "papers": [
+    {
+     "t": "The Role of Central Nodes in Multi-Task Allocation for Distributed Space-Based Observation Systems",
+     "y": "2026",
+     "u": "/publication/role-of-central-nodes-multi-task-allocation"
+    }
+   ]
+  }
+ ],
+ "links": [
+  {
+   "s": "Chengyu Ma",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "Chengyu Ma",
+   "w": 2
+  },
+  {
+   "s": "Chengyu Ma",
+   "t": "Joshua L. Rovey",
+   "w": 2
+  },
+  {
+   "s": "Chengyu Ma",
+   "t": "Zachary R. Putnam",
+   "w": 2
+  },
+  {
+   "s": "Chengyu Ma",
+   "t": "Michael F. Lembeck",
+   "w": 2
+  },
+  {
+   "s": "Chengyu Ma",
+   "t": "Steven P. Berg",
+   "w": 2
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "Vincenzo Messina",
+   "w": 3
+  },
+  {
+   "s": "Joshua L. Rovey",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Vincenzo Messina",
+   "t": "Zachary R. Putnam",
+   "w": 2
+  },
+  {
+   "s": "Michael F. Lembeck",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Steven P. Berg",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "Joshua L. Rovey",
+   "w": 2
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "Zachary R. Putnam",
+   "w": 2
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "Michael F. Lembeck",
+   "w": 2
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "Steven P. Berg",
+   "w": 2
+  },
+  {
+   "s": "Joshua L. Rovey",
+   "t": "Zachary R. Putnam",
+   "w": 2
+  },
+  {
+   "s": "Joshua L. Rovey",
+   "t": "Michael F. Lembeck",
+   "w": 2
+  },
+  {
+   "s": "Joshua L. Rovey",
+   "t": "Steven P. Berg",
+   "w": 2
+  },
+  {
+   "s": "Michael F. Lembeck",
+   "t": "Zachary R. Putnam",
+   "w": 2
+  },
+  {
+   "s": "Steven P. Berg",
+   "t": "Zachary R. Putnam",
+   "w": 2
+  },
+  {
+   "s": "Michael F. Lembeck",
+   "t": "Steven P. Berg",
+   "w": 2
+  },
+  {
+   "s": "G. T. Roberts",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "L. Brady",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "J. Ward",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "A. Bouloubasis",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "G. T. Roberts",
+   "w": 1
+  },
+  {
+   "s": "G. T. Roberts",
+   "t": "L. Brady",
+   "w": 1
+  },
+  {
+   "s": "G. T. Roberts",
+   "t": "J. Ward",
+   "w": 1
+  },
+  {
+   "s": "A. Bouloubasis",
+   "t": "G. T. Roberts",
+   "w": 1
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "L. Brady",
+   "w": 1
+  },
+  {
+   "s": "Charles N. Ryan",
+   "t": "J. Ward",
+   "w": 1
+  },
+  {
+   "s": "A. Bouloubasis",
+   "t": "Charles N. Ryan",
+   "w": 1
+  },
+  {
+   "s": "J. Ward",
+   "t": "L. Brady",
+   "w": 1
+  },
+  {
+   "s": "A. Bouloubasis",
+   "t": "L. Brady",
+   "w": 1
+  },
+  {
+   "s": "A. Bouloubasis",
+   "t": "J. Ward",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Vincenzo Messina",
+   "w": 15
+  },
+  {
+   "s": "F. Strasser",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "F. Strasser",
+   "w": 1
+  },
+  {
+   "s": "F. Strasser",
+   "t": "V. Dornauer",
+   "w": 1
+  },
+  {
+   "s": "V. Dornauer",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "V. Dornauer",
+   "w": 1
+  },
+  {
+   "s": "Simone Scrocciolani",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Ramón María García Alarcia",
+   "t": "Simone Scrocciolani",
+   "w": 1
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Simone Scrocciolani",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Simone Scrocciolani",
+   "w": 1
+  },
+  {
+   "s": "Ramón María García Alarcia",
+   "t": "Vincenzo Messina",
+   "w": 4
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Vincenzo Messina",
+   "w": 4
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Ramón María García Alarcia",
+   "w": 4
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Ramón María García Alarcia",
+   "w": 4
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Jaspar Sindermann",
+   "w": 4
+  },
+  {
+   "s": "Lara Schuberth",
+   "t": "Vincenzo Messina",
+   "w": 3
+  },
+  {
+   "s": "Lara Schuberth",
+   "t": "Ramón María García Alarcia",
+   "w": 3
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Lara Schuberth",
+   "w": 3
+  },
+  {
+   "s": "Kian Bostani Nezhad",
+   "t": "Lara Schuberth",
+   "w": 1
+  },
+  {
+   "s": "Lara Schuberth",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Lara Schuberth",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Julie Rollet",
+   "t": "Lara Schuberth",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Lara Schuberth",
+   "w": 2
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Lara Schuberth",
+   "w": 1
+  },
+  {
+   "s": "Lara Schuberth",
+   "t": "Leonhard Kessler",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Lara Schuberth",
+   "w": 3
+  },
+  {
+   "s": "Kian Bostani Nezhad",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Roberto Aldea Velayos",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Sofia Lennerstrand",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Julie Rollet",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Leonhard Kessler",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Kian Bostani Nezhad",
+   "t": "Ramón María García Alarcia",
+   "w": 1
+  },
+  {
+   "s": "Ramón María García Alarcia",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Ramón María García Alarcia",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Julie Rollet",
+   "t": "Ramón María García Alarcia",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Ramón María García Alarcia",
+   "w": 2
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Ramón María García Alarcia",
+   "w": 1
+  },
+  {
+   "s": "Leonhard Kessler",
+   "t": "Ramón María García Alarcia",
+   "w": 1
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Kian Bostani Nezhad",
+   "w": 1
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Julie Rollet",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Jaspar Sindermann",
+   "w": 2
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Jaspar Sindermann",
+   "w": 1
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Leonhard Kessler",
+   "w": 1
+  },
+  {
+   "s": "Kian Bostani Nezhad",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Kian Bostani Nezhad",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Julie Rollet",
+   "t": "Kian Bostani Nezhad",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Kian Bostani Nezhad",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Kian Bostani Nezhad",
+   "w": 1
+  },
+  {
+   "s": "Kian Bostani Nezhad",
+   "t": "Leonhard Kessler",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Kian Bostani Nezhad",
+   "w": 1
+  },
+  {
+   "s": "Roberto Aldea Velayos",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Julie Rollet",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Leonhard Kessler",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Roberto Aldea Velayos",
+   "w": 1
+  },
+  {
+   "s": "Julie Rollet",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Leonhard Kessler",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Sofia Lennerstrand",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Julie Rollet",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Julie Rollet",
+   "w": 1
+  },
+  {
+   "s": "Julie Rollet",
+   "t": "Leonhard Kessler",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Julie Rollet",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Federico Sofio",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Leonhard Kessler",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Federico Sofio",
+   "w": 2
+  },
+  {
+   "s": "Alessandro Tinucci Monibas",
+   "t": "Leonhard Kessler",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Alessandro Tinucci Monibas",
+   "w": 2
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Leonhard Kessler",
+   "w": 2
+  },
+  {
+   "s": "Alexander Zieser",
+   "t": "Matthias Kura",
+   "w": 1
+  },
+  {
+   "s": "Alexander Hoffmann",
+   "t": "Matthias Kura",
+   "w": 1
+  },
+  {
+   "s": "Falk Ramin",
+   "t": "Matthias Kura",
+   "w": 1
+  },
+  {
+   "s": "Jayanth Narra",
+   "t": "Matthias Kura",
+   "w": 1
+  },
+  {
+   "s": "Matthias Kura",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Matthias Kura",
+   "w": 1
+  },
+  {
+   "s": "Alexander Hoffmann",
+   "t": "Alexander Zieser",
+   "w": 1
+  },
+  {
+   "s": "Alexander Zieser",
+   "t": "Falk Ramin",
+   "w": 1
+  },
+  {
+   "s": "Alexander Zieser",
+   "t": "Jayanth Narra",
+   "w": 1
+  },
+  {
+   "s": "Alexander Zieser",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Alexander Zieser",
+   "w": 1
+  },
+  {
+   "s": "Alexander Hoffmann",
+   "t": "Falk Ramin",
+   "w": 1
+  },
+  {
+   "s": "Alexander Hoffmann",
+   "t": "Jayanth Narra",
+   "w": 1
+  },
+  {
+   "s": "Alexander Hoffmann",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Alexander Hoffmann",
+   "w": 1
+  },
+  {
+   "s": "Falk Ramin",
+   "t": "Jayanth Narra",
+   "w": 1
+  },
+  {
+   "s": "Falk Ramin",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Falk Ramin",
+   "w": 2
+  },
+  {
+   "s": "Jayanth Narra",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Jayanth Narra",
+   "w": 1
+  },
+  {
+   "s": "Lara Schuberth",
+   "t": "Sydney Dolan",
+   "w": 2
+  },
+  {
+   "s": "Rugved Arge",
+   "t": "Sydney Dolan",
+   "w": 1
+  },
+  {
+   "s": "Ramón María García Alarcia",
+   "t": "Sydney Dolan",
+   "w": 2
+  },
+  {
+   "s": "Sydney Dolan",
+   "t": "Vincenzo Messina",
+   "w": 3
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Sydney Dolan",
+   "w": 3
+  },
+  {
+   "s": "Francesco Salmaso",
+   "t": "Sydney Dolan",
+   "w": 2
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Sydney Dolan",
+   "w": 2
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Sydney Dolan",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Sydney Dolan",
+   "w": 3
+  },
+  {
+   "s": "Lara Schuberth",
+   "t": "Rugved Arge",
+   "w": 1
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Lara Schuberth",
+   "w": 2
+  },
+  {
+   "s": "Francesco Salmaso",
+   "t": "Lara Schuberth",
+   "w": 2
+  },
+  {
+   "s": "Ramón María García Alarcia",
+   "t": "Rugved Arge",
+   "w": 1
+  },
+  {
+   "s": "Rugved Arge",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Rugved Arge",
+   "w": 1
+  },
+  {
+   "s": "Francesco Salmaso",
+   "t": "Rugved Arge",
+   "w": 1
+  },
+  {
+   "s": "Jaspar Sindermann",
+   "t": "Rugved Arge",
+   "w": 1
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Rugved Arge",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Rugved Arge",
+   "w": 1
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Ramón María García Alarcia",
+   "w": 2
+  },
+  {
+   "s": "Francesco Salmaso",
+   "t": "Ramón María García Alarcia",
+   "w": 2
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Vincenzo Messina",
+   "w": 3
+  },
+  {
+   "s": "Francesco Salmaso",
+   "t": "Vincenzo Messina",
+   "w": 2
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Francesco Salmaso",
+   "w": 2
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Jaspar Sindermann",
+   "w": 2
+  },
+  {
+   "s": "Clemente J. Juan Oliver",
+   "t": "Federico Sofio",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Clemente J. Juan Oliver",
+   "w": 3
+  },
+  {
+   "s": "Francesco Salmaso",
+   "t": "Jaspar Sindermann",
+   "w": 2
+  },
+  {
+   "s": "Federico Sofio",
+   "t": "Francesco Salmaso",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Francesco Salmaso",
+   "w": 2
+  },
+  {
+   "s": "Marco Camporeale",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Rob A. Vingerhoeds",
+   "t": "Vincenzo Messina",
+   "w": 1
+  },
+  {
+   "s": "Marco Camporeale",
+   "t": "Rob A. Vingerhoeds",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Marco Camporeale",
+   "w": 1
+  },
+  {
+   "s": "Alessandro Golkar",
+   "t": "Rob A. Vingerhoeds",
+   "w": 1
+  }
+ ],
+ "pins": [
+  {
+   "place": "Milan, Italy",
+   "lat": 45.46,
+   "lon": 9.19,
+   "n": 5,
+   "first": "2024",
+   "last": "2024",
+   "events": [
+    {
+     "kind": "paper",
+     "venue": "IAC 2024",
+     "title": "Latency Optimization in Centralized and Decentralized Coordination of Time-Varying Scaled Satellite Networks: The Impact of Data Size",
+     "year": "2024",
+     "url": "/publication/latency-optimization-time-varying-satellite-networks"
+    },
+    {
+     "kind": "paper",
+     "venue": "IAC 2024",
+     "title": "Leveraging Event-Based Cameras for Enhanced Space Situational Awareness: A Nanosatellite Mission Architecture Study",
+     "year": "2024",
+     "url": "/publication/event-based-cameras-space-situational-awareness"
+    },
+    {
+     "kind": "paper",
+     "venue": "IAC 2024",
+     "title": "Trade Space Analysis and Conceptual Design for a Lunar Navigation and Communication Constellation",
+     "year": "2024",
+     "url": "/publication/tradespace-analysis-lunar-navigation-constellation"
+    },
+    {
+     "kind": "paper",
+     "venue": "IAC 2024",
+     "title": "Advancing Digital Twin Implementation for CubeSats: Integrating Theoretical Insights with Real-World Applications",
+     "year": "2024",
+     "url": "/publication/advancing-digital-twin-implementation-cubesats"
+    },
+    {
+     "kind": "paper",
+     "venue": "IAC 2024",
+     "title": "Orbital Maneuvering Optimization Techniques for Cooperative Formation Flight and Collision Avoidance Through Decentralized Algorithms",
+     "year": "2024",
+     "url": "/publication/orbital-manoeuvring-optimization-collision-avoidance"
+    }
+   ]
+  },
+  {
+   "place": "Baku, Azerbaijan",
+   "lat": 40.41,
+   "lon": 49.87,
+   "n": 2,
+   "first": "2023",
+   "last": "2023",
+   "events": [
+    {
+     "kind": "paper",
+     "venue": "IAC 2023",
+     "title": "Initial Formulation of a Time Varying Dynamic Graph Decentralized Optimization Framework for Scaled Satellite Network Infrastructure Operations",
+     "year": "2023",
+     "url": "/publication/time-varying-dynamic-graph-decentralized-optimization"
+    },
+    {
+     "kind": "paper",
+     "venue": "IAC 2023",
+     "title": "Schedule Optimization for a Heterogeneous Earth Observation Satellite Constellation",
+     "year": "2023",
+     "url": "/publication/schedule-optimization-earth-observation-constellation"
+    }
+   ]
+  },
+  {
+   "place": "Munich, Germany",
+   "lat": 48.14,
+   "lon": 11.58,
+   "n": 2,
+   "first": "2023",
+   "last": "2026",
+   "events": [
+    {
+     "kind": "base",
+     "venue": "TUM, Chair of Spacecraft Systems",
+     "title": "Home institution",
+     "year": "2023",
+     "url": ""
+    },
+    {
+     "kind": "paper",
+     "venue": "SSEA 2026",
+     "title": "EventSat: A CubeSat Mission for Neuromorphic Vision-Based Space Object Detection",
+     "year": "2026",
+     "url": "/publication/eventsat-cubesat-neuromorphic-vision-mission"
+    }
+   ]
+  },
+  {
+   "place": "Estoril, Portugal",
+   "lat": 38.71,
+   "lon": -9.4,
+   "n": 1,
+   "first": "2022",
+   "last": "2022",
+   "events": [
+    {
+     "kind": "paper",
+     "venue": "Space Propulsion 2022",
+     "title": "Performance Evaluation of a 40N Hybrid Thruster Using Green Propellants for Space Applications",
+     "year": "2022",
+     "url": "/publication/performance-evaluation-40n-hybrid-thruster"
+    }
+   ]
+  },
+  {
+   "place": "Orlando, USA",
+   "lat": 28.54,
+   "lon": -81.38,
+   "n": 1,
+   "first": "2025",
+   "last": "2025",
+   "events": [
+    {
+     "kind": "paper",
+     "venue": "AIAA SciTech 2025",
+     "title": "Advancing Federated Satellite Systems Performance: A Collaborative Method for Improved Object Detection in Space",
+     "year": "2025",
+     "url": "/publication/advancing-federated-satellite-systems-object-detection"
+    }
+   ]
+  },
+  {
+   "place": "Paphos, Cyprus",
+   "lat": 34.78,
+   "lon": 32.42,
+   "n": 1,
+   "first": "2026",
+   "last": "2026",
+   "events": [
+    {
+     "kind": "paper",
+     "venue": "MASSpace-26 @ AAMAS",
+     "title": "The Role of Central Nodes in Multi-Task Allocation for Distributed Space-Based Observation Systems",
+     "year": "2026",
+     "url": "/publication/role-of-central-nodes-multi-task-allocation"
+    }
+   ]
+  },
+  {
+   "place": "Singapore",
+   "lat": 1.35,
+   "lon": 103.82,
+   "n": 1,
+   "first": "2026",
+   "last": "2026",
+   "events": [
+    {
+     "kind": "teaching",
+     "venue": "TUM Asia",
+     "title": "Lecturing Space Mission Design",
+     "year": "2026",
+     "url": "/posts/2026/09/teaching-at-tum-asia-singapore/"
+    }
+   ]
+  },
+  {
+   "place": "Southampton, United Kingdom",
+   "lat": 50.91,
+   "lon": -1.4,
+   "n": 1,
+   "first": "2021",
+   "last": "2021",
+   "events": [
+    {
+     "kind": "paper",
+     "venue": "M.Sc. Thesis, University of Southampton",
+     "title": "Design of a Propellant Delivery System for Porous Electrospray Thrusters",
+     "year": "2021",
+     "url": "/publication/design-propellant-delivery-system-electrospray-thrusters"
+    }
+   ]
+  },
+  {
+   "place": "Tempe, USA",
+   "lat": 33.43,
+   "lon": -111.94,
+   "n": 1,
+   "first": "2025",
+   "last": "2025",
+   "events": [
+    {
+     "kind": "visit",
+     "venue": "Arizona State University",
+     "title": "Visiting Scholar with Dr. Paul Grogan",
+     "year": "2025",
+     "url": "/posts/2025/08/visiting-scholar-arizona-state/"
+    }
+   ]
+  },
+  {
+   "place": "Toulouse, France",
+   "lat": 43.6,
+   "lon": 1.44,
+   "n": 1,
+   "first": "2025",
+   "last": "2025",
+   "events": [
+    {
+     "kind": "paper",
+     "venue": "IWPSS 2025",
+     "title": "Efficient and Responsive Task Allocation in Distributed Satellite Systems: The Role of Central Nodes",
+     "year": "2025",
+     "url": "/publication/efficient-responsive-task-allocation-central-nodes"
+    }
+   ]
+  }
+ ]
+}

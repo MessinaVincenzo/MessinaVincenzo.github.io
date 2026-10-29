@@ -1,0 +1,27 @@
+{%- comment -%}
+  Placeholder glyph for a news item with no teaser image, chosen by `kind`.
+  Keeps the feed grid even until real photographs are dropped into /images.
+  Usage: {% include news-icon.html kind=post.kind %}
+{%- endcomment -%}
+{%- assign k = include.kind | default: 'research' -%}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{%- case k -%}
+{%- when 'talk' -%}
+  <path d="M3 5h18v11H8l-5 4z"/><path d="M7.5 9.5h9M7.5 12.5h5.5"/>
+{%- when 'paper' -%}
+  <path d="M6 2h8l5 5v15H6z"/><path d="M14 2v5h5"/><path d="M9 12h7M9 15.5h7M9 19h4"/>
+{%- when 'teaching' -%}
+  <path d="M12 3 2 8l10 5 10-5-10-5z"/><path d="M5 10v5.5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V10"/>
+{%- when 'outreach' -%}
+  <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/>
+  <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18z"/>
+{%- when 'visit' -%}
+  <path d="M12 2a5 5 0 0 0-5 5c0 4.4 5 13 5 13s5-8.6 5-13a5 5 0 0 0-5-5z"/>
+  <circle cx="12" cy="7" r="1.9"/>
+{%- else -%}
+  <circle cx="12" cy="12" r="3"/>
+  <ellipse cx="12" cy="12" rx="10" ry="4.6"/>
+  <ellipse cx="12" cy="12" rx="10" ry="4.6" transform="rotate(60 12 12)"/>
+{%- endcase -%}
+</svg>

@@ -1,0 +1,1920 @@
+/* ==========================================================================
+   RICH COMPONENTS
+   Publications browser, news feed, homepage sections and the research-map
+   visualisations. Imported after layout/space so it inherits those tokens
+   (--space-accent, --space-card-bg, --space-card-border, ...).
+
+   No Sass colour functions appear inside :root here - Sass does not evaluate
+   custom property values, so anything computed would have to be wrapped in an
+   interpolation. Literal rgba() keeps that trap out of the way entirely.
+   (Note: interpolation syntax is live even inside these comments.)
+   ========================================================================== */
+
+:root {
+  --rich-chip-bg        : rgba(15, 23, 42, 0.04);
+  --rich-chip-border    : rgba(15, 23, 42, 0.12);
+  --rich-chip-fg        : rgba(15, 23, 42, 0.72);
+  --rich-panel-bg       : rgba(15, 23, 42, 0.03);
+  --rich-code-bg        : #0d1424;
+  --rich-code-fg        : rgba(255, 255, 255, 0.88);
+  --rich-rule           : rgba(15, 23, 42, 0.10);
+}
+
+html[data-theme="dark"] {
+  --rich-chip-bg        : rgba(255, 255, 255, 0.07);
+  --rich-chip-border    : rgba(255, 255, 255, 0.16);
+  --rich-chip-fg        : rgba(255, 255, 255, 0.78);
+  --rich-panel-bg       : rgba(255, 255, 255, 0.05);
+  --rich-code-bg        : #11151c;
+  --rich-code-fg        : rgba(255, 255, 255, 0.86);
+  --rich-rule           : rgba(255, 255, 255, 0.13);
+}
+
+/* --------------------------------------------------------------------------
+   Shared: chips
+   -------------------------------------------------------------------------- */
+
+.chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4em;
+  margin: 0 0.35em 0.45em 0;
+  padding: 0.32em 0.78em;
+  border: 1px solid var(--rich-chip-border);
+  border-radius: 999px;
+  background: var(--rich-chip-bg);
+  color: var(--rich-chip-fg);
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    border-color: var(--space-accent);
+    color: var(--global-text-color);
+  }
+
+  &.is-active {
+    background: var(--space-accent);
+    border-color: var(--space-accent);
+    color: #fff;
+  }
+
+  &__n {
+    opacity: 0.6;
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+  }
+
+  &.is-active &__n,
+  &.is-active .chip__n { opacity: 0.85; }
+}
+
+/* --------------------------------------------------------------------------
+   Publications browser
+   -------------------------------------------------------------------------- */
+
+.pubs {
+  &__intro {
+    font-size: 0.86em;
+    line-height: 1.65;
+    color: var(--global-text-color-light);
+    max-width: 60em;
+  }
+
+  &__controls {
+    margin: 1.6em 0 0.5em;
+    padding: 1.1em 1.2em 0.7em;
+    border: 1px solid var(--space-card-border);
+    border-radius: 10px;
+    background: var(--rich-panel-bg);
+  }
+
+  &__search-wrap {
+    position: relative;
+    margin-bottom: 0.9em;
+  }
+
+  &__search {
+    width: 100%;
+    margin: 0;
+    padding: 0.62em 2.2em 0.62em 0.9em;
+    border: 1px solid var(--rich-chip-border);
+    border-radius: 8px;
+    background: var(--space-card-bg);
+    color: var(--global-text-color);
+    font-family: inherit;
+    font-size: 0.86em;
+    box-shadow: none;
+
+    &:focus {
+      outline: none;
+      border-color: var(--space-accent);
+      box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.18);
+    }
+  }
+
+  &__search-clear {
+    position: absolute;
+    top: 50%;
+    right: 0.5em;
+    transform: translateY(-50%);
+    padding: 0 0.35em;
+    border: 0;
+    background: none;
+    color: var(--global-text-color-light);
+    font-size: 1.25em;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover { color: var(--space-accent); }
+  }
+
+  &__chiprow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &--topics {
+      margin-top: 0.5em;
+      padding-top: 0.7em;
+      border-top: 1px dashed var(--rich-rule);
+    }
+  }
+
+  &__chiplabel {
+    margin: 0 0.6em 0.45em 0;
+    color: var(--global-text-color-light);
+    font-size: 0.68em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__status {
+    margin: 0.5em 0 0;
+    color: var(--global-text-color-light);
+    font-size: 0.72em;
+    font-variant-numeric: tabular-nums;
+    min-height: 1.2em;
+  }
+
+  &__year {
+    margin: 2em 0 0.1em;
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid var(--rich-rule);
+    color: var(--global-text-color-light);
+    font-size: 0.95em;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  &__empty {
+    margin: 2em 0;
+    padding: 1.4em;
+    border: 1px dashed var(--rich-chip-border);
+    border-radius: 10px;
+    text-align: center;
+    color: var(--global-text-color-light);
+    font-size: 0.85em;
+  }
+
+  &__reset {
+    margin-left: 0.4em;
+    border: 0;
+    background: none;
+    color: var(--space-accent);
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+/* One publication entry ---------------------------------------------------- */
+
+.pub {
+  padding: 1.15em 0 1.05em;
+  border-bottom: 1px solid var(--rich-rule);
+
+  &:last-child { border-bottom: 0; }
+
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6em;
+  }
+
+  &__badge {
+    flex: none;
+    padding: 0.2em 0.6em;
+    border-radius: 4px;
+    background: var(--rich-chip-bg);
+    border: 1px solid var(--rich-chip-border);
+    color: var(--global-text-color-light);
+    font-size: 0.62em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    &--journal    { border-color: rgba(16, 185, 129, 0.45); color: #047857; }
+    &--conference { border-color: rgba(77, 163, 255, 0.50); color: #1d4ed8; }
+    &--workshop   { border-color: rgba(139, 108, 255, 0.50); color: #6d28d9; }
+    &--thesis     { border-color: rgba(234, 88, 12, 0.45);  color: #c2410c; }
+  }
+
+  &__title {
+    flex: 1 1 18em;
+    margin: 0;
+    font-size: 1.0em;
+    font-weight: 700;
+    line-height: 1.35;
+
+    a {
+      color: var(--global-text-color);
+      text-decoration: none;
+
+      &:hover { color: var(--space-accent); }
+    }
+  }
+
+  &__authors {
+    margin: 0.4em 0 0.15em;
+    font-size: 0.8em;
+    line-height: 1.55;
+    color: var(--global-text-color-light);
+
+    strong {
+      color: var(--global-text-color);
+      font-weight: 700;
+    }
+  }
+
+  &__venue {
+    margin: 0 0 0.6em;
+    font-size: 0.78em;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--global-text-color-light);
+  }
+
+  &__dot { opacity: 0.5; }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  &__btn {
+    display: inline-block;
+    padding: 0.3em 0.7em;
+    border: 1px solid var(--rich-chip-border);
+    border-radius: 5px;
+    background: var(--space-card-bg);
+    color: var(--global-text-color-light);
+    font-family: inherit;
+    font-size: 0.68em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      border-color: var(--space-accent);
+      color: var(--space-accent);
+      text-decoration: none;
+    }
+
+    &.is-open {
+      background: var(--space-accent);
+      border-color: var(--space-accent);
+      color: #fff;
+    }
+
+    &--solid {
+      background: var(--space-accent);
+      border-color: var(--space-accent);
+      color: #fff;
+
+      &:hover {
+        background: var(--space-deep-3);
+        border-color: var(--space-deep-3);
+        color: #fff;
+      }
+    }
+  }
+
+  &__abstract {
+    margin: 0.8em 0 0;
+    padding: 0.9em 1.05em;
+    border-left: 3px solid var(--space-accent);
+    border-radius: 0 7px 7px 0;
+    background: var(--rich-panel-bg);
+    font-size: 0.8em;
+    line-height: 1.7;
+    text-align: justify;
+    animation: space-rise 0.22s ease both;
+  }
+
+  &__bibwrap {
+    position: relative;
+    margin: 0.8em 0 0;
+    animation: space-rise 0.22s ease both;
+  }
+
+  &__copy {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    z-index: 2;
+    padding: 0.25em 0.65em;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.10);
+    color: rgba(255, 255, 255, 0.9);
+    font-family: inherit;
+    font-size: 0.66em;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover { background: rgba(255, 255, 255, 0.2); }
+  }
+
+  &__bibtex {
+    margin: 0;
+    padding: 0.9em 1em;
+    border-radius: 7px;
+    background: var(--rich-code-bg);
+    color: var(--rich-code-fg);
+    font-size: 0.7em;
+    line-height: 1.55;
+    overflow-x: auto;
+
+    code {
+      background: none;
+      color: inherit;
+      font-size: inherit;
+      white-space: pre;
+    }
+  }
+
+  &__kw {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35em;
+    margin: 0.75em 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0;
+      padding: 0.18em 0.55em;
+      border-radius: 3px;
+      background: var(--rich-chip-bg);
+      color: var(--global-text-color-light);
+      font-size: 0.66em;
+      letter-spacing: 0.02em;
+
+      a { color: inherit; text-decoration: none; }
+      a:hover { color: var(--space-accent); }
+    }
+  }
+}
+
+/* Single publication page -------------------------------------------------- */
+
+.pubpage {
+  &__head {
+    padding-bottom: 1.1em;
+    border-bottom: 1px solid var(--rich-rule);
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    margin: 0 0 0.5em;
+  }
+
+  &__year {
+    color: var(--global-text-color-light);
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+  }
+
+  &__title {
+    margin: 0 0 0.45em;
+    font-size: 1.55em;
+    line-height: 1.25;
+  }
+
+  &__authors {
+    margin: 0 0 0.3em;
+    font-size: 0.86em;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+
+    strong { color: var(--global-text-color); }
+  }
+
+  &__venue {
+    margin: 0 0 1em;
+    font-size: 0.82em;
+    font-style: italic;
+    color: var(--global-text-color-light);
+  }
+
+  &__h {
+    margin: 1.8em 0 0.5em;
+    font-size: 0.74em;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--global-text-color-light);
+  }
+
+  &__body {
+    font-size: 1em;
+
+    > div[itemprop="abstract"] p {
+      text-align: justify;
+      line-height: 1.75;
+    }
+  }
+
+  &__noabstract {
+    color: var(--global-text-color-light);
+    font-size: 0.85em;
+    font-style: italic;
+  }
+
+  &__cite {
+    font-size: 0.82em;
+    line-height: 1.65;
+    color: var(--global-text-color-light);
+  }
+
+  &__back {
+    margin-top: 2.2em;
+    padding-top: 1em;
+    border-top: 1px solid var(--rich-rule);
+    font-size: 0.82em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Homepage: metrics strip
+   -------------------------------------------------------------------------- */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5em, 1fr));
+  gap: 0.7em;
+  margin: 1.8em 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+    padding: 0.85em 0.9em;
+    border: 1px solid var(--space-card-border);
+    border-radius: 9px;
+    background: var(--space-card-bg);
+    box-shadow: var(--space-card-shadow);
+    text-align: center;
+  }
+
+  &__n {
+    display: block;
+    color: var(--space-accent);
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__k {
+    display: block;
+    margin-top: 0.2em;
+    color: var(--global-text-color-light);
+    font-size: 0.66em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__note {
+    margin: -0.8em 0 2em;
+    color: var(--global-text-color-light);
+    font-size: 0.68em;
+    text-align: right;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Homepage: research topic cards
+   -------------------------------------------------------------------------- */
+
+.topics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+  gap: 1em;
+  margin: 1.4em 0 2em;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    margin: 0;
+    padding: 1.1em 1.15em;
+    border: 1px solid var(--space-card-border);
+    border-radius: 11px;
+    background: var(--space-card-bg);
+    box-shadow: var(--space-card-shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--space-card-shadow-hover);
+    }
+  }
+
+  &__icon {
+    display: block;
+    width: 2em;
+    height: 2em;
+    margin-bottom: 0.6em;
+    color: var(--space-accent);
+  }
+
+  &__h {
+    margin: 0 0 0.35em;
+    font-size: 0.92em;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  &__p {
+    margin: 0 0 0.6em;
+    font-size: 0.76em;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+  }
+
+  &__link {
+    font-size: 0.7em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Homepage: selected publications
+   -------------------------------------------------------------------------- */
+
+.selected {
+  margin: 1.2em 0 1.6em;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    margin: 0;
+    padding: 0.85em 0;
+    border-bottom: 1px solid var(--rich-rule);
+
+    &:last-child { border-bottom: 0; }
+  }
+
+  &__title {
+    display: block;
+    font-size: 0.9em;
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--global-text-color);
+    text-decoration: none;
+
+    &:hover { color: var(--space-accent); }
+  }
+
+  &__meta {
+    display: block;
+    margin-top: 0.25em;
+    font-size: 0.73em;
+    color: var(--global-text-color-light);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   News feed
+   -------------------------------------------------------------------------- */
+
+.feed {
+  margin: 1.5em 0 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    display: grid;
+    grid-template-columns: 7.5em 1fr;
+    gap: 1.1em;
+    margin: 0;
+    padding: 1.15em 0;
+    border-bottom: 1px solid var(--rich-rule);
+
+    &:last-child { border-bottom: 0; }
+  }
+
+  &__thumb {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--space-card-border);
+    background: var(--rich-panel-bg);
+    aspect-ratio: 4 / 3;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__ph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--space-accent);
+    opacity: 0.45;
+
+    svg { width: 2em; height: 2em; }
+  }
+
+  &__body { min-width: 0; }
+
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.55em;
+    margin-bottom: 0.35em;
+  }
+
+  &__date {
+    color: var(--global-text-color-light);
+    font-size: 0.7em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__tag {
+    padding: 0.16em 0.55em;
+    border: 1px solid var(--rich-chip-border);
+    border-radius: 3px;
+    background: var(--rich-chip-bg);
+    color: var(--global-text-color-light);
+    font-size: 0.62em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    &--talk     { border-color: rgba(77, 163, 255, 0.5);  color: #1d4ed8; }
+    &--paper    { border-color: rgba(16, 185, 129, 0.45); color: #047857; }
+    &--teaching { border-color: rgba(139, 108, 255, 0.5); color: #6d28d9; }
+    &--outreach { border-color: rgba(234, 88, 12, 0.45);  color: #c2410c; }
+    &--research { border-color: rgba(14, 165, 233, 0.45); color: #0369a1; }
+    &--visit    { border-color: rgba(219, 39, 119, 0.4);  color: #be185d; }
+  }
+
+  &__title {
+    margin: 0 0 0.3em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1.4;
+
+    a {
+      color: var(--global-text-color);
+      text-decoration: none;
+
+      &:hover { color: var(--space-accent); }
+    }
+  }
+
+  &__excerpt {
+    margin: 0;
+    font-size: 0.78em;
+    line-height: 1.65;
+    color: var(--global-text-color-light);
+  }
+
+  &__where {
+    margin: 0.4em 0 0;
+    font-size: 0.72em;
+    color: var(--global-text-color-light);
+
+    svg {
+      width: 0.9em;
+      height: 0.9em;
+      margin-right: 0.3em;
+      vertical-align: -0.1em;
+      opacity: 0.7;
+    }
+  }
+}
+
+html[data-theme="dark"] {
+  .pub__badge--journal,
+  .feed__tag--paper    { color: #6ee7b7; }
+  .pub__badge--conference,
+  .feed__tag--talk     { color: #93c5fd; }
+  .pub__badge--workshop,
+  .feed__tag--teaching { color: #c4b5fd; }
+  .pub__badge--thesis,
+  .feed__tag--outreach { color: #fdba74; }
+  .feed__tag--research { color: #7dd3fc; }
+  .feed__tag--visit    { color: #f9a8d4; }
+}
+
+/* --------------------------------------------------------------------------
+   Research map: co-author graph + conference map
+   -------------------------------------------------------------------------- */
+
+.viz {
+  margin: 1.6em 0 2.4em;
+
+  &__frame {
+    position: relative;
+    border: 1px solid var(--space-card-border);
+    border-radius: 12px;
+    background: var(--space-card-bg);
+    box-shadow: var(--space-card-shadow);
+    overflow: hidden;
+  }
+
+  &__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    touch-action: pan-y;
+  }
+
+  &__tip {
+    position: absolute;
+    z-index: 5;
+    max-width: 16em;
+    padding: 0.5em 0.7em;
+    border-radius: 7px;
+    background: rgba(7, 11, 24, 0.95);
+    color: #fff;
+    font-size: 0.72em;
+    line-height: 1.45;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -115%);
+    transition: opacity 0.12s ease;
+
+    &.is-on { opacity: 1; }
+
+    strong { display: block; color: #93c5fd; }
+    span   { color: rgba(255, 255, 255, 0.75); }
+  }
+
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9em;
+    margin: 0.85em 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.7em;
+    color: var(--global-text-color-light);
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.4em;
+      margin: 0;
+    }
+
+    i {
+      display: inline-block;
+      width: 0.75em;
+      height: 0.75em;
+      border-radius: 50%;
+      background: var(--space-accent);
+    }
+  }
+
+  &__note {
+    margin: 0.7em 0 0;
+    font-size: 0.7em;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+  }
+}
+
+/* Graph primitives. Styled here so the markup stays free of presentation. */
+.gnode {
+  cursor: pointer;
+  transition: r 0.15s ease, opacity 0.15s ease;
+
+  &--me    { fill: var(--space-accent-2); }
+  &--close { fill: var(--space-accent); }
+  &--other { fill: rgba(125, 150, 190, 0.85); }
+
+  &.is-dim { opacity: 0.22; }
+}
+
+.glink {
+  stroke: var(--global-text-color-light);
+  stroke-opacity: 0.28;
+  fill: none;
+  transition: stroke-opacity 0.15s ease, stroke 0.15s ease;
+
+  &.is-hot { stroke: var(--space-accent); stroke-opacity: 0.85; }
+  &.is-dim { stroke-opacity: 0.06; }
+}
+
+.glabel {
+  fill: var(--global-text-color);
+  font-size: 9px;
+  font-weight: 600;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+
+  /* Painting the stroke underneath keeps the name readable where it crosses
+     an edge, without a background rectangle to position. */
+  paint-order: stroke fill;
+  stroke: var(--space-card-bg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+
+  &--me {
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--space-accent-2);
+  }
+
+  &.is-dim { opacity: 0.18; }
+}
+
+/* Conference map */
+.wmap {
+  &__land {
+    fill: rgba(125, 150, 190, 0.20);
+    stroke: rgba(125, 150, 190, 0.45);
+    stroke-width: 0.4;
+  }
+
+  &__grid {
+    stroke: var(--rich-rule);
+    stroke-width: 0.4;
+    fill: none;
+  }
+
+  &__pin {
+    fill: var(--space-accent);
+    stroke: #fff;
+    stroke-width: 1;
+    cursor: pointer;
+    transition: r 0.15s ease;
+
+    &:hover { fill: var(--space-accent-2); }
+  }
+
+  &__halo {
+    fill: var(--space-accent);
+    opacity: 0.18;
+  }
+
+  &__label {
+    fill: var(--global-text-color-light);
+    font-size: 7.5px;
+    font-weight: 600;
+    pointer-events: none;
+  }
+}
+
+html[data-theme="dark"] .wmap__land {
+  fill: rgba(147, 197, 253, 0.13);
+  stroke: rgba(147, 197, 253, 0.32);
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens
+   -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 37.5em) {
+  .feed__item {
+    grid-template-columns: 1fr;
+    gap: 0.7em;
+  }
+
+  .feed__thumb {
+    max-width: 10em;
+    aspect-ratio: 4 / 3;
+  }
+
+  .pubs__controls {
+    padding: 0.9em 0.85em 0.6em;
+  }
+
+  .pub__title { flex-basis: 100%; }
+
+  .pubpage__title { font-size: 1.3em; }
+
+  .pub__abstract,
+  .pubpage__body > div[itemprop="abstract"] p { text-align: left; }
+
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* --------------------------------------------------------------------------
+   Research map page
+   -------------------------------------------------------------------------- */
+
+.rmap__h {
+  margin: 2.6em 0 0.3em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--rich-rule);
+  font-size: 1.05em;
+}
+
+.places {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13em, 1fr));
+  gap: 0.5em;
+  margin: 1em 0 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    margin: 0;
+    border: 1px solid var(--space-card-border);
+    border-radius: 8px;
+    background: var(--space-card-bg);
+    overflow: hidden;
+
+    &.is-open {
+      border-color: var(--space-accent);
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6em;
+    width: 100%;
+    padding: 0.55em 0.75em;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover .places__name { color: var(--space-accent); }
+  }
+
+  &__name {
+    font-size: 0.78em;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  &__meta {
+    flex: none;
+    color: var(--global-text-color-light);
+    font-size: 0.66em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  &__events {
+    display: none;
+    margin: 0;
+    padding: 0.2em 0.85em 0.8em;
+    list-style: none;
+    border-top: 1px dashed var(--rich-rule);
+
+    li {
+      margin: 0.5em 0 0;
+      font-size: 0.74em;
+      line-height: 1.5;
+    }
+  }
+
+  &__item.is-open &__events { display: block; }
+
+  &__venue {
+    display: block;
+    color: var(--global-text-color-light);
+    font-size: 0.86em;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+.wmap__pingroup {
+  outline: none;
+
+  &.is-sel .wmap__pin,
+  &:focus-visible .wmap__pin { fill: var(--space-accent-2); }
+
+  &.is-sel .wmap__halo,
+  &:focus-visible .wmap__halo { opacity: 0.4; }
+}
+
+.viz {
+  &__detail {
+    margin: 1.1em 0 0;
+    padding: 1em 1.15em;
+    border: 1px solid var(--space-card-border);
+    border-left: 3px solid var(--space-accent);
+    border-radius: 0 9px 9px 0;
+    background: var(--rich-panel-bg);
+    animation: space-rise 0.2s ease both;
+
+    h3 {
+      margin: 0;
+      font-size: 0.92em;
+    }
+
+    ul {
+      margin: 0.7em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: 3.2em 1fr;
+      gap: 0.5em;
+      margin: 0.45em 0;
+      font-size: 0.78em;
+      line-height: 1.5;
+    }
+
+    li > span {
+      color: var(--global-text-color-light);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+  }
+
+  &__detail-sub {
+    margin: 0.15em 0 0;
+    color: var(--global-text-color-light);
+    font-size: 0.72em;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base-layer overrides
+   Two academicpages defaults fight the components above and win on
+   specificity, so they are answered here rather than by inflating every
+   selector in the sections themselves.
+     1. normalize sets input[type="search"] to content-box, which makes a
+        width:100% field overflow its padding box.
+     2. `.page__content a` forces an underline on every link, including the
+        ones that are styled as buttons, chips or card headings.
+   -------------------------------------------------------------------------- */
+
+.pubs__search[type="search"] {
+  box-sizing: border-box;
+}
+
+/* Both wrappers carry an `a { text-decoration: underline }` rule of equal
+   specificity to a single class, so components styled as buttons or cards
+   have to be named under each of them. */
+.page__content,
+.archive {
+  .pub__btn,
+  .pub__kw a,
+  .topics__link,
+  .selected__title,
+  .pub__title a,
+  .pubpage__back a,
+  .feed__title a,
+  .places__events a,
+  .viz__detail a {
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  /* The year rules and card frames already separate entries; a list marker
+     on top of that just adds noise. */
+  .metrics,
+  .topics,
+  .selected,
+  .feed,
+  .places,
+  .pub__kw,
+  .viz__legend,
+  .viz__detail ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .projects {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .projects__h a,
+  .projects__more a,
+  .subsys a {
+    text-decoration: none;
+  }
+
+  .projects__h a:hover,
+  .projects__more a:hover { text-decoration: underline; }
+
+  /* The timeline keeps its own left padding for the rule and dots. */
+  .timeline {
+    list-style: none;
+    padding-left: 1.6em;
+  }
+
+  .timeline__title a { text-decoration: none; }
+  .timeline__title a:hover { text-decoration: underline; }
+}
+
+/* --------------------------------------------------------------------------
+   Photo at the head of a news post
+   -------------------------------------------------------------------------- */
+
+.postfig {
+  margin: 0 0 1.6em;
+
+  img {
+    display: block;
+    width: 100%;
+    max-height: 26em;
+    object-fit: cover;
+    border: 1px solid var(--space-card-border);
+    border-radius: 11px;
+    box-shadow: var(--space-card-shadow);
+  }
+
+  figcaption {
+    margin-top: 0.55em;
+    color: var(--global-text-color-light);
+    font-size: 0.74em;
+    line-height: 1.5;
+  }
+
+  &__credit {
+    display: inline-block;
+    margin-left: 0.3em;
+    opacity: 0.75;
+    font-style: italic;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Talks timeline
+   A single ruled line down the left with a dot per talk. The line is drawn on
+   the list, not on each item, so hiding items under a filter never leaves a
+   dangling segment behind.
+   -------------------------------------------------------------------------- */
+
+.timeline {
+  position: relative;
+  margin: 1.5em 0 0;
+  padding: 0 0 0 1.6em;
+  list-style: none;
+  counter-reset: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0.6em;
+    bottom: 0.6em;
+    left: 0.32em;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom,
+                transparent,
+                var(--rich-chip-border) 6%,
+                var(--rich-chip-border) 94%,
+                transparent);
+  }
+
+  &__year {
+    position: relative;
+    margin: 0;
+    list-style: none;
+
+    .pubs__year { margin-top: 1.8em; }
+
+    &:first-child .pubs__year { margin-top: 0.3em; }
+  }
+
+  &__item {
+    position: relative;
+    margin: 0;
+    padding: 1.15em 0 1.1em;
+    border-bottom: 1px solid var(--rich-rule);
+    list-style: none;
+
+    &:last-child { border-bottom: 0; }
+  }
+
+  &__dot {
+    position: absolute;
+    top: 1.55em;
+    left: -1.47em;
+    width: 0.62em;
+    height: 0.62em;
+    border: 2px solid var(--space-card-bg);
+    border-radius: 50%;
+    background: var(--space-accent);
+    box-shadow: 0 0 0 2px var(--rich-chip-border);
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0 0 0.35em;
+  }
+
+  &__date {
+    color: var(--global-text-color-light);
+    font-size: 0.7em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__title {
+    margin: 0 0 0.25em;
+    font-size: 0.98em;
+    font-weight: 700;
+    line-height: 1.38;
+
+    a {
+      color: var(--global-text-color);
+      text-decoration: none;
+
+      &:hover { color: var(--space-accent); }
+    }
+  }
+
+  &__venue {
+    margin: 0 0 0.45em;
+    font-size: 0.78em;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--global-text-color-light);
+  }
+
+  &__sum {
+    margin: 0 0 0.7em;
+    font-size: 0.82em;
+    line-height: 1.65;
+  }
+}
+
+/* ==========================================================================
+   POLISH
+   Refinements on top of the components above: focus rings, hover states,
+   heading accents and the remaining one-off blocks. Nothing here changes
+   layout or structure - it is all surface.
+   ========================================================================== */
+
+/* Skip link - off-screen until focused. ----------------------------------- */
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1000;
+  padding: 0.6em 1.1em;
+  border-radius: 0 0 8px 8px;
+  background: var(--space-accent);
+  color: #fff;
+  font-size: 0.8em;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translate(-50%, -110%);
+  transition: transform 0.18s ease;
+
+  &:focus {
+    transform: translate(-50%, 0);
+    color: #fff;
+    outline: 2px solid #fff;
+    outline-offset: -4px;
+  }
+}
+
+/* One consistent focus ring for every interactive element we add. --------- */
+
+.chip:focus-visible,
+.pub__btn:focus-visible,
+.pub__copy:focus-visible,
+.pubs__reset:focus-visible,
+.places__btn:focus-visible,
+.gnode:focus-visible {
+  outline: 2px solid var(--space-accent);
+  outline-offset: 2px;
+}
+
+/* Accent dash on the year rules, so a long list reads as sectioned. ------- */
+
+.pubs__year {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+
+  &::before {
+    content: "";
+    flex: none;
+    width: 1.5em;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--space-accent), var(--space-accent-2));
+  }
+}
+
+/* Row hover: a tint plus an accent bar at the left edge. ------------------ */
+
+.pub,
+.timeline__item {
+  position: relative;
+  border-radius: 7px;
+  transition: background 0.16s ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0.75em;
+    bottom: 0.75em;
+    left: -0.75em;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, var(--space-accent), var(--space-accent-2));
+    opacity: 0;
+    transition: opacity 0.16s ease;
+  }
+
+  &:hover {
+    background: var(--rich-panel-bg);
+
+    &::after { opacity: 1; }
+  }
+}
+
+/* The timeline already owns its left gutter; keep the bar out of the rule. */
+.timeline__item::after { left: -1.18em; }
+
+/* Cards lift a little more decisively. ----------------------------------- */
+
+.metrics li {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--space-card-shadow-hover);
+  }
+}
+
+/* Solid buttons get a touch of depth. ------------------------------------ */
+
+.pub__btn--solid {
+  background: linear-gradient(135deg, var(--space-accent), var(--space-accent-2));
+  border-color: transparent;
+  box-shadow: 0 1px 2px rgba(29, 78, 216, 0.25);
+
+  &:hover {
+    background: linear-gradient(135deg, var(--space-deep-3), var(--space-accent-2));
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(29, 78, 216, 0.32);
+  }
+}
+
+.chip.is-active {
+  box-shadow: 0 1px 6px rgba(29, 78, 216, 0.28);
+}
+
+/* Text selection in the site accent rather than the browser default. ------ */
+
+::selection {
+  background: rgba(77, 163, 255, 0.28);
+}
+
+/* Remaining one-off blocks ------------------------------------------------ */
+
+.pubs__bib {
+  margin: 0.2em 0 0;
+}
+
+.cv-revision {
+  margin: 0.7em 0 0;
+  color: var(--global-text-color-light);
+  font-size: 0.74em;
+  line-height: 1.55;
+
+  time { font-weight: 700; }
+}
+
+.project__role {
+  margin: 0 0 1.4em;
+  padding: 0.85em 1.05em;
+  border: 1px solid var(--space-card-border);
+  border-left: 3px solid var(--space-accent);
+  border-radius: 0 9px 9px 0;
+  background: var(--rich-panel-bg);
+  font-size: 0.85em;
+  line-height: 1.7;
+
+  strong { color: var(--global-text-color); }
+}
+
+.subsys {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17em, 1fr));
+  gap: 1em;
+  margin: 1.3em 0 1.8em;
+
+  &__card {
+    padding: 1.15em 1.25em 1.2em;
+    border: 1px solid var(--space-card-border);
+    border-top: 3px solid var(--space-accent);
+    border-radius: 11px;
+    background: var(--space-card-bg);
+    box-shadow: var(--space-card-shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--space-card-shadow-hover);
+    }
+
+    p {
+      font-size: 0.82em;
+      line-height: 1.7;
+    }
+
+    p:last-child { margin-bottom: 0; }
+  }
+
+  &__h {
+    margin: 0 0 0.15em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  &__role {
+    margin: 0 0 0.7em !important;
+    color: var(--space-accent);
+    font-size: 0.7em !important;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+/* Project cards on /portfolio/ ------------------------------------------- */
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16em, 1fr));
+  gap: 1.1em;
+  margin: 1.6em 0 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid var(--space-card-border);
+    border-radius: 12px;
+    background: var(--space-card-bg);
+    box-shadow: var(--space-card-shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--space-card-shadow-hover);
+    }
+  }
+
+  &__thumb {
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    background: var(--rich-panel-bg);
+    border-bottom: 1px solid var(--space-card-border);
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.05em 1.15em 1.15em;
+  }
+
+  &__flag {
+    align-self: flex-start;
+    margin-bottom: 0.5em;
+    padding: 0.18em 0.55em;
+    border: 1px solid rgba(139, 108, 255, 0.5);
+    border-radius: 3px;
+    background: var(--rich-chip-bg);
+    color: #6d28d9;
+    font-size: 0.6em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  &__h {
+    margin: 0 0 0.4em;
+    font-size: 0.95em;
+    font-weight: 700;
+    line-height: 1.32;
+
+    a {
+      color: var(--global-text-color);
+      text-decoration: none;
+    }
+
+    a:hover { color: var(--space-accent); }
+  }
+
+  &__p {
+    margin: 0 0 0.9em;
+    font-size: 0.78em;
+    line-height: 1.62;
+    color: var(--global-text-color-light);
+  }
+
+  &__more {
+    margin-top: auto;
+    font-size: 0.7em;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+}
+
+html[data-theme="dark"] .projects__flag { color: #c4b5fd; }
+
+/* Honour a reduced-motion preference for everything added above. ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .metrics li,
+  .topics > li,
+  .subsys__card,
+  .projects > li,
+  .pub,
+  .timeline__item,
+  .skip-link {
+    transition: none;
+  }
+
+  .metrics li:hover,
+  .topics > li:hover,
+  .subsys__card:hover,
+  .projects > li:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   OPS LAYER
+   A flight-operations register on top of the components above: data set in
+   monospace with tabular figures, hairline rules, console strips, corner
+   ticks and status readouts.
+
+   The rule throughout: prose stays in the body face, *data* goes monospace -
+   dates, counts, identifiers, venue codes, status. Setting paragraphs in mono
+   would read as a terminal, not as a research site.
+   ========================================================================== */
+
+:root {
+  --ops-mono    : "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ops-hair    : rgba(15, 23, 42, 0.14);
+  --ops-strip   : rgba(15, 23, 42, 0.045);
+  --ops-ok      : #16a34a;
+  --ops-pending : #d97706;
+}
+
+html[data-theme="dark"] {
+  --ops-hair    : rgba(255, 255, 255, 0.17);
+  --ops-strip   : rgba(255, 255, 255, 0.055);
+  --ops-ok      : #4ade80;
+  --ops-pending : #fbbf24;
+}
+
+/* Data in monospace, with figures that line up column-wise. --------------- */
+
+.metrics__n,
+.chip__n,
+.feed__date,
+.timeline__date,
+.pubs__year,
+.pubs__status,
+.places__meta,
+.pubpage__year,
+.viz__detail li > span {
+  font-family: var(--ops-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.pubs__year {
+  font-size: 0.86em;
+  letter-spacing: 0.22em;
+}
+
+.pub__badge,
+.feed__tag,
+.projects__flag,
+.subsys__role,
+.pubs__chiplabel {
+  font-family: var(--ops-mono);
+  letter-spacing: 0.1em;
+}
+
+/* Telemetry readout --------------------------------------------------------
+   The homepage figures as an instrument panel: hairline-separated cells on a
+   single strip rather than detached cards. */
+
+.metrics {
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--space-card-border);
+  border-radius: 11px;
+  background: var(--space-card-bg);
+  box-shadow: var(--space-card-shadow);
+
+  li {
+    position: relative;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+    padding: 1em 0.9em 0.95em;
+
+    /* Hairline between cells, drawn inside so the outer radius stays clean. */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 18%;
+      bottom: 18%;
+      left: 0;
+      width: 1px;
+      background: var(--ops-hair);
+    }
+
+    &:first-child::before { display: none; }
+
+    &:hover {
+      transform: none;
+      background: var(--ops-strip);
+      box-shadow: none;
+    }
+  }
+
+  &__n {
+    font-size: 1.62em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  &__k {
+    font-size: 0.62em;
+    letter-spacing: 0.12em;
+  }
+}
+
+/* Console strip on the filter panels -------------------------------------- */
+
+.pubs__controls {
+  position: relative;
+  padding-top: 2.5em;
+  background: var(--space-card-bg);
+
+  /* Label bar across the top of the panel. */
+  &::before {
+    content: "FILTER";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0.5em 1.2em 0.45em;
+    border-bottom: 1px solid var(--ops-hair);
+    background: var(--ops-strip);
+    color: var(--global-text-color-light);
+    font-family: var(--ops-mono);
+    font-size: 0.62em;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+  }
+}
+
+/* Corner ticks - the technical-drawing cue, used sparingly. ---------------- */
+
+@mixin corner-ticks($inset: 8px, $len: 9px, $w: 1px) {
+  &::after {
+    content: "";
+    position: absolute;
+    top: $inset;
+    right: $inset;
+    bottom: $inset;
+    left: $inset;
+    pointer-events: none;
+
+    /* Longhand on purpose. In the `background` shorthand a `/` separates
+       position from size, but Sass reads it as division and fails with
+       "0/px isn't a valid CSS value". */
+    $bar: linear-gradient(var(--space-accent), var(--space-accent));
+    background-image: $bar, $bar, $bar, $bar, $bar, $bar, $bar, $bar;
+    background-size:
+      $len $w, $w $len,
+      $len $w, $w $len,
+      $len $w, $w $len,
+      $len $w, $w $len;
+    background-position:
+      0 0,       0 0,
+      100% 0,    100% 0,
+      0 100%,    0 100%,
+      100% 100%, 100% 100%;
+    background-repeat: no-repeat;
+
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+}
+
+.subsys__card,
+.projects > li {
+  position: relative;
+  @include corner-ticks;
+
+  &:hover::after { opacity: 0.5; }
+}
+
+/* Status readout ---------------------------------------------------------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  color: var(--global-text-color-light);
+  font-family: var(--ops-mono);
+  font-size: 0.64em;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  i {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 50%;
+    background: var(--ops-pending);
+    box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.18);
+  }
+
+  &--active i {
+    background: var(--ops-ok);
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18);
+    animation: ops-pulse 2.6s ease-in-out infinite;
+  }
+}
+
+@keyframes ops-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.18); }
+  50%      { box-shadow: 0 0 0 5px rgba(22, 163, 74, 0.05); }
+}
+
+/* Lead project card ------------------------------------------------------- */
+
+.lead-project {
+  position: relative;
+  margin: 1.6em 0 1.2em;
+  padding: 1.35em 1.5em 1.4em;
+  overflow: hidden;
+  border: 1px solid var(--space-card-border);
+  border-radius: 13px;
+  background:
+    linear-gradient(135deg, rgba(77, 163, 255, 0.07), rgba(139, 108, 255, 0.05)),
+    var(--space-card-bg);
+  box-shadow: var(--space-card-shadow);
+
+  /* Accent rail down the left edge. */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--space-accent), var(--space-accent-2));
+  }
+
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.7em;
+    margin: 0 0 0.55em;
+  }
+
+  &__h {
+    margin: 0 0 0.45em;
+    font-size: 1.22em;
+    font-weight: 700;
+    line-height: 1.26;
+
+    a {
+      color: var(--global-text-color);
+      text-decoration: none;
+    }
+
+    a:hover { color: var(--space-accent); }
+  }
+
+  &__p {
+    margin: 0 0 0.8em;
+    max-width: 46em;
+    font-size: 0.85em;
+    line-height: 1.68;
+    color: var(--global-text-color-light);
+  }
+}
+
+.projects {
+  &__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6em;
+    margin: 0 0 0.5em;
+  }
+
+  &__flag--lead {
+    border-color: rgba(77, 163, 255, 0.55);
+    color: #1d4ed8;
+  }
+}
+
+html[data-theme="dark"] .projects__flag--lead { color: #93c5fd; }
+
+/* Hairline grid behind the visualisation frames ---------------------------- */
+
+.viz__frame {
+  background-image:
+    linear-gradient(var(--ops-hair) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ops-hair) 1px, transparent 1px);
+  background-size: 34px 34px, 34px 34px;
+  background-position: -1px -1px, -1px -1px;
+}
+
+.viz__svg { position: relative; }
+
+/* Keep the page readable when motion is unwelcome. ------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .status--active i { animation: none; }
+  .subsys__card::after,
+  .projects > li::after { transition: none; }
+}
+
+@media screen and (max-width: 37.5em) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+
+    li:nth-child(odd)::before { display: none; }
+  }
+
+  .lead-project { padding: 1.1em 1.15em 1.2em; }
+  .lead-project__h { font-size: 1.08em; }
+}

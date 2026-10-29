@@ -43,4 +43,8 @@ redirect_from:
 
 <div class="cv-download-links">
   <a href="{{ base_path }}/files/CV_VincenzoMessina_September2026.pdf" class="btn btn--primary">Download CV as PDF</a>
+  <p class="cv-revision">
+    Last update: <time datetime="2026-09">September 2026</time>.
+    This page is generated from the same source, so it never disagrees with the PDF.
+  </p>
 </div>

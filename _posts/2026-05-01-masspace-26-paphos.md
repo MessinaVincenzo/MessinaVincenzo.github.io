@@ -2,6 +2,12 @@
 title: 'Paper at MASSpace-26 in Paphos, Cyprus'
 date: 2026-05-01
 permalink: /posts/2026/05/masspace-26-paphos/
+kind: paper
+location: 'Paphos, Cyprus'
+summary: >-
+  Reward-based selective propagation for multi-task allocation, scaled to
+  5,000 satellites and 500 concurrent targets.
+source_note: 'Authorship; HAL hal-05759879'
 tags:
   - publication
   - conference

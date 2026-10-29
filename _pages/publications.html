@@ -5,29 +5,286 @@ permalink: /publications/
 author_profile: true
 ---
 
-{% if site.author.googlescholar %}
-  <div class="wordwrap">You can find my articles on <a href="{{site.author.googlescholar}}">my Google Scholar profile</a>.</div>
-{% endif %}
 {% include base_path %}
 
-<!-- New style rendering if publication categories are defined -->
-{% if site.publication_category %}
-  {% for category in site.publication_category  %}
-    {% assign title_shown = false %}
-    {% for post in site.publications reversed %}
-      {% if post.category != category[0] %}
-        {% continue %}
-      {% endif %}
-      {% unless title_shown %}
-        <h2>{{ category[1].title }}</h2><hr />
-        {% assign title_shown = true %}
-      {% endunless %}
-      {% include archive-single.html %}
-    {% endfor %}
-  {% endfor %}
-{% else %}
-  {% for post in site.publications reversed %}
-    {% include archive-single.html %}
-  {% endfor %}
-{% endif %}
+{% assign pubs = site.publications | sort: "date" | reverse %}
 
+{%- comment -%}
+  Build the distinct topic list from the publications themselves, so a new
+  paper's topic produces its own filter chip without touching this file.
+{%- endcomment -%}
+{% assign all_topics = "" | split: "" %}
+{% for post in pubs %}
+  {% for t in post.topics %}
+    {% assign all_topics = all_topics | push: t %}
+  {% endfor %}
+{% endfor %}
+{% assign topics = all_topics | uniq | sort %}
+
+{% assign n_journal    = pubs | where: "category", "journal"    | size %}
+{% assign n_conference = pubs | where: "category", "conference" | size %}
+{% assign n_workshop   = pubs | where: "category", "workshop"   | size %}
+{% assign n_thesis     = pubs | where: "category", "thesis"     | size %}
+
+<div class="pubs" id="pubs">
+
+  <p class="pubs__intro">
+    {{ pubs | size }} publications on decentralized coordination, federated satellite
+    systems, space situational awareness and spacecraft propulsion. Abstracts open in
+    place; every entry links to the publisher record and, where the manuscript is
+    openly archived, a PDF. Also on
+    <a href="{{ site.author.googlescholar }}">Google&nbsp;Scholar</a> and
+    <a href="{{ site.author.orcid }}">ORCID</a>.
+  </p>
+
+  <p class="pubs__bib">
+    <a class="pub__btn pub__btn--solid" href="{{ base_path }}/files/publications.bib">Download all {{ pubs | size }} as BibTeX</a>
+  </p>
+
+  <div class="pubs__controls">
+    <div class="pubs__search-wrap">
+      <input type="search" id="pubs-search" class="pubs__search"
+             placeholder="Search title, author, venue or keyword&hellip;"
+             autocomplete="off" aria-label="Search publications">
+      <button type="button" class="pubs__search-clear" id="pubs-clear"
+              aria-label="Clear search" hidden>&times;</button>
+    </div>
+
+    <div class="pubs__chiprow" role="group" aria-label="Filter by publication type">
+      <button type="button" class="chip is-active" data-type="all">All <span class="chip__n">{{ pubs | size }}</span></button>
+      {% if n_journal > 0 %}<button type="button" class="chip" data-type="journal">Journal <span class="chip__n">{{ n_journal }}</span></button>{% endif %}
+      {% if n_conference > 0 %}<button type="button" class="chip" data-type="conference">Conference <span class="chip__n">{{ n_conference }}</span></button>{% endif %}
+      {% if n_workshop > 0 %}<button type="button" class="chip" data-type="workshop">Workshop <span class="chip__n">{{ n_workshop }}</span></button>{% endif %}
+      {% if n_thesis > 0 %}<button type="button" class="chip" data-type="thesis">Thesis <span class="chip__n">{{ n_thesis }}</span></button>{% endif %}
+    </div>
+
+    <div class="pubs__chiprow pubs__chiprow--topics" role="group" aria-label="Filter by research topic">
+      <span class="pubs__chiplabel">Topic</span>
+      {% for t in topics %}
+        {% assign n = 0 %}
+        {% for post in pubs %}{% if post.topics contains t %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
+        <button type="button" class="chip chip--topic" data-topic="{{ t | slugify }}">{{ t }} <span class="chip__n">{{ n }}</span></button>
+      {% endfor %}
+    </div>
+
+    <p class="pubs__status" id="pubs-status" role="status" aria-live="polite"></p>
+  </div>
+
+  <div class="pubs__list" id="pubs-list">
+    {% assign current_year = "" %}
+    {% for post in pubs %}
+      {% assign y = post.date | date: "%Y" %}
+      {% if y != current_year %}
+        {% assign current_year = y %}
+        <h2 class="pubs__year" data-year="{{ y }}">{{ y }}</h2>
+      {% endif %}
+
+      {%- comment -%} One flat search string per entry, lowercased in JS. {%- endcomment -%}
+      {% capture haystack %}{{ post.title }} {{ post.authors | replace: "**", "" }} {{ post.venue }} {{ post.location }} {{ post.venue_short }} {{ y }} {{ post.keywords | join: " " }} {{ post.topics | join: " " }}{% endcapture %}
+
+      {%- comment -%}
+        Slugify each topic on its own before appending. Chaining slugify after
+        append would slug the whole accumulated string and eat the separators.
+      {%- endcomment -%}
+      {% assign topic_slugs = "" %}
+      {% for t in post.topics %}{% assign ts = t | slugify %}{% assign topic_slugs = topic_slugs | append: ts | append: " " %}{% endfor %}
+
+      <article class="pub"
+               data-year="{{ y }}"
+               data-type="{{ post.category }}"
+               data-topics="{{ topic_slugs | strip }}"
+               data-search="{{ haystack | strip_newlines | strip | escape }}">
+
+        <div class="pub__head">
+          <span class="pub__badge pub__badge--{{ post.category }}">{{ post.category_label | default: post.category }}</span>
+          <h3 class="pub__title"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h3>
+        </div>
+
+        <p class="pub__authors">{{ post.authors | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+
+        <p class="pub__venue">
+          {{ post.venue }}{% if post.location %} <span class="pub__dot">&middot;</span> <span class="pub__loc">{{ post.location }}</span>{% endif %}
+        </p>
+
+        <div class="pub__actions">
+          {% if post.has_abstract %}
+            <button type="button" class="pub__btn pub__btn--abstract" aria-expanded="false">Abstract</button>
+          {% endif %}
+          {% if post.paperurl %}<a class="pub__btn" href="{{ post.paperurl }}">PDF</a>{% endif %}
+          {% if post.doi_url %}<a class="pub__btn" href="{{ post.doi_url }}">DOI</a>{% endif %}
+          {% if post.mediatum %}<a class="pub__btn" href="{{ post.mediatum }}">mediaTUM</a>{% endif %}
+          {% if post.landing %}<a class="pub__btn" href="{{ post.landing }}">HAL</a>{% endif %}
+          {% if post.bibtex %}<button type="button" class="pub__btn pub__btn--bib" aria-expanded="false">BibTeX</button>{% endif %}
+        </div>
+
+        {% if post.has_abstract %}
+          <div class="pub__abstract" hidden>{{ post.content | strip_html | strip }}</div>
+        {% endif %}
+
+        {% if post.bibtex %}
+          <div class="pub__bibwrap" hidden>
+            <button type="button" class="pub__copy" data-copy-label="Copy">Copy</button>
+            <pre class="pub__bibtex"><code>{{ post.bibtex | escape }}</code></pre>
+          </div>
+        {% endif %}
+
+        {% if post.keywords %}
+          <ul class="pub__kw">
+            {% for k in post.keywords %}<li>{{ k }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+
+  <p class="pubs__empty" id="pubs-empty" hidden>
+    No publications match that search. <button type="button" class="pubs__reset" id="pubs-reset">Reset filters</button>
+  </p>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('pubs');
+  if (!root) return;
+
+  var search  = document.getElementById('pubs-search');
+  var clearBt = document.getElementById('pubs-clear');
+  var status  = document.getElementById('pubs-status');
+  var empty   = document.getElementById('pubs-empty');
+  var reset   = document.getElementById('pubs-reset');
+  var items   = Array.prototype.slice.call(root.querySelectorAll('.pub'));
+  var years   = Array.prototype.slice.call(root.querySelectorAll('.pubs__year'));
+  var typeBts = Array.prototype.slice.call(root.querySelectorAll('[data-type]'));
+  var topicBts= Array.prototype.slice.call(root.querySelectorAll('[data-topic]'));
+
+  var state = { q: '', type: 'all', topics: [] };
+
+  // Cache the lowercased haystack once rather than on every keystroke.
+  items.forEach(function (el) {
+    el.__hay = (el.getAttribute('data-search') || '').toLowerCase();
+    el.__type = el.getAttribute('data-type');
+    el.__topics = (el.getAttribute('data-topics') || '').split(/\s+/);
+  });
+
+  function matches(el) {
+    if (state.type !== 'all' && el.__type !== state.type) return false;
+    if (state.topics.length) {
+      var hit = state.topics.some(function (t) { return el.__topics.indexOf(t) !== -1; });
+      if (!hit) return false;
+    }
+    if (state.q) {
+      // Every whitespace-separated term must appear somewhere in the entry.
+      var terms = state.q.split(/\s+/).filter(Boolean);
+      for (var i = 0; i < terms.length; i++) {
+        if (el.__hay.indexOf(terms[i]) === -1) return false;
+      }
+    }
+    return true;
+  }
+
+  function apply() {
+    var shown = 0;
+    items.forEach(function (el) {
+      var ok = matches(el);
+      el.hidden = !ok;
+      if (ok) shown++;
+    });
+
+    // A year heading only earns its place if something under it survived.
+    years.forEach(function (h) {
+      var y = h.getAttribute('data-year');
+      var any = items.some(function (el) {
+        return !el.hidden && el.getAttribute('data-year') === y;
+      });
+      h.hidden = !any;
+    });
+
+    var filtered = state.q || state.type !== 'all' || state.topics.length;
+    status.textContent = filtered
+      ? shown + ' of ' + items.length + ' publication' + (items.length === 1 ? '' : 's')
+      : '';
+    empty.hidden = shown !== 0;
+    clearBt.hidden = !state.q;
+  }
+
+  search.addEventListener('input', function () {
+    state.q = search.value.trim().toLowerCase();
+    apply();
+  });
+
+  clearBt.addEventListener('click', function () {
+    search.value = ''; state.q = ''; apply(); search.focus();
+  });
+
+  typeBts.forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.type = b.getAttribute('data-type');
+      typeBts.forEach(function (o) { o.classList.toggle('is-active', o === b); });
+      apply();
+    });
+  });
+
+  topicBts.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = b.getAttribute('data-topic');
+      var i = state.topics.indexOf(t);
+      if (i === -1) { state.topics.push(t); } else { state.topics.splice(i, 1); }
+      b.classList.toggle('is-active', state.topics.indexOf(t) !== -1);
+      apply();
+    });
+  });
+
+  reset.addEventListener('click', function () {
+    state = { q: '', type: 'all', topics: [] };
+    search.value = '';
+    typeBts.forEach(function (o) { o.classList.toggle('is-active', o.getAttribute('data-type') === 'all'); });
+    topicBts.forEach(function (o) { o.classList.remove('is-active'); });
+    apply();
+  });
+
+  // Disclosure buttons: abstract and BibTeX.
+  function wireToggle(btnClass, panelClass) {
+    root.querySelectorAll(btnClass).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var panel = btn.closest('.pub').querySelector(panelClass);
+        if (!panel) return;
+        var open = panel.hidden;
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+        btn.classList.toggle('is-open', open);
+      });
+    });
+  }
+  wireToggle('.pub__btn--abstract', '.pub__abstract');
+  wireToggle('.pub__btn--bib', '.pub__bibwrap');
+
+  // Copy BibTeX. Falls back to selecting the text when the async clipboard
+  // API is unavailable (non-HTTPS origins, older browsers).
+  root.querySelectorAll('.pub__copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = btn.parentNode.querySelector('code');
+      if (!pre) return;
+      var text = pre.textContent;
+      var done = function () {
+        btn.textContent = 'Copied';
+        setTimeout(function () { btn.textContent = btn.getAttribute('data-copy-label'); }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { select(pre); });
+      } else {
+        select(pre);
+      }
+    });
+  });
+
+  function select(node) {
+    var r = document.createRange();
+    r.selectNodeContents(node);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+
+  apply();
+})();
+</script>

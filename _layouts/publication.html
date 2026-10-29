@@ -1,0 +1,105 @@
+---
+layout: default
+---
+
+{% include base_path %}
+
+<div id="main" role="main">
+  {% include sidebar.html %}
+
+  <article class="page pubpage" itemscope itemtype="http://schema.org/ScholarlyArticle">
+    <meta itemprop="headline" content="{{ page.title | strip_html | strip_newlines | escape_once }}">
+    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: "%Y-%m-%d" }}">{% endif %}
+    {% for a in page.author_list %}<meta itemprop="author" content="{{ a | escape_once }}">{% endfor %}
+
+    <div class="page__inner-wrap">
+      <header class="pubpage__head">
+        <p class="pubpage__eyebrow">
+          <span class="pub__badge pub__badge--{{ page.category }}">{{ page.category_label | default: page.category }}</span>
+          <span class="pubpage__year">{{ page.date | date: "%Y" }}</span>
+        </p>
+        <h1 class="page__title pubpage__title" itemprop="name">{{ page.title }}</h1>
+        <p class="pubpage__authors">{{ page.authors | markdownify | remove: "<p>" | remove: "</p>" }}</p>
+        <p class="pubpage__venue">
+          {{ page.venue }}{% if page.location %} <span class="pub__dot">&middot;</span> {{ page.location }}{% endif %}
+        </p>
+
+        <div class="pub__actions pubpage__actions">
+          {% if page.paperurl %}<a class="pub__btn pub__btn--solid" href="{{ page.paperurl }}">Download PDF</a>{% endif %}
+          {% if page.doi_url %}<a class="pub__btn" href="{{ page.doi_url }}">DOI</a>{% endif %}
+          {% if page.mediatum %}<a class="pub__btn" href="{{ page.mediatum }}">mediaTUM</a>{% endif %}
+          {% if page.landing %}<a class="pub__btn" href="{{ page.landing }}">HAL</a>{% endif %}
+        </div>
+      </header>
+
+      <section class="page__content pubpage__body" itemprop="articleBody">
+        {% if page.content and page.content != "" %}
+          <h2 class="pubpage__h">Abstract</h2>
+          <div itemprop="abstract">{{ content }}</div>
+        {% else %}
+          <p class="pubpage__noabstract">
+            No abstract is openly archived for this entry. Use the links above for the
+            publisher record.
+          </p>
+        {% endif %}
+
+        {% if page.keywords %}
+          <h2 class="pubpage__h">Keywords</h2>
+          <ul class="pub__kw pubpage__kw">
+            {% for k in page.keywords %}<li>{{ k }}</li>{% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if page.topics %}
+          <h2 class="pubpage__h">Research topics</h2>
+          <ul class="pub__kw pubpage__kw">
+            {% for t in page.topics %}<li><a href="{{ base_path }}/publications/">{{ t }}</a></li>{% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if page.citation %}
+          <h2 class="pubpage__h">Cite this</h2>
+          <p class="pubpage__cite">{{ page.citation }}</p>
+        {% endif %}
+
+        {% if page.bibtex %}
+          <div class="pub__bibwrap pubpage__bibwrap">
+            <button type="button" class="pub__copy" data-copy-label="Copy">Copy</button>
+            <pre class="pub__bibtex"><code>{{ page.bibtex | escape }}</code></pre>
+          </div>
+        {% endif %}
+
+        <p class="pubpage__back"><a href="{{ base_path }}/publications/">&larr; All publications</a></p>
+      </section>
+
+      {% if page.share %}{% include social-share.html %}{% endif %}
+    </div>
+  </article>
+</div>
+
+<script>
+(function () {
+  var btn = document.querySelector('.pubpage .pub__copy');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var code = btn.parentNode.querySelector('code');
+    if (!code) return;
+    var done = function () {
+      btn.textContent = 'Copied';
+      setTimeout(function () { btn.textContent = btn.getAttribute('data-copy-label'); }, 1600);
+    };
+    var fallback = function () {
+      var r = document.createRange();
+      r.selectNodeContents(code);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code.textContent).then(done, fallback);
+    } else {
+      fallback();
+    }
+  });
+})();
+</script>

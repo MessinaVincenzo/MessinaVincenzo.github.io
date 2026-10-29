@@ -4,6 +4,13 @@ date: 2025-04-30
 permalink: /posts/2025/04/iwpss-2025-task-allocation/
 header:
   teaser: iwpss-2025-toulouse.jpg
+image_focus: 'center 58%'
+kind: talk
+location: 'Toulouse, France'
+summary: >-
+  How central nodes make task allocation across a distributed satellite system
+  both more efficient and more responsive.
+source_note: 'Authorship; also TUM ASG chair news, 13.05.2025'
 tags:
   - publication
   - conference

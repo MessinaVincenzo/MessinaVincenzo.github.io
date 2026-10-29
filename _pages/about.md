@@ -79,31 +79,122 @@ redirect_from:
   </div>
 </div>
 
-Hi! I am Vincenzo Messina and I am a Research Associate and Doctoral Candidate of
-the Chair of Spacecraft Systems at the Technical University of Munich.
 
-My research focuses on proposing and analysing methods for optimizing decentralized
-satellite operations in distributed satellite systems (DSS), enabling satellites to
-make decisions while ensuring consensus across the network, focusing on the strategic
-exchange of observational tasks among satellites.
+Hi! I am Vincenzo Messina, a Research Associate and Doctoral Candidate at the
+Chair of Spacecraft Systems, Technical University of Munich.
+
+My research proposes and analyses methods for optimizing **decentralized satellite
+operations** in distributed satellite systems &mdash; letting satellites decide for
+themselves while holding consensus across the network, through the strategic
+exchange of observational tasks.
+
+{% assign pubs = site.publications | sort: "date" | reverse %}
+
+<ul class="metrics">
+  <li><span class="metrics__n">{{ pubs | size }}</span><span class="metrics__k">Publications</span></li>
+  <li><span class="metrics__n">{{ site.talks | size }}</span><span class="metrics__k">Talks</span></li>
+  <li><span class="metrics__n">{{ site.data.theses | size }}</span><span class="metrics__k">Theses supervised</span></li>
+  <li><span class="metrics__n">{{ site.data.network.totals.coauthors }}</span><span class="metrics__k">Co&#8209;authors</span></li>
+</ul>
 
 ## Research interests
 
-* **Decentralized satellite networks** &mdash; coordination and consensus across a
-  federation of independently operated spacecraft.
-* **Distributed satellite systems** &mdash; task allocation and scheduling under
-  limited on-board computation and resources.
-* **Satellite constellations** &mdash; network analysis, latency optimization and
-  mission architecture trade studies.
+<ul class="topics">
+  <li>
+    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="7" r="2.2"/>
+      <circle cx="12" cy="17" r="2.2"/><circle cx="12" cy="4" r="1.6"/>
+      <path d="M7.1 6.6 16.9 6.9M6.2 7.9l4.7 7.3M17.8 8.9l-4.4 6.4M11 4.4 6.3 5.5M13 4.3l4.6 1.4"/>
+    </svg>
+    <h3 class="topics__h">Decentralized satellite networks</h3>
+    <p class="topics__p">
+      Coordination and consensus across a federation of independently operated
+      spacecraft, without a single point of dependency.
+    </p>
+    <a class="topics__link" href="{{ base_path }}/publications/">6 papers &rarr;</a>
+  </li>
+  <li>
+    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <rect x="3" y="9" width="6" height="6" rx="1.2"/><rect x="15" y="4" width="6" height="6" rx="1.2"/>
+      <rect x="15" y="14" width="6" height="6" rx="1.2"/><path d="M9 11.4h6M9 13h6M15 7h-3v10h3"/>
+    </svg>
+    <h3 class="topics__h">Distributed task allocation</h3>
+    <p class="topics__p">
+      Scheduling observations under limited on-board computation, power and
+      link budget &mdash; and what central nodes are actually worth.
+    </p>
+    <a class="topics__link" href="{{ base_path }}/publications/">4 papers &rarr;</a>
+  </li>
+  <li>
+    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <path d="M2 12h3.5M18.5 12H22M12 2v3.5M12 18.5V22"/>
+      <circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="7.6" stroke-dasharray="2.5 2.5"/>
+    </svg>
+    <h3 class="topics__h">Space situational awareness</h3>
+    <p class="topics__p">
+      Detecting and tracking resident space objects collaboratively, including
+      with neuromorphic event cameras on the EventSat CubeSat.
+    </p>
+    <a class="topics__link" href="{{ base_path }}/publications/">7 papers &rarr;</a>
+  </li>
+  <li>
+    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <ellipse cx="12" cy="12" rx="10" ry="4"/>
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(62 12 12)"/>
+      <circle cx="12" cy="12" r="2.4"/><circle cx="21.3" cy="13.4" r="1.2"/><circle cx="6.4" cy="4.6" r="1.2"/>
+    </svg>
+    <h3 class="topics__h">Constellation design</h3>
+    <p class="topics__p">
+      Network analysis, latency optimization and mission architecture trade
+      studies &mdash; from Earth observation to lunar navigation.
+    </p>
+    <a class="topics__link" href="{{ base_path }}/publications/">5 papers &rarr;</a>
+  </li>
+</ul>
+
+## Selected publications
+
+<ul class="selected">
+{% assign featured = pubs | where: "featured", true %}
+{% for post in featured limit: 5 %}
+  <li>
+    <a class="selected__title" href="{{ base_path }}{{ post.url }}">{{ post.title }}</a>
+    <span class="selected__meta">
+      {{ post.authors | replace: "**", "" }} &middot; {{ post.venue_short }}, {{ post.date | date: "%Y" }}
+    </span>
+  </li>
+{% endfor %}
+</ul>
+
+<p><a href="{{ base_path }}/publications/">All {{ pubs | size }} publications &rarr;</a> &nbsp;&middot;&nbsp; <a href="{{ base_path }}/research-map/">Research map &rarr;</a></p>
 
 {% if site.posts.size > 0 %}
 ## Latest news
 
-<ul class="home-news">
-{% for post in site.posts limit: 4 %}
-  <li>
-    <span class="home-news__date">{{ post.date | date: "%b %Y" }}</span>
-    <a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a>
+<ul class="feed feed--compact">
+{% for post in site.posts limit: 5 %}
+  <li class="feed__item">
+    <figure class="feed__thumb">
+      {% if post.header.teaser %}
+        <img src="{{ base_path }}/images/{{ post.header.teaser }}" alt="{{ post.image_alt | default: post.title | escape }}" loading="lazy"{% if post.image_focus %} style="object-position: {{ post.image_focus }}"{% endif %}>
+      {% else %}
+        <span class="feed__ph">{% include news-icon.html kind=post.kind %}</span>
+      {% endif %}
+    </figure>
+    <div class="feed__body">
+      <p class="feed__top">
+        <span class="feed__date">{{ post.date | date: "%d %b %Y" }}</span>
+        <span class="feed__tag feed__tag--{{ post.kind | default: 'research' }}">{{ post.kind | default: 'news' }}</span>
+      </p>
+      <h3 class="feed__title"><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h3>
+      {% if post.summary %}<p class="feed__excerpt">{{ post.summary }}</p>{% endif %}
+      {% if post.location %}
+        <p class="feed__where">
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0a5 5 0 0 0-5 5c0 4 5 11 5 11s5-7 5-11a5 5 0 0 0-5-5Zm0 7a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>
+          {{ post.location }}
+        </p>
+      {% endif %}
+    </div>
   </li>
 {% endfor %}
 </ul>

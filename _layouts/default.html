@@ -13,6 +13,13 @@ layout: compress
 
   <body>
 
+    {%- comment -%}
+      Skip link: the masthead carries eight nav items, so a keyboard or screen
+      reader user would otherwise traverse all of them on every page. Visually
+      hidden until focused.
+    {%- endcomment -%}
+    <a class="skip-link" href="#main">Skip to main content</a>
+
     {% include browser-upgrade.html %}
     {% include masthead.html %}
 

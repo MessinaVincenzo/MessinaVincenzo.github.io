@@ -1,0 +1,399 @@
+---
+layout: archive
+title: "Research map"
+permalink: /research-map/
+author_profile: true
+---
+
+{% include base_path %}
+{% assign net = site.data.network %}
+
+<p class="pubs__intro">
+  Two views of the same body of work: where it was presented, and who it was
+  written with. Both are generated from the
+  <a href="{{ base_path }}/publications/">publication list</a> itself, so they
+  stay in step with it &mdash; {{ net.totals.papers }} papers,
+  {{ net.totals.coauthors }} co-authors, {{ net.totals.places }} places.
+</p>
+
+<!-- ===================================================================== -->
+<h2 class="rmap__h">Where the work has travelled</h2>
+
+<div class="viz" id="mapviz">
+  <div class="viz__frame">
+    <svg class="viz__svg" viewBox="0 0 360 185" role="img"
+         aria-label="World map of conferences and research visits">
+      <title>Conferences and research visits</title>
+
+      {%- comment -%} Graticule every 30 degrees, drawn as one path. {%- endcomment -%}
+      <path class="wmap__grid" d="M0,30H360M0,60H360M0,90H360M0,120H360M0,150H360
+                                  M60,0V180M120,0V180M180,0V180M240,0V180M300,0V180"/>
+
+      {% include world-land.html %}
+
+      <g id="map-pins">
+        {% for p in net.pins %}
+          {% assign cx = p.lon | plus: 180 %}
+          {% assign cy = 90 | minus: p.lat %}
+          <g class="wmap__pingroup" data-place="{{ p.place | escape }}"
+             data-n="{{ p.n }}" tabindex="0" role="button"
+             aria-label="{{ p.place }}, {{ p.n }} entries">
+            <circle class="wmap__halo" cx="{{ cx }}" cy="{{ cy }}" r="{{ p.n | times: 0.9 | plus: 3.2 }}"/>
+            <circle class="wmap__pin"  cx="{{ cx }}" cy="{{ cy }}" r="{{ p.n | times: 0.35 | plus: 1.9 }}"/>
+          </g>
+        {% endfor %}
+      </g>
+    </svg>
+    <div class="viz__tip" id="map-tip" aria-hidden="true"></div>
+  </div>
+
+  <ul class="places" id="places">
+    {% for p in net.pins %}
+      <li class="places__item" data-place="{{ p.place | escape }}">
+        <button type="button" class="places__btn">
+          <span class="places__name">{{ p.place }}</span>
+          <span class="places__meta">{{ p.first }}{% if p.last != p.first %}&ndash;{{ p.last }}{% endif %} &middot; {{ p.n }}</span>
+        </button>
+        <ul class="places__events">
+          {% for e in p.events %}
+            <li>
+              <span class="places__venue">{{ e.venue }}</span>
+              {% if e.url and e.url != "" %}
+                <a href="{{ base_path }}{{ e.url }}">{{ e.title }}</a>
+              {% else %}
+                <span>{{ e.title }}</span>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="viz__note">
+    Pin size follows the number of papers or visits tied to that city. Select a
+    city to list what happened there.
+  </p>
+</div>
+
+<!-- ===================================================================== -->
+<h2 class="rmap__h">Who the work was written with</h2>
+
+<div class="viz" id="graphviz">
+  <div class="viz__frame">
+    <svg class="viz__svg" id="graph-svg" viewBox="0 0 680 500" role="img"
+         aria-label="Co-author network graph">
+      <title>Co-author network</title>
+      <g id="g-links"></g>
+      <g id="g-nodes"></g>
+      <g id="g-labels"></g>
+    </svg>
+    <div class="viz__tip" id="graph-tip" aria-hidden="true"></div>
+  </div>
+
+  <ul class="viz__legend">
+    <li><i style="background: var(--space-accent-2)"></i> Me</li>
+    <li><i style="background: var(--space-accent)"></i> 3 or more joint papers</li>
+    <li><i style="background: rgba(125,150,190,0.85)"></i> 1&ndash;2 joint papers</li>
+  </ul>
+
+  <p class="viz__note">
+    Node size follows the number of papers we share; an edge means two people
+    appear on the same paper. Hover or focus a node to isolate their
+    collaborations, and select one to list the shared papers.
+  </p>
+
+  <div class="viz__detail" id="graph-detail" hidden></div>
+</div>
+
+<script id="net-data" type="application/json">{{ net | jsonify }}</script>
+
+<script>
+(function () {
+  var raw = document.getElementById('net-data');
+  if (!raw) return;
+  var NET;
+  try { NET = JSON.parse(raw.textContent); } catch (e) { return; }
+
+  /* ------------------------------------------------------------------ map */
+  (function () {
+    var wrap = document.getElementById('mapviz');
+    if (!wrap) return;
+    var tip    = document.getElementById('map-tip');
+    var frame  = wrap.querySelector('.viz__frame');
+    var groups = [].slice.call(wrap.querySelectorAll('.wmap__pingroup'));
+    var items  = [].slice.call(wrap.querySelectorAll('.places__item'));
+    var byPlace = {};
+    NET.pins.forEach(function (p) { byPlace[p.place] = p; });
+
+    function showTip(g) {
+      var place = g.getAttribute('data-place');
+      var p = byPlace[place];
+      if (!p) return;
+      var years = p.first === p.last ? p.first : p.first + '–' + p.last;
+      tip.innerHTML = '<strong>' + place + '</strong><span>' + years + ' · ' +
+                      p.n + (p.n === 1 ? ' entry' : ' entries') + '</span>';
+      var c = g.querySelector('.wmap__pin');
+      var r = c.getBoundingClientRect();
+      var fr = frame.getBoundingClientRect();
+      tip.style.left = (r.left - fr.left + r.width / 2) + 'px';
+      tip.style.top  = (r.top  - fr.top) + 'px';
+      tip.classList.add('is-on');
+    }
+    function hideTip() { tip.classList.remove('is-on'); }
+
+    function select(place) {
+      items.forEach(function (li) {
+        li.classList.toggle('is-open', li.getAttribute('data-place') === place);
+      });
+      groups.forEach(function (g) {
+        g.classList.toggle('is-sel', g.getAttribute('data-place') === place);
+      });
+      var open = items.filter(function (li) { return li.classList.contains('is-open'); })[0];
+      if (open) open.scrollIntoView({ block: 'nearest' });
+    }
+
+    groups.forEach(function (g) {
+      g.addEventListener('mouseenter', function () { showTip(g); });
+      g.addEventListener('mouseleave', hideTip);
+      g.addEventListener('focus', function () { showTip(g); });
+      g.addEventListener('blur', hideTip);
+      var pick = function () { select(g.getAttribute('data-place')); };
+      g.addEventListener('click', pick);
+      g.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); }
+      });
+    });
+
+    items.forEach(function (li) {
+      li.querySelector('.places__btn').addEventListener('click', function () {
+        var p = li.getAttribute('data-place');
+        select(li.classList.contains('is-open') ? null : p);
+      });
+    });
+  })();
+
+  /* ---------------------------------------------------------------- graph */
+  (function () {
+    var svg = document.getElementById('graph-svg');
+    if (!svg) return;
+
+    var W = 680, H = 500, ME = 'Vincenzo Messina';
+    var nodes = NET.nodes.map(function (n) { return Object.assign({}, n); });
+    var index = {};
+    nodes.forEach(function (n, i) { index[n.id] = i; n.i = i; });
+    var links = NET.links
+      .filter(function (l) { return index[l.s] !== undefined && index[l.t] !== undefined; })
+      .map(function (l) { return { s: index[l.s], t: index[l.t], w: l.w }; });
+
+    // Deterministic start positions: a seeded ring so the layout is the same
+    // on every load and never jitters between visits.
+    var seed = 7;
+    function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+    nodes.forEach(function (n, i) {
+      if (n.id === ME) { n.x = W / 2; n.y = H / 2; return; }
+      var a = (i / nodes.length) * Math.PI * 2 + rnd() * 0.5;
+      var r = 110 + rnd() * 110;
+      n.x = W / 2 + Math.cos(a) * r;
+      n.y = H / 2 + Math.sin(a) * r;
+    });
+
+    // Degree, used for repulsion mass and label priority.
+    var deg = nodes.map(function () { return 0; });
+    links.forEach(function (l) { deg[l.s]++; deg[l.t]++; });
+
+    var adj = nodes.map(function () { return {}; });
+    links.forEach(function (l) { adj[l.s][l.t] = true; adj[l.t][l.s] = true; });
+
+    // Plain spring-electrical relaxation. 36 nodes, so a few hundred
+    // synchronous passes cost nothing and avoid an animation loop.
+    var K = 62;
+    for (var it = 0; it < 420; it++) {
+      var cool = 1 - it / 420;
+      var fx = new Float64Array(nodes.length), fy = new Float64Array(nodes.length);
+
+      for (var a = 0; a < nodes.length; a++) {
+        for (var b = a + 1; b < nodes.length; b++) {
+          var dx = nodes[a].x - nodes[b].x, dy = nodes[a].y - nodes[b].y;
+          var d2 = dx * dx + dy * dy || 0.01;
+          var d = Math.sqrt(d2);
+          var rep = (K * K / d2) * (1 + 0.06 * (deg[a] + deg[b]));
+          var ux = dx / d, uy = dy / d;
+          fx[a] += ux * rep; fy[a] += uy * rep;
+          fx[b] -= ux * rep; fy[b] -= uy * rep;
+        }
+      }
+
+      links.forEach(function (l) {
+        var dx = nodes[l.t].x - nodes[l.s].x, dy = nodes[l.t].y - nodes[l.s].y;
+        var d = Math.sqrt(dx * dx + dy * dy) || 0.01;
+        var att = (d * d) / K / 26 * Math.min(l.w, 4);
+        var ux = dx / d, uy = dy / d;
+        fx[l.s] += ux * att; fy[l.s] += uy * att;
+        fx[l.t] -= ux * att; fy[l.t] -= uy * att;
+      });
+
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        // Gentle pull to centre keeps detached clusters on canvas.
+        fx[i] += (W / 2 - n.x) * 0.012;
+        fy[i] += (H / 2 - n.y) * 0.012;
+        if (n.id === ME) continue;
+        var m = Math.sqrt(fx[i] * fx[i] + fy[i] * fy[i]) || 1;
+        var step = Math.min(m, 14 * cool + 0.6);
+        n.x += fx[i] / m * step;
+        n.y += fy[i] / m * step;
+        n.x = Math.max(26, Math.min(W - 26, n.x));
+        n.y = Math.max(20, Math.min(H - 20, n.y));
+      }
+    }
+
+    // Relaxation leaves the graph compact in the middle of the canvas. Rescale
+    // the whole layout to fill the viewBox so the drawing uses the space it
+    // was given, at any aspect ratio.
+    (function fit() {
+      var pad = 34;
+      var xs = nodes.map(function (n) { return n.x; });
+      var ys = nodes.map(function (n) { return n.y; });
+      var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+      var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+      var sx = (W - 2 * pad) / Math.max(x1 - x0, 1);
+      var sy = (H - 2 * pad) / Math.max(y1 - y0, 1);
+      var s = Math.min(sx, sy);
+      var ox = pad + ((W - 2 * pad) - (x1 - x0) * s) / 2;
+      var oy = pad + ((H - 2 * pad) - (y1 - y0) * s) / 2;
+      nodes.forEach(function (n) {
+        n.x = ox + (n.x - x0) * s;
+        n.y = oy + (n.y - y0) * s;
+      });
+    })();
+
+    function radius(n) {
+      return n.id === ME ? 13 : Math.min(3.6 + n.n * 1.6, 10);
+    }
+
+    var SVGNS = 'http://www.w3.org/2000/svg';
+    var gL = document.getElementById('g-links');
+    var gN = document.getElementById('g-nodes');
+    var gT = document.getElementById('g-labels');
+
+    var linkEls = links.map(function (l) {
+      var e = document.createElementNS(SVGNS, 'line');
+      e.setAttribute('class', 'glink');
+      e.setAttribute('x1', nodes[l.s].x.toFixed(1));
+      e.setAttribute('y1', nodes[l.s].y.toFixed(1));
+      e.setAttribute('x2', nodes[l.t].x.toFixed(1));
+      e.setAttribute('y2', nodes[l.t].y.toFixed(1));
+      e.setAttribute('stroke-width', Math.min(0.5 + l.w * 0.35, 2.4).toFixed(2));
+      gL.appendChild(e);
+      return e;
+    });
+
+    var nodeEls = nodes.map(function (n) {
+      var e = document.createElementNS(SVGNS, 'circle');
+      e.setAttribute('class', 'gnode gnode--' + n.group);
+      e.setAttribute('cx', n.x.toFixed(1));
+      e.setAttribute('cy', n.y.toFixed(1));
+      e.setAttribute('r', radius(n));
+      e.setAttribute('tabindex', '0');
+      e.setAttribute('role', 'button');
+      e.setAttribute('aria-label', n.id + ', ' + n.n + ' papers');
+      gN.appendChild(e);
+      return e;
+    });
+
+    // Label the hubs only; everyone else surfaces on hover. Labelling all 35
+    // co-authors turns the middle of the graph into a block of overlapping
+    // text, so the threshold is deliberately high.
+    var labelled = nodes.filter(function (n) { return n.id === ME || n.n >= 3; });
+    var labelEls = labelled.map(function (n) {
+      var e = document.createElementNS(SVGNS, 'text');
+      e.setAttribute('class', 'glabel');
+      if (n.id === ME) e.setAttribute('class', 'glabel glabel--me');
+      e.setAttribute('text-anchor', 'middle');
+      var parts = n.id.split(' ');
+      e.textContent = n.id === ME ? 'Vincenzo Messina'
+                                  : parts[0][0] + '. ' + parts[parts.length - 1];
+      gT.appendChild(e);
+      e.__node = n;
+      e.__x = n.x;
+      e.__y = n.y - radius(n) - 5;
+      return e;
+    });
+
+    // Nudge any two labels that still sit on top of each other apart on the
+    // y axis. One pass top-to-bottom is enough at this node count.
+    labelEls.sort(function (a, b) { return a.__y - b.__y; });
+    for (var li = 1; li < labelEls.length; li++) {
+      for (var lj = 0; lj < li; lj++) {
+        var A = labelEls[li], B = labelEls[lj];
+        if (Math.abs(A.__x - B.__x) < 54 && Math.abs(A.__y - B.__y) < 11) {
+          A.__y = B.__y + 11;
+        }
+      }
+    }
+    labelEls.forEach(function (e) {
+      e.setAttribute('x', e.__x.toFixed(1));
+      e.setAttribute('y', e.__y.toFixed(1));
+    });
+
+    var tip    = document.getElementById('graph-tip');
+    var frame  = svg.closest('.viz__frame');
+    var detail = document.getElementById('graph-detail');
+
+    function highlight(i) {
+      if (i === null) {
+        linkEls.forEach(function (e) { e.classList.remove('is-hot', 'is-dim'); });
+        nodeEls.forEach(function (e) { e.classList.remove('is-dim'); });
+        labelEls.forEach(function (e) { e.classList.remove('is-dim'); });
+        return;
+      }
+      links.forEach(function (l, k) {
+        var hot = l.s === i || l.t === i;
+        linkEls[k].classList.toggle('is-hot', hot);
+        linkEls[k].classList.toggle('is-dim', !hot);
+      });
+      nodes.forEach(function (n, k) {
+        var near = k === i || adj[i][k];
+        nodeEls[k].classList.toggle('is-dim', !near);
+      });
+      labelEls.forEach(function (e) {
+        var k = e.__node.i;
+        e.classList.toggle('is-dim', !(k === i || adj[i][k]));
+      });
+    }
+
+    function showTip(i) {
+      var n = nodes[i];
+      tip.innerHTML = '<strong>' + n.id + '</strong><span>' + n.n +
+                      (n.n === 1 ? ' paper' : ' papers') +
+                      (n.id === ME ? '' : ' with me') + '</span>';
+      var r = nodeEls[i].getBoundingClientRect();
+      var fr = frame.getBoundingClientRect();
+      tip.style.left = (r.left - fr.left + r.width / 2) + 'px';
+      tip.style.top  = (r.top - fr.top) + 'px';
+      tip.classList.add('is-on');
+    }
+
+    function showDetail(i) {
+      var n = nodes[i];
+      if (n.id === ME || !n.papers) { detail.hidden = true; return; }
+      var html = '<h3>' + n.id + '</h3><p class="viz__detail-sub">' + n.n +
+                 (n.n === 1 ? ' joint paper' : ' joint papers') + '</p><ul>';
+      n.papers.slice().sort(function (a, b) { return b.y - a.y; }).forEach(function (p) {
+        html += '<li><span>' + p.y + '</span><a href="' + p.u + '">' + p.t + '</a></li>';
+      });
+      detail.innerHTML = html + '</ul>';
+      detail.hidden = false;
+    }
+
+    nodeEls.forEach(function (e, i) {
+      e.addEventListener('mouseenter', function () { highlight(i); showTip(i); });
+      e.addEventListener('mouseleave', function () { highlight(null); tip.classList.remove('is-on'); });
+      e.addEventListener('focus', function () { highlight(i); showTip(i); showDetail(i); });
+      e.addEventListener('blur', function () { highlight(null); tip.classList.remove('is-on'); });
+      e.addEventListener('click', function () { showDetail(i); });
+    });
+  })();
+})();
+</script>

@@ -1,16 +1,108 @@
 ---
 layout: archive
-title: "Talks and presentations"
+title: "Talks"
 permalink: /talks/
 author_profile: true
 ---
 
-{% if site.talkmap_link == true %}
+{% include base_path %}
 
-<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
+{% assign talks = site.talks | sort: "date" | reverse %}
+{% assign n_conf = talks | where: "talk_type", "Conference talk" | size %}
+{% assign n_work = talks | where: "talk_type", "Workshop talk" | size %}
+{% assign n_inv  = talks | where: "talk_type", "Invited talk" | size %}
 
-{% endif %}
+<div class="pubs" id="talks">
 
-{% for post in site.talks reversed %}
-  {% include archive-single-talk.html %}
-{% endfor %}
+  <p class="pubs__intro">
+    {{ talks | size }} conference and workshop presentations, from Baku in 2023 to
+    Paphos in 2026. Each links to the paper behind it; slides are added as decks
+    are cleared for publication. See also the
+    <a href="{{ base_path }}/research-map/">research map</a> for where these took place.
+  </p>
+
+  <div class="pubs__controls">
+    <div class="pubs__chiprow" role="group" aria-label="Filter talks by type">
+      <button type="button" class="chip is-active" data-ttype="all">All <span class="chip__n">{{ talks | size }}</span></button>
+      {% if n_conf > 0 %}<button type="button" class="chip" data-ttype="Conference talk">Conference <span class="chip__n">{{ n_conf }}</span></button>{% endif %}
+      {% if n_work > 0 %}<button type="button" class="chip" data-ttype="Workshop talk">Workshop <span class="chip__n">{{ n_work }}</span></button>{% endif %}
+      {% if n_inv > 0 %}<button type="button" class="chip" data-ttype="Invited talk">Invited <span class="chip__n">{{ n_inv }}</span></button>{% endif %}
+    </div>
+    <p class="pubs__status" id="talks-status" role="status" aria-live="polite"></p>
+  </div>
+
+  <ol class="timeline" id="talks-list">
+    {% assign current_year = "" %}
+    {% for talk in talks %}
+      {% assign y = talk.date | date: "%Y" %}
+      {% if y != current_year %}
+        {% assign current_year = y %}
+        <li class="timeline__year" data-year="{{ y }}"><h2 class="pubs__year">{{ y }}</h2></li>
+      {% endif %}
+
+      <li class="timeline__item" data-ttype="{{ talk.talk_type }}" data-year="{{ y }}">
+        <span class="timeline__dot" aria-hidden="true"></span>
+        <p class="timeline__meta">
+          <span class="timeline__date">{{ talk.date | date: "%d %b %Y" }}</span>
+          <span class="pub__badge pub__badge--{% if talk.talk_type == 'Workshop talk' %}workshop{% else %}conference{% endif %}">{{ talk.talk_type }}</span>
+        </p>
+
+        <h3 class="timeline__title">
+          <a href="{{ base_path }}{{ talk.url }}">{{ talk.title }}</a>
+        </h3>
+
+        <p class="timeline__venue">
+          {{ talk.venue }} <span class="pub__dot">&middot;</span> {{ talk.location }}
+        </p>
+
+        {% if talk.summary %}<p class="timeline__sum">{{ talk.summary }}</p>{% endif %}
+
+        <div class="pub__actions">
+          {% if talk.slidesurl %}<a class="pub__btn pub__btn--solid" href="{{ talk.slidesurl }}">Slides</a>{% endif %}
+          {% if talk.link %}<a class="pub__btn" href="{{ base_path }}{{ talk.link }}">Paper</a>{% endif %}
+          {% if talk.news %}<a class="pub__btn" href="{{ base_path }}{{ talk.news }}">News</a>{% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ol>
+
+  <p class="pubs__empty" id="talks-empty" hidden>No talks of that type.</p>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('talks');
+  if (!root) return;
+  var items  = [].slice.call(root.querySelectorAll('.timeline__item'));
+  var years  = [].slice.call(root.querySelectorAll('.timeline__year'));
+  var chips  = [].slice.call(root.querySelectorAll('[data-ttype]')).filter(function (e) {
+    return e.tagName === 'BUTTON';
+  });
+  var status = document.getElementById('talks-status');
+  var empty  = document.getElementById('talks-empty');
+
+  function apply(type) {
+    var shown = 0;
+    items.forEach(function (el) {
+      var ok = type === 'all' || el.getAttribute('data-ttype') === type;
+      el.hidden = !ok;
+      if (ok) shown++;
+    });
+    years.forEach(function (h) {
+      var y = h.getAttribute('data-year');
+      h.hidden = !items.some(function (el) {
+        return !el.hidden && el.getAttribute('data-year') === y;
+      });
+    });
+    status.textContent = type === 'all' ? '' : shown + ' of ' + items.length + ' talks';
+    empty.hidden = shown !== 0;
+  }
+
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      chips.forEach(function (o) { o.classList.toggle('is-active', o === c); });
+      apply(c.getAttribute('data-ttype'));
+    });
+  });
+})();
+</script>

@@ -1,0 +1,15 @@
+# Local preview overrides. Layer this on top of _config.yml:
+#
+#   bundle exec jekyll serve --config _config.yml,_config_dev.yml --livereload
+#
+# Why this file exists: _config.yml sets an absolute `url`
+# (https://messinavincenzo.github.io), and the theme builds every stylesheet,
+# script and nav link from it. Serving locally without this override makes the
+# preview fetch the PUBLISHED site's CSS, so local style changes appear to do
+# nothing and new components render unstyled. Emptying `url` makes those links
+# root-relative, so the preview uses the files you just built.
+#
+# Never commit these values into _config.yml itself - the published site needs
+# the absolute URL for its sitemap and feed.
+url: ""
+baseurl: ""

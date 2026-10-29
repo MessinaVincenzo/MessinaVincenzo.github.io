@@ -22,6 +22,12 @@ main:
   - title: "Publications"
     url: /publications/
 
+  - title: "Talks"
+    url: /talks/
+
+  - title: "Research map"
+    url: /research-map/
+
   - title: "CV"
     url: /cv/
 
