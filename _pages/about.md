@@ -1,6 +1,6 @@
 ---
 permalink: /
-author_profile: true
+author_profile: false   # single column: the hero already states name and affiliation
 redirect_from:
   - /about/
   - /about.html

@@ -4,6 +4,9 @@ collection: talks
 type: 'Workshop talk'
 talk_type: 'Workshop talk'
 permalink: /talks/iwpss-2025-central-nodes
+header:
+  teaser: iwpss-2025-toulouse-presenting.jpg
+image_alt: 'Presenting at IWPSS 2025 in Toulouse'
 date: 2025-04-30
 venue: '14th International Workshop on Planning &amp; Scheduling for Space (IWPSS)'
 venue_short: 'IWPSS 2025'

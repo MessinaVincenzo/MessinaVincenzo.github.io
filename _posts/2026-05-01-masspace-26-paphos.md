@@ -2,6 +2,9 @@
 title: 'Paper at MASSpace-26 in Paphos, Cyprus'
 date: 2026-05-01
 permalink: /posts/2026/05/masspace-26-paphos/
+header:
+  teaser: masspace-2026-paphos-presenting.jpg
+image_alt: 'Presenting the multi-task allocation work at MASSpace-26 in Paphos'
 kind: paper
 location: 'Paphos, Cyprus'
 summary: >-

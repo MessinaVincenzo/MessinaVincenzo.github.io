@@ -159,7 +159,7 @@ author_profile: true
 
   var state = { q: '', type: 'all', topics: [] };
 
-  // Cache the lowercased haystack once rather than on every keystroke.
+  /* Cache the lowercased haystack once rather than on every keystroke. */
   items.forEach(function (el) {
     el.__hay = (el.getAttribute('data-search') || '').toLowerCase();
     el.__type = el.getAttribute('data-type');
@@ -173,7 +173,7 @@ author_profile: true
       if (!hit) return false;
     }
     if (state.q) {
-      // Every whitespace-separated term must appear somewhere in the entry.
+      /* Every whitespace-separated term must appear somewhere in the entry. */
       var terms = state.q.split(/\s+/).filter(Boolean);
       for (var i = 0; i < terms.length; i++) {
         if (el.__hay.indexOf(terms[i]) === -1) return false;
@@ -190,7 +190,7 @@ author_profile: true
       if (ok) shown++;
     });
 
-    // A year heading only earns its place if something under it survived.
+    /* A year heading only earns its place if something under it survived. */
     years.forEach(function (h) {
       var y = h.getAttribute('data-year');
       var any = items.some(function (el) {
@@ -242,7 +242,7 @@ author_profile: true
     apply();
   });
 
-  // Disclosure buttons: abstract and BibTeX.
+  /* Disclosure buttons: abstract and BibTeX. */
   function wireToggle(btnClass, panelClass) {
     root.querySelectorAll(btnClass).forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -258,8 +258,8 @@ author_profile: true
   wireToggle('.pub__btn--abstract', '.pub__abstract');
   wireToggle('.pub__btn--bib', '.pub__bibwrap');
 
-  // Copy BibTeX. Falls back to selecting the text when the async clipboard
-  // API is unavailable (non-HTTPS origins, older browsers).
+  /* Copy BibTeX. Falls back to selecting the text when the async clipboard */
+  /* API is unavailable (non-HTTPS origins, older browsers). */
   root.querySelectorAll('.pub__copy').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var pre = btn.parentNode.querySelector('code');

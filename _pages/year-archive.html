@@ -10,7 +10,7 @@ redirect_from:
 
 {% include base_path %}
 
-{% assign kinds = "talk,paper,research,teaching,outreach,visit" | split: "," %}
+{% assign kinds = "talk,paper,service,research,teaching,outreach,visit" | split: "," %}
 
 <div class="feedwrap" id="newsfeed">
 
@@ -102,7 +102,7 @@ redirect_from:
       if (ok) shown++;
     });
 
-    // Hide a year heading once nothing is left under it.
+    /* Hide a year heading once nothing is left under it. */
     rows.forEach(function (r) {
       var y = r.getAttribute('data-year');
       r.hidden = !items.some(function (el) {

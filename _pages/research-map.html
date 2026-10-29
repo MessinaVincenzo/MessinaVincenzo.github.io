@@ -186,8 +186,8 @@ author_profile: true
       .filter(function (l) { return index[l.s] !== undefined && index[l.t] !== undefined; })
       .map(function (l) { return { s: index[l.s], t: index[l.t], w: l.w }; });
 
-    // Deterministic start positions: a seeded ring so the layout is the same
-    // on every load and never jitters between visits.
+    /* Deterministic start positions: a seeded ring so the layout is the same */
+    /* on every load and never jitters between visits. */
     var seed = 7;
     function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
     nodes.forEach(function (n, i) {
@@ -198,15 +198,15 @@ author_profile: true
       n.y = H / 2 + Math.sin(a) * r;
     });
 
-    // Degree, used for repulsion mass and label priority.
+    /* Degree, used for repulsion mass and label priority. */
     var deg = nodes.map(function () { return 0; });
     links.forEach(function (l) { deg[l.s]++; deg[l.t]++; });
 
     var adj = nodes.map(function () { return {}; });
     links.forEach(function (l) { adj[l.s][l.t] = true; adj[l.t][l.s] = true; });
 
-    // Plain spring-electrical relaxation. 36 nodes, so a few hundred
-    // synchronous passes cost nothing and avoid an animation loop.
+    /* Plain spring-electrical relaxation. 36 nodes, so a few hundred */
+    /* synchronous passes cost nothing and avoid an animation loop. */
     var K = 62;
     for (var it = 0; it < 420; it++) {
       var cool = 1 - it / 420;
@@ -235,7 +235,7 @@ author_profile: true
 
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
-        // Gentle pull to centre keeps detached clusters on canvas.
+        /* Gentle pull to centre keeps detached clusters on canvas. */
         fx[i] += (W / 2 - n.x) * 0.012;
         fy[i] += (H / 2 - n.y) * 0.012;
         if (n.id === ME) continue;
@@ -248,9 +248,9 @@ author_profile: true
       }
     }
 
-    // Relaxation leaves the graph compact in the middle of the canvas. Rescale
-    // the whole layout to fill the viewBox so the drawing uses the space it
-    // was given, at any aspect ratio.
+    /* Relaxation leaves the graph compact in the middle of the canvas. Rescale */
+    /* the whole layout to fill the viewBox so the drawing uses the space it */
+    /* was given, at any aspect ratio. */
     (function fit() {
       var pad = 34;
       var xs = nodes.map(function (n) { return n.x; });
@@ -302,9 +302,9 @@ author_profile: true
       return e;
     });
 
-    // Label the hubs only; everyone else surfaces on hover. Labelling all 35
-    // co-authors turns the middle of the graph into a block of overlapping
-    // text, so the threshold is deliberately high.
+    /* Label the hubs only; everyone else surfaces on hover. Labelling all 35 */
+    /* co-authors turns the middle of the graph into a block of overlapping */
+    /* text, so the threshold is deliberately high. */
     var labelled = nodes.filter(function (n) { return n.id === ME || n.n >= 3; });
     var labelEls = labelled.map(function (n) {
       var e = document.createElementNS(SVGNS, 'text');
@@ -321,8 +321,8 @@ author_profile: true
       return e;
     });
 
-    // Nudge any two labels that still sit on top of each other apart on the
-    // y axis. One pass top-to-bottom is enough at this node count.
+    /* Nudge any two labels that still sit on top of each other apart on the */
+    /* y axis. One pass top-to-bottom is enough at this node count. */
     labelEls.sort(function (a, b) { return a.__y - b.__y; });
     for (var li = 1; li < labelEls.length; li++) {
       for (var lj = 0; lj < li; lj++) {

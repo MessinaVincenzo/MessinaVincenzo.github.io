@@ -15,8 +15,8 @@ author_profile: true
 <div class="pubs" id="talks">
 
   <p class="pubs__intro">
-    {{ talks | size }} conference and workshop presentations, from Baku in 2023 to
-    Paphos in 2026. Each links to the paper behind it; slides are added as decks
+    {{ talks | size }} conference, workshop and invited presentations, from Estoril in
+    2022 to Paphos in 2026. Each links to the paper behind it; slides are added as decks
     are cleared for publication. See also the
     <a href="{{ base_path }}/research-map/">research map</a> for where these took place.
   </p>
@@ -40,11 +40,18 @@ author_profile: true
         <li class="timeline__year" data-year="{{ y }}"><h2 class="pubs__year">{{ y }}</h2></li>
       {% endif %}
 
-      <li class="timeline__item" data-ttype="{{ talk.talk_type }}" data-year="{{ y }}">
+      <li class="timeline__item{% if talk.header.teaser %} timeline__item--haspic{% endif %}" data-ttype="{{ talk.talk_type }}" data-year="{{ y }}">
         <span class="timeline__dot" aria-hidden="true"></span>
+
+        {% if talk.header.teaser %}
+          <figure class="timeline__thumb">
+            <img src="{{ base_path }}/images/{{ talk.header.teaser }}"
+                 alt="{{ talk.image_alt | default: talk.title | escape }}" loading="lazy">
+          </figure>
+        {% endif %}
         <p class="timeline__meta">
           <span class="timeline__date">{{ talk.date | date: "%d %b %Y" }}</span>
-          <span class="pub__badge pub__badge--{% if talk.talk_type == 'Workshop talk' %}workshop{% else %}conference{% endif %}">{{ talk.talk_type }}</span>
+          <span class="pub__badge pub__badge--{% if talk.talk_type == 'Workshop talk' %}workshop{% elsif talk.talk_type == 'Invited talk' %}invited{% else %}conference{% endif %}">{{ talk.talk_type }}</span>
         </p>
 
         <h3 class="timeline__title">

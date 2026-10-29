@@ -1918,3 +1918,413 @@ html[data-theme="dark"] .projects__flag--lead { color: #93c5fd; }
   .lead-project { padding: 1.1em 1.15em 1.2em; }
   .lead-project__h { font-size: 1.08em; }
 }
+
+/* ==========================================================================
+   MODERN LAYER
+   Pushes the register from "academic template with a dark header" towards
+   something closer to a product or mission-ops console: a dot-matrix field
+   behind the page, a hero that bleeds past the text column, display type with
+   tight tracking, and accent glow instead of grey drop shadow.
+
+   Loaded last, so it refines everything above it.
+   ========================================================================== */
+
+:root {
+  --mod-edge       : rgba(15, 23, 42, 0.08);
+  --mod-text-dim   : rgba(15, 23, 42, 0.62);
+}
+
+html[data-theme="dark"] {
+  --mod-edge       : rgba(255, 255, 255, 0.10);
+  --mod-text-dim   : rgba(255, 255, 255, 0.66);
+}
+
+/* --------------------------------------------------------------------------
+   Page field
+   Deliberately plain. A dot-matrix field and colour washes were tried here and
+   removed: the reference sites earn their technical feel from real engineering
+   imagery, not from decorative background texture, and the pattern competed
+   with the figures and photographs.
+   -------------------------------------------------------------------------- */
+
+#main,
+.page__footer { position: relative; z-index: 1; }
+
+.masthead { z-index: 20; }
+
+/* --------------------------------------------------------------------------
+   Masthead - frosted bar rather than a solid block
+   -------------------------------------------------------------------------- */
+
+.masthead {
+  backdrop-filter: saturate(140%) blur(10px);
+  -webkit-backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05), 0 8px 28px rgba(7, 11, 24, 0.34);
+}
+
+.greedy-nav a {
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   Bleeds past the text column, taller, with a stronger limb glow and display
+   type. The orbital SVG gets room instead of being clipped behind the text.
+   -------------------------------------------------------------------------- */
+
+.hero {
+  margin-bottom: 3.2em;
+  padding: 3.6em 3em 3.2em;
+  border-radius: 20px;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.07) inset,
+    0 26px 70px rgba(7, 11, 24, 0.40);
+
+  /* A second, wider glow behind the first for more depth. */
+  &::after {
+    top: -230px;
+    right: -170px;
+    width: 560px;
+    height: 560px;
+    background: radial-gradient(circle,
+                rgba(77, 163, 255, 0.38) 0%,
+                rgba(139, 108, 255, 0.18) 42%,
+                transparent 70%);
+  }
+
+  &__eyebrow {
+    margin-bottom: 1.15em;
+    color: rgba(147, 197, 253, 0.92);
+    font-family: var(--ops-mono);
+    font-size: 0.62em;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    line-height: 1.6;
+  }
+
+  &__title {
+    margin: 0 0 0.3em;
+    font-size: 3.1em;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+    color: #fff;
+  }
+
+  /* The gradient fill only applies where background-clip:text works. Without
+     the guard, `color: transparent` would leave the name invisible. */
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    &__title {
+      background: linear-gradient(104deg, #ffffff 28%, #bcd9ff 62%, #c3b4ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &__lede {
+    max-width: 34em;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 1.0em;
+    line-height: 1.68;
+  }
+
+  &__chips li {
+    border-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    font-family: var(--ops-mono);
+    font-size: 0.64em;
+    letter-spacing: 0.06em;
+  }
+}
+
+/* Hero buttons: pills with glow, and no inherited underline. --------------- */
+
+.hero__actions .btn,
+.page__content .hero__actions .btn,
+.archive .hero__actions .btn {
+  padding: 0.7em 1.35em;
+  border-radius: 999px;
+  font-size: 0.74em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+}
+
+.hero__actions .btn--primary {
+  border: 0;
+  background: linear-gradient(135deg, #4da3ff, #8b6cff);
+  color: #fff;
+  box-shadow: 0 6px 22px rgba(77, 163, 255, 0.42);
+
+  &:hover { box-shadow: 0 10px 30px rgba(77, 163, 255, 0.55); }
+}
+
+.hero__actions .btn--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.42);
+    background: rgba(255, 255, 255, 0.11);
+    color: #fff;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Section headings - display weight, generous air above
+   -------------------------------------------------------------------------- */
+
+.page__content > h2,
+.archive > h2:not(.pubs__year):not(.projects__h):not(.lead-project__h) {
+  margin-top: 2.9em;
+  margin-bottom: 0.7em;
+  font-size: 1.42em;
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   Surfaces - crisper edges, accent glow instead of grey shadow
+   -------------------------------------------------------------------------- */
+
+.topics > li,
+.subsys__card,
+.projects > li,
+.metrics,
+.viz__frame,
+.pubs__controls {
+  border-color: var(--mod-edge);
+}
+
+.topics > li:hover,
+.subsys__card:hover,
+.projects > li:hover {
+  box-shadow: var(--space-card-shadow-hover);
+}
+
+/* Slightly stronger body copy - the template default reads washed out. ----- */
+
+.page__content,
+.archive {
+  p, li { color: inherit; }
+}
+
+.topics__p,
+.projects__p,
+.lead-project__p,
+.feed__excerpt,
+.timeline__sum,
+.pubs__intro {
+  color: var(--mod-text-dim);
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens
+   -------------------------------------------------------------------------- */
+
+@media screen and (max-width: 48em) {
+  .hero {
+    margin-right: 0;
+    margin-left: 0;
+    padding: 2.3em 1.5em 2.1em;
+  }
+
+  .hero__title { font-size: 2.1em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__eyebrow::before { animation: none; }
+  .hero__actions .btn { transition: none; }
+  .hero__actions .btn:hover { transform: none; }
+}
+
+
+/* --------------------------------------------------------------------------
+   Air
+   The reference sites get most of their modernity from whitespace and type
+   scale rather than ornament, so the spacing below the hero is opened up and
+   the body copy is set a little larger.
+   -------------------------------------------------------------------------- */
+
+.page__content {
+  font-size: 1.02em;
+  line-height: 1.75;
+
+  > p { margin-bottom: 1.25em; }
+}
+
+.metrics { margin: 2.4em 0 2.8em; }
+
+.topics {
+  gap: 1.3em;
+  margin: 1.8em 0 2.6em;
+
+  > li { padding: 1.4em 1.45em; }
+}
+
+.topics__h  { font-size: 1.0em; }
+.topics__p  { font-size: 0.82em; }
+
+.selected {
+  margin: 1.5em 0 1.8em;
+
+  > li { padding: 1.05em 0; }
+}
+
+.selected__title { font-size: 0.95em; }
+
+.feed__item { padding: 1.5em 0; }
+
+.subsys {
+  gap: 1.3em;
+  margin: 1.7em 0 2.4em;
+}
+
+.projects {
+  gap: 1.3em;
+  margin: 2em 0 0;
+}
+
+.lead-project {
+  margin: 2em 0 1.5em;
+  padding: 1.7em 1.9em 1.75em;
+  box-shadow: var(--space-card-shadow);
+}
+
+.pubs__intro {
+  font-size: 0.94em;
+  line-height: 1.75;
+  max-width: 44em;
+}
+
+.pub        { padding: 1.5em 0 1.4em; }
+.timeline__item { padding: 1.5em 0 1.45em; }
+
+/* With `author_profile: false` the sidebar element is not rendered at all, so
+   the ~17% column the theme reserves for it would sit empty and push the
+   content off-centre. Reclaim it and centre the page instead. */
+#main > .page:only-child {
+  width: 100%;
+  max-width: 64em;
+  float: none;
+  margin: 0 auto;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+/* Prose still wants a readable measure; the hero and the card grids do not,
+   so the cap goes on the text elements rather than on the wrapper. */
+.page__content > p,
+.page__content > ul:not([class]),
+.page__content > ol:not([class]) {
+  max-width: 44em;
+}
+
+
+/* --------------------------------------------------------------------------
+   Final balance pass
+   -------------------------------------------------------------------------- */
+
+/* Four research cards on an auto-fit grid wrap 3 + 1 and leave a hole. A
+   fixed two-column grid gives a balanced 2x2 and more room per card. */
+@media screen and (min-width: 50em) {
+  .topics { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* The citation line under each selected publication was too faint to read
+   comfortably against the page. */
+.selected__meta {
+  color: var(--mod-text-dim);
+  font-size: 0.76em;
+  line-height: 1.55;
+}
+
+.feed__excerpt,
+.timeline__sum { font-size: 0.82em; }
+
+/* --------------------------------------------------------------------------
+   Invited talks, service entries and talk thumbnails
+   -------------------------------------------------------------------------- */
+
+.pub__badge--invited {
+  border-color: rgba(219, 39, 119, 0.45);
+  color: #be185d;
+}
+
+.feed__tag--service {
+  border-color: rgba(13, 148, 136, 0.5);
+  color: #0f766e;
+}
+
+html[data-theme="dark"] {
+  .pub__badge--invited { color: #f9a8d4; }
+  .feed__tag--service  { color: #5eead4; }
+}
+
+/* A talk with a photograph becomes a two-column row; the rule and dot stay
+   where they are, so a filtered list still reads as one timeline. */
+.timeline__item--haspic {
+  display: grid;
+  grid-template-columns: 8.5em 1fr;
+  grid-template-rows: auto;
+  gap: 0 1.2em;
+
+  > .timeline__dot { grid-column: 1; }
+
+  > .timeline__thumb { grid-row: 1 / span 5; grid-column: 1; }
+
+  > .timeline__meta,
+  > .timeline__title,
+  > .timeline__venue,
+  > .timeline__sum,
+  > .pub__actions { grid-column: 2; }
+}
+
+.timeline__thumb {
+  margin: 0.2em 0 0;
+  overflow: hidden;
+  border: 1px solid var(--space-card-border);
+  border-radius: 9px;
+  background: var(--rich-panel-bg);
+  aspect-ratio: 4 / 3;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media screen and (max-width: 37.5em) {
+  .timeline__item--haspic {
+    grid-template-columns: 1fr;
+
+    > .timeline__thumb {
+      grid-row: auto;
+      max-width: 11em;
+      margin-bottom: 0.7em;
+    }
+
+    > .timeline__meta,
+    > .timeline__title,
+    > .timeline__venue,
+    > .timeline__sum,
+    > .pub__actions { grid-column: 1; }
+  }
+}

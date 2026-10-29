@@ -15,7 +15,7 @@ layout: default
     <div class="page__inner-wrap">
       <header class="pubpage__head">
         <p class="pubpage__eyebrow">
-          <span class="pub__badge pub__badge--{% if page.talk_type == 'Workshop talk' %}workshop{% else %}conference{% endif %}">{{ page.talk_type | default: "Talk" }}</span>
+          <span class="pub__badge pub__badge--{% if page.talk_type == 'Workshop talk' %}workshop{% elsif page.talk_type == 'Invited talk' %}invited{% else %}conference{% endif %}">{{ page.talk_type | default: "Talk" }}</span>
           <span class="pubpage__year">{{ page.date | date: "%d %B %Y" }}</span>
         </p>
 
@@ -33,6 +33,13 @@ layout: default
       </header>
 
       <section class="page__content pubpage__body" itemprop="description">
+        {% if page.header.teaser %}
+          <figure class="postfig">
+            <img src="{{ base_path }}/images/{{ page.header.teaser }}"
+                 alt="{{ page.image_alt | default: page.title | escape }}" loading="lazy">
+            {% if page.image_alt %}<figcaption>{{ page.image_alt }}</figcaption>{% endif %}
+          </figure>
+        {% endif %}
         {{ content }}
 
         {% unless page.slidesurl %}

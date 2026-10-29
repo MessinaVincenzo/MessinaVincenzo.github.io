@@ -4,6 +4,9 @@ collection: talks
 type: 'Conference talk'
 talk_type: 'Conference talk'
 permalink: /talks/iac-2024-latency-optimization
+header:
+  teaser: iac-2024-milan.jpg
+image_alt: 'The IAC 2024 sign in Milan'
 date: 2024-10-16
 venue: '75th International Astronautical Congress (IAC) — IAA Symposium on Small Satellite Missions'
 venue_short: 'IAC 2024'

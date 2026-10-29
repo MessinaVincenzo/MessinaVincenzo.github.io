@@ -4,6 +4,9 @@ collection: talks
 type: 'Workshop talk'
 talk_type: 'Workshop talk'
 permalink: /talks/masspace-26-central-nodes
+header:
+  teaser: masspace-2026-paphos-presenting.jpg
+image_alt: 'Presenting at MASSpace-26 in Paphos'
 date: 2026-05-25
 venue: 'International Workshop on Autonomous Agents and Multi-Agent Systems for Space Applications (MASSpace-26), AAMAS'
 venue_short: 'MASSpace-26 @ AAMAS'

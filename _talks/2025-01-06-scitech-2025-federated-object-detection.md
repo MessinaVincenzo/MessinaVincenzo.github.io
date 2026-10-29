@@ -4,6 +4,9 @@ collection: talks
 type: 'Conference talk'
 talk_type: 'Conference talk'
 permalink: /talks/scitech-2025-federated-object-detection
+header:
+  teaser: scitech-2025-orlando-presenting.jpg
+image_alt: 'Presenting at AIAA SciTech 2025 in Orlando'
 date: 2025-01-06
 venue: 'AIAA SciTech 2025 Forum'
 venue_short: 'AIAA SciTech 2025'

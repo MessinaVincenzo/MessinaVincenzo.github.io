@@ -3,9 +3,8 @@ title: 'At Space Day München 2025'
 date: 2025-04-12
 permalink: /posts/2025/04/space-day-muenchen-2025/
 header:
-  teaser: space-day-muenchen-2025.jpg
-image_alt: 'Our EventSat stand at Space Day München 2025'
-image_credit: 'TUM ASG Chair of Spacecraft Systems'
+  teaser: space-day-muenchen-2025-stand.jpg
+image_alt: 'The Space Day Munchen stand, with a WARR rocket on display'
 kind: outreach
 location: 'Munich, Germany'
 summary: >-

@@ -4,6 +4,9 @@ collection: talks
 type: 'Conference talk'
 talk_type: 'Conference talk'
 permalink: /talks/iac-2023-time-varying-dynamic-graph
+header:
+  teaser: iac-2023-baku.jpg
+image_alt: 'At the IAC 2023 sign in Baku'
 date: 2023-10-02
 venue: '74th International Astronautical Congress (IAC)'
 venue_short: 'IAC 2023'
