@@ -101,11 +101,7 @@ exchange of observational tasks.
 
 <ul class="topics">
   <li>
-    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-      <circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="7" r="2.2"/>
-      <circle cx="12" cy="17" r="2.2"/><circle cx="12" cy="4" r="1.6"/>
-      <path d="M7.1 6.6 16.9 6.9M6.2 7.9l4.7 7.3M17.8 8.9l-4.4 6.4M11 4.4 6.3 5.5M13 4.3l4.6 1.4"/>
-    </svg>
+    {% include research-glyph.html kind="mesh" %}
     <h3 class="topics__h">Decentralized satellite networks</h3>
     <p class="topics__p">
       Coordination and consensus across a federation of independently operated
@@ -114,10 +110,7 @@ exchange of observational tasks.
     <a class="topics__link" href="{{ base_path }}/publications/">6 papers &rarr;</a>
   </li>
   <li>
-    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-      <rect x="3" y="9" width="6" height="6" rx="1.2"/><rect x="15" y="4" width="6" height="6" rx="1.2"/>
-      <rect x="15" y="14" width="6" height="6" rx="1.2"/><path d="M9 11.4h6M9 13h6M15 7h-3v10h3"/>
-    </svg>
+    {% include research-glyph.html kind="central" %}
     <h3 class="topics__h">Distributed task allocation</h3>
     <p class="topics__p">
       Scheduling observations under limited on-board computation, power and
@@ -126,10 +119,7 @@ exchange of observational tasks.
     <a class="topics__link" href="{{ base_path }}/publications/">4 papers &rarr;</a>
   </li>
   <li>
-    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-      <path d="M2 12h3.5M18.5 12H22M12 2v3.5M12 18.5V22"/>
-      <circle cx="12" cy="12" r="4.2"/><circle cx="12" cy="12" r="7.6" stroke-dasharray="2.5 2.5"/>
-    </svg>
+    {% include research-glyph.html kind="event" %}
     <h3 class="topics__h">Space situational awareness</h3>
     <p class="topics__p">
       Detecting and tracking resident space objects collaboratively, including
@@ -138,11 +128,7 @@ exchange of observational tasks.
     <a class="topics__link" href="{{ base_path }}/publications/">7 papers &rarr;</a>
   </li>
   <li>
-    <svg class="topics__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
-      <ellipse cx="12" cy="12" rx="10" ry="4"/>
-      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(62 12 12)"/>
-      <circle cx="12" cy="12" r="2.4"/><circle cx="21.3" cy="13.4" r="1.2"/><circle cx="6.4" cy="4.6" r="1.2"/>
-    </svg>
+    {% include research-glyph.html kind="walker" %}
     <h3 class="topics__h">Constellation design</h3>
     <p class="topics__p">
       Network analysis, latency optimization and mission architecture trade

@@ -26,6 +26,8 @@ fully decentralised coordination scales but converges slowly. A small fraction o
 *central nodes* turns out to recover most of the responsiveness of a centralised
 scheme while keeping the scalability of a decentralised one.
 
+{% include diagram-selective-propagation.html %}
+
 ## Three threads
 
 <div class="subsys">

@@ -1,0 +1,57 @@
+{%- comment -%}
+  Schematic glyphs for the four research areas. Each one draws the actual
+  structure the topic is about rather than a generic satellite outline:
+
+    mesh        peer-to-peer links with no hub at all
+    central     a few hub nodes among many peers - the central-node question
+    event       an event-camera pixel grid with a moving object's track
+    walker      stacked orbital shells of a Walker constellation
+
+  Usage: {% include research-glyph.html kind="mesh" %}
+{%- endcomment -%}
+{%- assign k = include.kind -%}
+<svg class="glyph" viewBox="0 0 48 48" role="img" aria-hidden="true" fill="none"
+     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+{%- case k -%}
+{%- when 'mesh' -%}
+  {%- comment -%} Every node talks to its neighbours; nothing is privileged. {%- endcomment -%}
+  <path class="glyph__link" d="M12 13 L31 9 M31 9 L39 24 M39 24 L26 38 M26 38 L10 31 M10 31 L12 13
+                               M12 13 L26 38 M31 9 L26 38 M10 31 L39 24"/>
+  <circle class="glyph__dot" cx="12" cy="13" r="3"/>
+  <circle class="glyph__dot" cx="31" cy="9"  r="3"/>
+  <circle class="glyph__dot" cx="39" cy="24" r="3"/>
+  <circle class="glyph__dot" cx="26" cy="38" r="3"/>
+  <circle class="glyph__dot" cx="10" cy="31" r="3"/>
+{%- when 'central' -%}
+  {%- comment -%} Two hubs carry the traffic for the rest. {%- endcomment -%}
+  <path class="glyph__link" d="M18 24 L7 12 M18 24 L7 24 M18 24 L7 36 M18 24 L32 16
+                               M32 16 L43 9 M32 16 L43 22 M32 16 L18 24 M18 24 L28 38 M28 38 L41 36"/>
+  <circle class="glyph__dot glyph__dot--hub" cx="18" cy="24" r="4.4"/>
+  <circle class="glyph__dot glyph__dot--hub" cx="32" cy="16" r="3.6"/>
+  <circle class="glyph__dot" cx="7"  cy="12" r="2.1"/>
+  <circle class="glyph__dot" cx="7"  cy="24" r="2.1"/>
+  <circle class="glyph__dot" cx="7"  cy="36" r="2.1"/>
+  <circle class="glyph__dot" cx="43" cy="9"  r="2.1"/>
+  <circle class="glyph__dot" cx="43" cy="22" r="2.1"/>
+  <circle class="glyph__dot" cx="28" cy="38" r="2.1"/>
+  <circle class="glyph__dot" cx="41" cy="36" r="2.1"/>
+{%- when 'event' -%}
+  {%- comment -%} Only the pixels that changed fire; the rest stay dark. {%- endcomment -%}
+  <rect x="6" y="6" width="36" height="36" rx="3" class="glyph__frame"/>
+  <path class="glyph__grid" d="M15 6v36 M24 6v36 M33 6v36 M6 15h36 M6 24h36 M6 33h36"/>
+  <rect class="glyph__px" x="16.5" y="34.5" width="6" height="6"/>
+  <rect class="glyph__px" x="25.5" y="25.5" width="6" height="6"/>
+  <rect class="glyph__px" x="25.5" y="16.5" width="6" height="6"/>
+  <rect class="glyph__px" x="34.5" y="7.5"  width="6" height="6"/>
+  <path class="glyph__track" d="M19 37 L28 28 L28 19 L37 10"/>
+{%- when 'walker' -%}
+  {%- comment -%} Stacked orbital shells with spacecraft on them. {%- endcomment -%}
+  <circle class="glyph__body" cx="24" cy="24" r="6.5"/>
+  <ellipse class="glyph__orbit" cx="24" cy="24" rx="19" ry="8"/>
+  <ellipse class="glyph__orbit" cx="24" cy="24" rx="19" ry="8" transform="rotate(60 24 24)"/>
+  <ellipse class="glyph__orbit" cx="24" cy="24" rx="19" ry="8" transform="rotate(120 24 24)"/>
+  <circle class="glyph__dot" cx="43" cy="24" r="2.3"/>
+  <circle class="glyph__dot" cx="14.5" cy="40.5" r="2.3"/>
+  <circle class="glyph__dot" cx="33.5" cy="7.5"  r="2.3"/>
+{%- endcase -%}
+</svg>

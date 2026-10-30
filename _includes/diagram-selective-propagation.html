@@ -1,0 +1,114 @@
+{%- comment -%}
+  Reward-based selective propagation, drawn as a figure rather than decoration.
+
+  This is the mechanism behind the Collaborative Satellite Network papers: each
+  satellite scores an observation opportunity with a reward function, and only
+  the satellite ID and the best score travel across the network - never the
+  imagery. The animation walks that comparison outward hop by hop and settles on
+  the winner.
+
+  Pure inline SVG + CSS. No script, so it is safe under HTML minification, and
+  every animation is suspended under prefers-reduced-motion.
+{%- endcomment -%}
+<figure class="figure figure--prop">
+  <svg class="figure__svg" viewBox="0 0 680 318" role="img"
+       aria-labelledby="propTitle propDesc">
+    <title id="propTitle">Reward-based selective propagation across a satellite network</title>
+    <desc id="propDesc">Six satellites each compute a reward for observing a target.
+      Only satellite identifiers and the best reward value are exchanged. The
+      satellite with the highest reward takes the observation.</desc>
+
+    <defs>
+      <radialGradient id="propLimb" cx="50%" cy="0%" r="100%">
+        <stop offset="0%"   stop-color="#4da3ff" stop-opacity="0.55"/>
+        <stop offset="55%"  stop-color="#2472d4" stop-opacity="0.22"/>
+        <stop offset="100%" stop-color="#081a3f" stop-opacity="0.04"/>
+      </radialGradient>
+      <linearGradient id="propWin" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#4da3ff"/>
+        <stop offset="100%" stop-color="#8b6cff"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Earth limb -->
+    <path class="figure__limb" d="M-40,318 A 420 420 0 0 1 720 318 Z"/>
+
+    <!-- Target being observed -->
+    <g class="figure__target">
+      <circle class="figure__target-halo" cx="592" cy="52" r="17"/>
+      <circle class="figure__target-dot"  cx="592" cy="52" r="4.4"/>
+      <text class="figure__label figure__label--target" x="592" y="26" text-anchor="middle">TARGET</text>
+    </g>
+
+    <!-- Inter-satellite links, drawn before the nodes so they sit behind -->
+    <g class="figure__links">
+      <line class="figure__link figure__hop1" x1="88"  y1="150" x2="200" y2="124"/>
+      <line class="figure__link figure__hop2" x1="200" y1="124" x2="312" y2="140"/>
+      <line class="figure__link figure__hop3" x1="312" y1="140" x2="424" y2="108"/>
+      <line class="figure__link figure__hop4" x1="424" y1="108" x2="536" y2="132"/>
+      <line class="figure__link figure__hop5" x1="536" y1="132" x2="620" y2="170"/>
+      <line class="figure__link figure__hop3" x1="200" y1="124" x2="424" y2="108"/>
+    </g>
+
+    <!-- The observation itself: the winner looks at the target -->
+    <line class="figure__sightline" x1="424" y1="108" x2="592" y2="52"/>
+
+    <!-- Satellites. Reward values are illustrative, not measured. -->
+    <g class="figure__sats">
+      <g class="figure__sat">
+        <circle class="figure__node" cx="88" cy="150" r="7"/>
+        <text class="figure__label" x="88" y="176" text-anchor="middle">S1</text>
+        <text class="figure__reward" x="88" y="190" text-anchor="middle">R 0.18</text>
+      </g>
+      <g class="figure__sat">
+        <circle class="figure__node" cx="200" cy="124" r="7"/>
+        <text class="figure__label" x="200" y="150" text-anchor="middle">S2</text>
+        <text class="figure__reward" x="200" y="164" text-anchor="middle">R 0.46</text>
+      </g>
+      <g class="figure__sat">
+        <circle class="figure__node" cx="312" cy="140" r="7"/>
+        <text class="figure__label" x="312" y="166" text-anchor="middle">S3</text>
+        <text class="figure__reward" x="312" y="180" text-anchor="middle">R 0.31</text>
+      </g>
+      <g class="figure__sat figure__sat--win">
+        <circle class="figure__node-halo" cx="424" cy="108" r="19"/>
+        <circle class="figure__node figure__node--win" cx="424" cy="108" r="9"/>
+        <text class="figure__label figure__label--win" x="424" y="136" text-anchor="middle">S4</text>
+        <text class="figure__reward figure__reward--win" x="424" y="150" text-anchor="middle">R 0.87</text>
+      </g>
+      <g class="figure__sat">
+        <circle class="figure__node" cx="536" cy="132" r="7"/>
+        <text class="figure__label" x="536" y="158" text-anchor="middle">S5</text>
+        <text class="figure__reward" x="536" y="172" text-anchor="middle">R 0.52</text>
+      </g>
+      <g class="figure__sat">
+        <circle class="figure__node" cx="620" cy="170" r="7"/>
+        <text class="figure__label" x="620" y="196" text-anchor="middle">S6</text>
+        <text class="figure__reward" x="620" y="210" text-anchor="middle">R 0.24</text>
+      </g>
+    </g>
+
+    <!-- Packets travelling hop by hop. Each carries an ID and a score, not data. -->
+    <g class="figure__packets">
+      <circle class="figure__packet figure__packet--a" r="3.6"/>
+      <circle class="figure__packet figure__packet--b" r="3.6"/>
+      <circle class="figure__packet figure__packet--c" r="3.6"/>
+    </g>
+
+    <!-- What crosses the link -->
+    <g class="figure__callout">
+      <line class="figure__leader" x1="256" y1="132" x2="256" y2="252"/>
+      <text class="figure__note" x="256" y="270" text-anchor="middle">&#123;ID, best reward&#125; &mdash; not the imagery</text>
+    </g>
+
+    <text class="figure__caption-in" x="24" y="300">SELECTIVE PROPAGATION</text>
+  </svg>
+
+  <figcaption class="figure__cap">
+    Each satellite scores the opportunity with a reward function &mdash; angular
+    separation, detectability, power, storage, schedule and instrument
+    availability. Only the satellite ID and the best score propagate, so the
+    network converges on <strong>S4</strong> without moving a single frame of
+    imagery. Reward values shown are illustrative.
+  </figcaption>
+</figure>

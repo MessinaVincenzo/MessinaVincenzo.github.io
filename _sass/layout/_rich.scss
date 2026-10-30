@@ -2328,3 +2328,209 @@ html[data-theme="dark"] {
     > .pub__actions { grid-column: 1; }
   }
 }
+
+/* --------------------------------------------------------------------------
+   Sidebar gutter
+   The theme gives both `.page` and `.archive` a 4.24% left padding, which at
+   1280px leaves only ~55px between the sidebar - a panel with its own
+   background and drop shadow - and the first line of text. Widening the gutter
+   lets the two columns read as separate things.
+   -------------------------------------------------------------------------- */
+
+@media screen and (min-width: 57.8125em) {
+  .page,
+  .archive {
+    padding-left: 9%;
+  }
+
+  /* The homepage has no sidebar, so it keeps its own centred padding. */
+  #main > .page:only-child {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+  }
+}
+
+/* A hairline marks where the sidebar column ends, so the extra space reads as
+   deliberate rather than as a gap. */
+@media screen and (min-width: 64em) {
+  .sidebar {
+    border-right: 1px solid var(--rich-rule);
+  }
+}
+
+/* ==========================================================================
+   RESEARCH FIGURES
+   Diagrams of the work itself: a selective-propagation schematic and glyphs
+   that draw the structure each research area is actually about. Animated with
+   CSS only, so nothing here depends on JavaScript surviving minification.
+   ========================================================================== */
+
+.figure {
+  margin: 2em 0 2.2em;
+
+  &__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--space-card-border);
+    border-radius: 12px;
+    background:
+      linear-gradient(170deg, #070b18 0%, #111a38 58%, #1d2b5e 100%);
+    overflow: hidden;
+  }
+
+  &__limb  { fill: url(#propLimb); }
+
+  &__link {
+    stroke: rgba(147, 197, 253, 0.35);
+    stroke-width: 1.1;
+  }
+
+  &__sightline {
+    stroke: var(--space-accent);
+    stroke-width: 1.2;
+    stroke-dasharray: 3 4;
+    opacity: 0.75;
+    animation: fig-dash 1.4s linear infinite;
+  }
+
+  &__node {
+    fill: #bcd9ff;
+    stroke: rgba(7, 11, 24, 0.6);
+    stroke-width: 1;
+  }
+
+  &__node--win     { fill: url(#propWin); stroke: #fff; stroke-width: 1.4; }
+  &__node-halo     { fill: var(--space-accent); opacity: 0.18;
+                     animation: fig-pulse 2.6s ease-in-out infinite; }
+
+  &__target-dot  { fill: #fca5a5; }
+  &__target-halo { fill: #f87171; opacity: 0.2;
+                   animation: fig-pulse 2.6s ease-in-out infinite 0.6s; }
+
+  &__label {
+    fill: rgba(255, 255, 255, 0.82);
+    font-family: var(--ops-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  &__label--target { fill: #fca5a5; font-size: 9.5px; }
+  &__label--win    { fill: #fff; }
+
+  &__reward {
+    fill: rgba(147, 197, 253, 0.72);
+    font-family: var(--ops-mono);
+    font-size: 9.5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__reward--win { fill: #8b6cff; font-weight: 700; }
+
+  &__leader {
+    stroke: rgba(255, 255, 255, 0.26);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+  }
+
+  &__note {
+    fill: rgba(255, 255, 255, 0.6);
+    font-family: var(--ops-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  &__caption-in {
+    fill: rgba(255, 255, 255, 0.3);
+    font-family: var(--ops-mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+  }
+
+  &__packet {
+    fill: #fff;
+    filter: drop-shadow(0 0 4px rgba(77, 163, 255, 0.9));
+    offset-rotate: 0deg;
+  }
+
+  /* Each packet runs one leg of the chain, staggered so the comparison reads
+     as travelling outward. offset-path keeps the motion on the actual link. */
+  &__packet--a {
+    offset-path: path("M88,150 L200,124 L312,140");
+    animation: fig-travel 2.8s linear infinite;
+  }
+
+  &__packet--b {
+    offset-path: path("M312,140 L424,108");
+    animation: fig-travel 2.8s linear infinite 0.9s;
+  }
+
+  &__packet--c {
+    offset-path: path("M620,170 L536,132 L424,108");
+    animation: fig-travel 2.8s linear infinite 1.5s;
+  }
+
+  &__cap {
+    margin-top: 0.8em;
+    color: var(--mod-text-dim);
+    font-size: 0.78em;
+    line-height: 1.66;
+  }
+}
+
+@keyframes fig-travel {
+  0%   { offset-distance: 0%;   opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+@keyframes fig-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.18; }
+  50%      { transform: scale(1.22); opacity: 0.05; }
+}
+
+@keyframes fig-dash {
+  to { stroke-dashoffset: -14; }
+}
+
+/* The halo scales about its own centre. */
+.figure__node-halo,
+.figure__target-halo { transform-box: fill-box; transform-origin: center; }
+
+/* Research-area glyphs ----------------------------------------------------- */
+
+.glyph {
+  display: block;
+  width: 2.6em;
+  height: 2.6em;
+  margin-bottom: 0.7em;
+  color: var(--space-accent);
+  overflow: visible;
+
+  &__link   { stroke: currentColor; stroke-opacity: 0.4; stroke-width: 1.1; }
+  &__dot    { fill: currentColor; stroke: none; }
+  &__dot--hub { fill: var(--space-accent-2); }
+  &__frame  { stroke: currentColor; stroke-opacity: 0.55; }
+  &__grid   { stroke: currentColor; stroke-opacity: 0.18; stroke-width: 0.8; }
+  &__px     { fill: var(--space-accent-2); stroke: none; opacity: 0.85; }
+  &__track  { stroke: currentColor; stroke-opacity: 0.5; stroke-width: 1.1;
+              stroke-dasharray: 2.5 2.5; }
+  &__orbit  { stroke: currentColor; stroke-opacity: 0.42; stroke-width: 1.1; }
+  &__body   { fill: currentColor; fill-opacity: 0.16; stroke: currentColor;
+              stroke-opacity: 0.6; }
+}
+
+/* A card's glyph brightens with the card. */
+.topics > li:hover .glyph { color: var(--space-accent-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  .figure__packet,
+  .figure__node-halo,
+  .figure__target-halo,
+  .figure__sightline { animation: none; }
+
+  .figure__packet { opacity: 0; }
+}
