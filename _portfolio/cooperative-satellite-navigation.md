@@ -3,6 +3,7 @@ title: "Satellite Navigation"
 excerpt: "What a cooperative satellite network has to look like geometrically before it can deliver a navigation service - and why a three-plane LEO design cannot, whatever its size."
 collection: portfolio
 date: 2024-06-01
+scenes: true
 ---
 
 **Role:** Research and thesis supervision &middot; Chair of Spacecraft Systems, Technical University of Munich
@@ -25,6 +26,12 @@ Related publications:
 *IFAC-PapersOnLine*, 2025 &middot;
 [Tradespace Analysis and Conceptual Design for a Lunar Navigation and Communication
 Constellation](/publication/tradespace-analysis-lunar-navigation-constellation), IAC 2024.
+
+{% include orbital-scene.html
+     kind="navigation"
+     ratio="wide"
+     label="A receiver taking ranging measurements from the satellites above its horizon, with its position-error ellipse growing and shrinking as their geometric spread changes."
+     caption="A receiver ranging against whichever satellites of a three-plane constellation are above its horizon. The <strong>PDOP</strong> in the readout is computed from the lines of sight actually drawn, and the error ellipse is drawn from it &mdash; so you can watch the fix degrade while the number of visible transmitters stays the same, purely because they have bunched together. Drag to rotate." %}
 
 ## Supervised theses
 

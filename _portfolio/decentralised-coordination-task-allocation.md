@@ -6,6 +6,7 @@ date: 2023-01-01
 featured: true
 flag: "Doctoral research"
 status: "Active"
+scenes: true
 ---
 
 <p class="project__role">
@@ -64,6 +65,12 @@ scheme while keeping the scalability of a decentralised one.
     </p>
   </section>
 </div>
+
+{% include orbital-scene.html
+     kind="central-nodes"
+     ratio="wide"
+     label="The same satellite network run three times with a different fraction of central nodes, showing how much faster a task reaches every node once a few nodes are central."
+     caption="How quickly a decision reaches every satellite depends on how the network is organised. The same constellation is run three times, with a different share of nodes acting as coordination hubs; a request enters at one satellite and spreads outward. A small share of hubs recovers most of the speed of a fully centralised system without giving up the scalability of a decentralised one. Drag to rotate." %}
 
 ## Publications
 

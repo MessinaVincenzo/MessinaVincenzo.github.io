@@ -1,3 +1,9 @@
 <script src="{{ base_path }}/assets/js/main.min.js"></script>
 
+{% if page.scenes %}
+<script src="{{ base_path }}/assets/js/world-mask.js"></script>
+<script src="{{ base_path }}/assets/js/orbital.js"></script>
+<script src="{{ base_path }}/assets/js/orbital-scenes.js"></script>
+{% endif %}
+
 {% include analytics.html %}

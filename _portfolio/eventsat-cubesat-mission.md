@@ -9,6 +9,7 @@ header:
   teaser: space-day-muenchen-2025.jpg
 image_alt: 'The EventSat stand, with CubeSat structural models and mission posters'
 image_credit: 'TUM ASG Chair of Spacecraft Systems'
+scenes: true
 ---
 
 <p class="project__role">
@@ -25,6 +26,12 @@ Event cameras do not take frames. Each pixel reports a brightness *change*
 asynchronously, at microsecond resolution and very low power, which lets the sensor
 pick out objects that are dim and moving quickly &mdash; precisely the regime that
 defeats a conventional frame camera in space situational awareness.
+
+{% include orbital-scene.html
+     kind="eventsat"
+     ratio="wide"
+     label="The EventSat spacecraft in its Sun-synchronous orbit, slewing to hold a ground target, alongside its event-camera pixel readout and the temperatures of two faces across an eclipse."
+     caption="What the payload sees. An event camera reports changes in brightness rather than frames, so while the spacecraft turns the whole starfield lights up, and the moment it holds still the stars fall silent and only genuinely moving objects keep producing signal &mdash; which is what lets a moving object be picked out and tracked on board. The panels on the right show the pointing state and the face temperatures through eclipse. Drag the globe to rotate." %}
 
 ## What I lead
 

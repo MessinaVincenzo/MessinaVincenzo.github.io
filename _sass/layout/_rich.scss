@@ -2534,3 +2534,166 @@ html[data-theme="dark"] {
 
   .figure__packet { opacity: 0; }
 }
+
+/* ==========================================================================
+   CANVAS SCENES
+   Framed dark viewports for the animated research scenes. The drawing is all
+   in assets/js/orbital-scenes.js; this only shapes the panel the canvas sits
+   in, which stays dark in both site themes so it reads as an instrument
+   display rather than as part of the page.
+   ========================================================================== */
+
+.scene {
+  margin: 2.4em 0;
+
+  /* The theme makes every `figure` a flex row. Left as a flex item the frame
+     would size to the canvas's intrinsic 300x150 instead of the column width,
+     so put the figure back to block flow. */
+  display: block;
+
+  &__frame {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    background: radial-gradient(120% 140% at 50% 108%, #0d1a38 0%, #070b18 62%, #04060d 100%);
+    border: 1px solid rgba(120, 160, 220, 0.18);
+    box-shadow: 0 1px 2px rgba(4, 8, 20, 0.5), 0 18px 46px rgba(4, 8, 20, 0.35);
+    cursor: grab;
+    touch-action: pan-y;
+
+    &.is-grabbing { cursor: grabbing; }
+  }
+
+  &__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Caption sits outside the frame, in the page's own voice. */
+  &__cap {
+    margin: 0.85em 0 0;
+    font-size: 0.78em;
+    line-height: 1.55;
+    color: var(--global-text-color-light);
+
+    strong { color: var(--global-text-color); font-weight: 600; }
+  }
+
+  &__hint {
+    position: absolute;
+    right: 12px;
+    bottom: 11px;
+    font-family: var(--ops-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(185, 203, 232, 0.5);
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  &__frame.is-grabbing &__hint { opacity: 0; }
+}
+
+/* The frame's height comes from its aspect ratio, so the canvas has a box to
+   measure before the script runs. */
+.scene--hero   .scene__frame { aspect-ratio: 21 / 9; }
+.scene--wide   .scene__frame { aspect-ratio: 16 / 9; }
+.scene--square .scene__frame { aspect-ratio: 4 / 3; }
+
+/* Below the theme's x-large breakpoint the content column drops from about
+   710px to about 510px, and a 16:9 strip gets too short for the instrument
+   panels to read. Give those widths more height. */
+@media screen and (min-width: 48em) and (max-width: 79.9375em) {
+  .scene--hero .scene__frame,
+  .scene--wide .scene__frame { aspect-ratio: 3 / 2; }
+}
+
+/* Taller and squarer on phones, where a 21:9 strip is a few pixels of sky. */
+@media screen and (max-width: 47.9375em) {
+  .scene--hero   .scene__frame,
+  .scene--wide   .scene__frame { aspect-ratio: 4 / 3; }
+  .scene--square .scene__frame { aspect-ratio: 1 / 1; }
+  .scene__hint { display: none; }
+}
+
+/* A scene whose script threw still leaves a tidy panel rather than a void. */
+.scene__frame[data-scene-failed] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: "figure unavailable";
+    font-family: var(--ops-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(185, 203, 232, 0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The scene renders a single still frame; nothing to hint at dragging. */
+  .scene__hint { display: none; }
+}
+
+/* Home hero scene ---------------------------------------------------------
+   The hero's picture is now a canvas covering the whole panel rather than a
+   fixed-size SVG tucked into the corner, so override the positioning the
+   space layer set for the old one. Same specificity, imported later. */
+
+.hero .hero__scene {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  opacity: 1;
+  cursor: grab;
+
+  &.is-grabbing { cursor: grabbing; }
+
+  /* The hero already states the name over this; let the page scroll normally
+     on touch and only claim horizontal drags. */
+  touch-action: pan-y;
+}
+
+.hero__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Keeps the name and the lede legible over whatever the scene is doing. */
+.hero__scrim {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(100deg,
+              rgba(7, 11, 24, 0.86) 0%,
+              rgba(7, 11, 24, 0.62) 34%,
+              rgba(7, 11, 24, 0.12) 62%,
+              rgba(7, 11, 24, 0) 100%);
+}
+
+@media screen and (max-width: 47.9375em) {
+  /* On a phone the text fills the panel, so the scene drops right back. */
+  .hero .hero__scene { opacity: 0.5; }
+
+  .hero__scrim {
+    background: linear-gradient(180deg,
+                rgba(7, 11, 24, 0.82) 0%,
+                rgba(7, 11, 24, 0.58) 55%,
+                rgba(7, 11, 24, 0.30) 100%);
+  }
+}

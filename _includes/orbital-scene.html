@@ -1,0 +1,29 @@
+{%- comment -%}
+  A canvas research scene. The scene itself lives in assets/js/orbital-scenes.js
+  and is picked by name; this include only provides the frame and the caption.
+
+  Usage:
+    {% include orbital-scene.html
+         kind="coordination"
+         ratio="hero"
+         label="Reward-based task allocation across a satellite network"
+         caption="Each satellite scores the request ..." %}
+
+  kind     scene name registered on VMOrbital.scenes
+  ratio    hero | wide | square   (default wide)
+  label    accessible description of the picture, required
+  caption  the figcaption text; omit for no caption
+
+  The page must also carry `scenes: true` in its front matter, which is what
+  loads the scripts - see _includes/scripts.html.
+{%- endcomment -%}
+<figure class="scene scene--{{ include.ratio | default: 'wide' }}">
+  <div class="scene__frame" data-scene="{{ include.kind }}" role="img"
+       aria-label="{{ include.label | escape }}">
+    <canvas class="scene__canvas" aria-hidden="true"></canvas>
+    <span class="scene__hint" aria-hidden="true">drag to rotate</span>
+  </div>
+  {%- if include.caption %}
+  <figcaption class="scene__cap">{{ include.caption }}</figcaption>
+  {%- endif %}
+</figure>

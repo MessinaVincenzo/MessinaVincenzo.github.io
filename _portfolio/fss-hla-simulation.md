@@ -3,6 +3,7 @@ title: "HLA-Based Simulation for Federated Satellite Systems"
 excerpt: "A distributed IEEE 1516 (HLA) simulator for a 100-CubeSat Federated Satellite System, used to characterise inter-satellite links under real operational constraints and to test disaster-response rapid mapping."
 collection: portfolio
 date: 2023-09-01
+scenes: true
 ---
 
 **Role:** Thesis supervision &middot; Chair of Spacecraft Systems, Technical University of Munich
@@ -30,6 +31,12 @@ A 100 CubeSat federation was then analysed as a directed, SNR-weighted network:
   cut the average TTS from 5.3 to about 3.4 hours.
 * **Katz dynamic centrality** as a cheap predictor of TTS, avoiding a
   computationally expensive Monte Carlo sweep.
+
+{% include orbital-scene.html
+     kind="federation"
+     ratio="wide"
+     label="Three operators running their own simulation federates, exchanging object attributes over a time-managed run-time infrastructure, with the time-to-spread curves for the 100-CubeSat federation."
+     caption="One exchange between three operators, step by step. Each operator runs its own simulation and keeps its own spacecraft models; only the values another operator has asked for travel across the shared bus, and nobody moves to the next time step until everybody is ready." %}
 
 The network was then tested against a real time-critical scenario: the Copernicus
 Emergency Management Service rapid-mapping request for the **Emilia-Romagna floods
