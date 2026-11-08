@@ -206,3 +206,14 @@
   .pc .card { transition: none; }
   .pc .card:hover { transform: none; }
 }
+
+/* ---------- SuperDove case study (sub-page) ---------- */
+.pc canvas.sd-globe {
+  width: 100%; display: block; border-radius: 6px; cursor: grab; touch-action: none;
+  background: radial-gradient(120% 140% at 50% 108%, #0d1a38 0%, #070b18 62%, #04060d 100%);
+  border: 1px solid rgba(120, 160, 220, 0.18);
+  box-shadow: 0 1px 2px rgba(4, 8, 20, 0.5), 0 18px 46px rgba(4, 8, 20, 0.35);
+}
+.pc .hero { padding: 0; border: 0; }
+.pc .hero .kicker { font-family: var(--mono); font-size: 0.7em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--space-accent-2); }
+.pc-more { margin: 1.2em 0 0; font-size: 0.9em; }

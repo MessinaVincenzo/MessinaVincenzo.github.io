@@ -27,4 +27,6 @@ sitemap: false
   </form>
 </div>
 
+<p class="pc-more"><strong>Case study:</strong> <a href="/acta-astronautica-preprint/superdoves/">central nodes for Planet's SuperDoves &rarr;</a></p>
+
 <script src="/assets/js/preprint-unlock.js"></script>
