@@ -2,7 +2,7 @@
 title: "Case Study: Central Nodes for Planet's SuperDoves"
 permalink: /acta-astronautica-preprint/superdoves/
 layout: single
-author_profile: true
+author_profile: false
 sitemap: false
 ---
 
@@ -13,7 +13,7 @@ sitemap: false
 
 <link rel="stylesheet" href="/assets/css/preprint.css">
 
-<div id="pc-root">
+<div id="pc-root" class="pc-wide">
   <form id="pc-unlock" class="pc-lock" data-payload="/assets/preprint/superdoves.bin">
     <p class="pc-lock__eyebrow">Coming soon</p>
     <p>The paper's central nodes applied to a real fleet: Planet's 91 SuperDoves, their ground stations, and dedicated relay satellites. Password-protected until publication.</p>
