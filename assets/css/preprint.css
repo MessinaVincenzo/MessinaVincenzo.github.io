@@ -229,3 +229,20 @@
   .pc-wide .pc .plot { height: 400px; }
   .pc-wide .pc .plot.tall { height: 480px; }
 }
+
+/* ---------- claim + decentralization ladder (SuperDove page) ---------- */
+.pc .claim { margin: 1.4em 0 0.4em; padding: 1.1em 1.25em 1.2em; border: 1px solid var(--line); border-left: 4px solid var(--c2); border-radius: 0 12px 12px 0; background: var(--panel); box-shadow: var(--space-card-shadow); }
+.pc .claim__eyebrow { font-family: var(--mono); font-size: 0.7em; letter-spacing: .14em; text-transform: uppercase; color: var(--c2); font-weight: 700; margin-bottom: 0.3em; }
+.pc .claim__lead { font-size: 1.12em; font-weight: 600; margin: 0 0 0.6em; }
+.pc .claim p { margin: 0.5em 0; }
+.pc .ladder { margin-top: 1em; }
+.pc .ladder__head { font-family: var(--mono); font-size: 0.66em; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0.9em 0 0.35em; }
+.pc .ladder__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(5.5em, 1fr)); gap: 4px; }
+.pc .lad { border-radius: 7px; padding: 0.45em 0.5em; text-align: center; line-height: 1.25; color: #fff; }
+.pc .lad b { display: block; font-size: 1.15em; }
+.pc .lad span { display: block; font-size: 0.72em; opacity: 0.85; }
+.pc .lad em { display: block; font-style: normal; font-weight: 700; font-size: 0.95em; margin-top: 0.15em; }
+.pc .lad.slow { background: #c8484b; }
+.pc .lad.mid { background: #d99a2b; }
+.pc .lad.fast { background: #1f9a63; }
+.pc .ladder__note { font-size: 0.78em; color: var(--muted); margin-top: 0.6em; }
