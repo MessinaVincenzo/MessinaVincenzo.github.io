@@ -69,8 +69,8 @@ scheme while keeping the scalability of a decentralised one.
 {% include orbital-scene.html
      kind="central-nodes"
      ratio="wide"
-     label="The same satellite network run three times with a different fraction of central nodes, showing how much faster a task reaches every node once a few nodes are central."
-     caption="How quickly a decision reaches every satellite depends on how the network is organised. The same constellation is run three times, with a different share of nodes acting as coordination hubs; a request enters at one satellite and spreads outward. A small share of hubs recovers most of the speed of a fully centralised system without giving up the scalability of a decentralised one. Drag to rotate." %}
+     label="A satellite network in which ordinary satellites only ever link to central nodes, run three times with a different share of nodes acting as central, showing how quickly a request spreads through each."
+     caption="Ordinary satellites never exchange a task directly with one another: every link in the network runs through a <strong>central node</strong>, so the only edges are satellite-to-central and central-to-central. The same constellation is run three times with a different share of nodes acting as central &mdash; placed where coverage is worst, since where they sit is part of the question &mdash; and a request entering at one satellite has to spread through that structure. Raising the share shortens convergence, but the gain flattens quickly: a small fraction already does most of the work. Drag to rotate." %}
 
 ## Publications
 

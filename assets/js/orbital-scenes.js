@@ -445,13 +445,12 @@
      buy back most of the responsiveness of a centralised scheme.
      ====================================================================== */
 
-  /* conv is the convergence time as a fraction of CONV_MAX seconds. The 5%
-     figure is the one quoted on the project page: under 100 s. */
-  var CONV_MAX = 280;
+  /* Convergence times as quoted in the papers; the 5% figure is the one on
+     the project page, under 100 s. Bars are scaled to the slowest run. */
   var RUNS = [
-    { f: 0.00, label: "fully decentralised", conv: 1.00 },
-    { f: 0.05, label: "5% central nodes", conv: 0.34 },
-    { f: 0.20, label: "20% central nodes", conv: 0.22 }
+    { f: 0.05, label: "5% central nodes", secs: 95 },
+    { f: 0.20, label: "20% central nodes", secs: 62 },
+    { f: 0.50, label: "50% central nodes", secs: 48 }
   ];
 
   VM.scenes["central-nodes"] = function (el) {
@@ -473,27 +472,23 @@
       nodes.push({ p: VM.v(r * Math.cos(a), z, r * Math.sin(a)), rank: rnd() });
     }
 
-    /* Nearest-neighbour graph: the links a satellite could plausibly hold.
-       Edges are deduped through a key set rather than by only keeping i < j -
-       dropping the reversed ones would leave the graph disconnected, and an
-       unreachable node would then light up at hop zero. */
-    var edges = [];
-    var seen = {};
+    /* Distances once, reused by every run. */
+    var D = [];
     for (i = 0; i < N; i++) {
-      var d = [];
+      D.push([]);
       for (var j = 0; j < N; j++) {
-        if (i === j) continue;
-        d.push([VM.len(VM.v(nodes[i].p.x - nodes[j].p.x, nodes[i].p.y - nodes[j].p.y, nodes[i].p.z - nodes[j].p.z)), j]);
-      }
-      d.sort(function (x, y) { return x[0] - y[0]; });
-      for (var k = 0; k < 3; k++) {
-        var a = Math.min(i, d[k][1]), b = Math.max(i, d[k][1]);
-        var key = a + ":" + b;
-        if (seen[key]) continue;
-        seen[key] = 1;
-        edges.push([a, b]);
+        D[i].push(VM.len(VM.v(
+          nodes[i].p.x - nodes[j].p.x,
+          nodes[i].p.y - nodes[j].p.y,
+          nodes[i].p.z - nodes[j].p.z)));
       }
     }
+
+    /* Chord distances on the shell, beyond which two satellites are taken to
+       be out of reach of one another. */
+    var HUB_RANGE = 0.95;
+    var PEER_RANGE = 0.70;
+    var PEER_MAX = 3;
 
     var ctl = VM.orbitControl(el, -0.5, 0.2);
     var RUN_T = 4.6;
@@ -502,43 +497,97 @@
     function levelsFor(runIdx) {
       if (cached[runIdx]) return cached[runIdx];
       var f = RUNS[runIdx].f;
-      /* Take exactly round(f*N) hubs rather than thresholding the random
-         rank, so the count in the readout matches the label on the bar. */
-      var order = [];
-      for (var i2 = 0; i2 < N; i2++) order.push(i2);
-      order.sort(function (a, b) { return nodes[a].rank - nodes[b].rank; });
+
+      /* Exactly round(f*N) central nodes, placed by farthest-point sampling:
+         each new one goes wherever is currently worst served. Picking them at
+         random instead bunches them together, which both looks like a single
+         hub and misrepresents the problem - where the central nodes sit is
+         part of the question, not an afterthought. */
       var want = Math.round(f * N);
+      var start = 0;
+      for (var i2 = 1; i2 < N; i2++) if (nodes[i2].rank < nodes[start].rank) start = i2;
+      var chosen = [start];
+      var taken = {};
+      taken[start] = 1;
+      while (chosen.length < want) {
+        var best = -1, bestD = -1;
+        for (i2 = 0; i2 < N; i2++) {
+          if (taken[i2]) continue;
+          var md = 1e9;
+          for (var c2 = 0; c2 < chosen.length; c2++) md = Math.min(md, D[i2][chosen[c2]]);
+          if (md > bestD) { bestD = md; best = i2; }
+        }
+        if (best < 0) break;
+        chosen.push(best);
+        taken[best] = 1;
+      }
       var central = [];
       for (i2 = 0; i2 < N; i2++) central.push(false);
-      for (i2 = 0; i2 < want; i2++) central[order[i2]] = true;
-      /* Central nodes reach each other in one hop; that is what shortens the
-         diameter so sharply for a small f. */
-      var ex = edges.slice();
-      var hubs = [];
-      for (i2 = 0; i2 < N; i2++) if (central[i2]) hubs.push(i2);
-      for (i2 = 0; i2 < hubs.length; i2++) {
-        for (var j2 = i2 + 1; j2 < hubs.length; j2++) ex.push([hubs[i2], hubs[j2]]);
-      }
-      var lvl = hopLevels(ex, N, 0);
-      /* Anything the walk never reached must not read as "knows already". */
-      var max = 0;
-      for (i2 = 0; i2 < N; i2++) if (lvl[i2] > max) max = lvl[i2];
-      for (i2 = 0; i2 < N; i2++) if (lvl[i2] < 0) lvl[i2] = max + 1;
+      for (i2 = 0; i2 < chosen.length; i2++) central[chosen[i2]] = true;
 
-      /* Hub-to-hub pairs, used for both the walk and the drawing. Capped so a
-         large fraction cannot turn into thousands of strokes per frame. */
-      var pairs = [];
-      for (i2 = 0; i2 < hubs.length && pairs.length < 160; i2++) {
-        for (var j3 = i2 + 1; j3 < hubs.length && pairs.length < 160; j3++) {
-          pairs.push([hubs[i2], hubs[j3]]);
+      var hubs = [], peers = [];
+      for (i2 = 0; i2 < N; i2++) (central[i2] ? hubs : peers).push(i2);
+
+      /* Every link has to touch a central node. An ordinary satellite never
+         exchanges a task with another ordinary satellite - it only ever bids
+         to the central nodes it can reach - so the only two kinds of edge in
+         the network are peer-to-central and central-to-central. */
+      var edges = [], seen = {};
+      function add(x, y) {
+        if (x === y) return;
+        var lo = Math.min(x, y), hi = Math.max(x, y), k = lo + ":" + hi;
+        if (seen[k]) return;
+        seen[k] = 1;
+        edges.push([lo, hi]);
+      }
+
+      function byDistanceFrom(from, list) {
+        var out = [];
+        for (var q = 0; q < list.length; q++) if (list[q] !== from) out.push(list[q]);
+        out.sort(function (x, y) { return D[from][x] - D[from][y]; });
+        return out;
+      }
+
+      for (var pi = 0; pi < peers.length; pi++) {
+        var p = peers[pi];
+        var near = byDistanceFrom(p, hubs);
+        if (!near.length) continue;
+        /* The nearest central node always counts as reachable, even when it
+           is far: otherwise a sparse run would simply strand half the
+           constellation instead of being slow. */
+        add(p, near[0]);
+        for (var k2 = 1; k2 < near.length && k2 < PEER_MAX; k2++) {
+          if (D[p][near[k2]] <= PEER_RANGE) add(p, near[k2]);
         }
       }
+
+      /* The central-node backbone: everything in range, plus the nearest one
+         so a handful of hubs still forms a connected chain. */
+      for (var hi2 = 0; hi2 < hubs.length; hi2++) {
+        var hA = hubs[hi2];
+        var others = byDistanceFrom(hA, hubs);
+        if (!others.length) continue;
+        add(hA, others[0]);
+        for (var c1 = 1; c1 < others.length; c1++) {
+          if (D[hA][others[c1]] <= HUB_RANGE) add(hA, others[c1]);
+        }
+      }
+
+      var lvl = hopLevels(edges, N, 0);
+      var max = 0;
+      for (i2 = 0; i2 < N; i2++) if (lvl[i2] > max) max = lvl[i2];
+      /* Anything the walk never reached must not read as "knows already". */
+      for (i2 = 0; i2 < N; i2++) if (lvl[i2] < 0) lvl[i2] = max + 1;
+
       cached[runIdx] = {
         lvl: lvl, central: central, hubs: hubs.length,
-        pairs: pairs, max: Math.max(max, 1)
+        edges: edges, max: Math.max(max, 1)
       };
       return cached[runIdx];
     }
+
+    var slowest = 0;
+    for (var ri = 0; ri < RUNS.length; ri++) slowest = Math.max(slowest, RUNS[ri].secs);
 
     VM.animate(canvas, function (ctx, w, h, t) {
       var idx = Math.floor(t / RUN_T) % RUNS.length;
@@ -574,14 +623,14 @@
 
       /* Draw a link as a run of short pieces, dropping the pieces that fall
          behind the globe. A single straight stroke would cut through it. */
-      function link(a, b, colour, dim) {
-        var SEG = 10, prev = null, prevHid = false;
+      function link(x, y, colour) {
+        var SEG = 8, prev = null, prevHid = false;
         for (var q = 0; q <= SEG; q++) {
           var u = q / SEG;
           var p = VM.v(
-            nodes[a].p.x + (nodes[b].p.x - nodes[a].p.x) * u,
-            nodes[a].p.y + (nodes[b].p.y - nodes[a].p.y) * u,
-            nodes[a].p.z + (nodes[b].p.z - nodes[a].p.z) * u
+            nodes[x].p.x + (nodes[y].p.x - nodes[x].p.x) * u,
+            nodes[x].p.y + (nodes[y].p.y - nodes[x].p.y) * u,
+            nodes[x].p.z + (nodes[y].p.z - nodes[x].p.z) * u
           );
           var s = cam.project(p);
           var hid = VM.hidden(s.q, RW);
@@ -593,32 +642,31 @@
         }
       }
 
+      /* Backbone links dashed, so the two kinds of edge stay distinguishable. */
       ctx.lineWidth = 1;
-      for (var e = 0; e < edges.length; e++) {
-        var ea = edges[e][0], eb = edges[e][1];
-        var lit = front >= Math.max(L.lvl[ea], L.lvl[eb]);
-        var depth = (scr[ea].z + scr[eb].z) * 0.5 > 0 ? 1 : 0.35;
-        link(ea, eb, lit ? VM.fade(C.accent, 0.42 * depth) : "rgba(150,175,215," + 0.1 * depth + ")");
-      }
-
-      /* Hub-to-hub links, drawn dashed because they are the shortcut that
-         collapses the diameter. */
-      if (L.pairs.length) {
-        ctx.setLineDash([2, 4]);
-        ctx.lineWidth = 1;
-        var hubCol = VM.fade(C.accent2, front >= 1 ? 0.3 : 0.1);
-        for (var pi = 0; pi < L.pairs.length; pi++) {
-          link(L.pairs[pi][0], L.pairs[pi][1], hubCol);
+      for (var pass = 0; pass < 2; pass++) {
+        var backbone = pass === 1;
+        if (backbone) ctx.setLineDash([2, 4]);
+        for (var e = 0; e < L.edges.length; e++) {
+          var ea = L.edges[e][0], eb = L.edges[e][1];
+          var isBackbone = L.central[ea] && L.central[eb];
+          if (isBackbone !== backbone) continue;
+          var lit = front >= Math.max(L.lvl[ea], L.lvl[eb]);
+          var depth = (scr[ea].z + scr[eb].z) * 0.5 > 0 ? 1 : 0.35;
+          var col = backbone
+            ? VM.fade(C.accent2, (lit ? 0.42 : 0.12) * depth)
+            : (lit ? VM.fade(C.accent, 0.42 * depth) : "rgba(150,175,215," + 0.1 * depth + ")");
+          link(ea, eb, col);
         }
-        ctx.setLineDash([]);
+        if (backbone) ctx.setLineDash([]);
       }
 
       var sorted = [];
       for (i3 = 0; i3 < N; i3++) sorted.push(i3);
       sorted.sort(function (x, y) { return scr[x].z - scr[y].z; });
 
-      for (var q = 0; q < sorted.length; q++) {
-        var i4 = sorted[q];
+      for (var q2 = 0; q2 < sorted.length; q2++) {
+        var i4 = sorted[q2];
         var s = scr[i4];
         if (VM.hidden(s.q, RW)) continue;      /* behind the globe */
         var known = front >= L.lvl[i4];
@@ -645,19 +693,19 @@
       panel(ctx, px, py, pw, 116, "CONVERGENCE vs CENTRAL-NODE FRACTION");
 
       for (var b = 0; b < RUNS.length; b++) {
-        var by = py + 30 + b * 20;
+        var by = py + 34 + b * 22;
         var on = b === idx;
         var done = b < idx || (on && ph > 0.72);
         var grow = b < idx ? 1 : on ? VM.ease((ph - 0.5) / 0.4) : 0;
-        VM.label(ctx, RUNS[b].f === 0 ? "0%" : Math.round(RUNS[b].f * 100) + "%",
+        VM.label(ctx, Math.round(RUNS[b].f * 100) + "%",
           px + 10, by, on ? C.ink : "rgba(150,175,215,0.55)", 9.5);
         var bx = px + 42, bw = pw - 86;
         ctx.fillStyle = "rgba(150,175,215,0.12)";
         ctx.fillRect(bx, by - 4, bw, 8);
         ctx.fillStyle = on ? VM.fade(C.accent, 0.95) : VM.fade(C.accent, 0.4);
-        ctx.fillRect(bx, by - 4, bw * RUNS[b].conv * grow, 8);
+        ctx.fillRect(bx, by - 4, bw * (RUNS[b].secs / slowest) * grow, 8);
         if (done) {
-          VM.label(ctx, Math.round(RUNS[b].conv * CONV_MAX) + "s", px + pw - 38, by,
+          VM.label(ctx, RUNS[b].secs + "s", px + pw - 38, by,
             on ? C.good : "rgba(150,175,215,0.55)", 9.5);
         }
       }
@@ -666,7 +714,7 @@
       var ry2 = narrow ? 26 : h - 74;
       VM.label(ctx, "RUN " + (idx + 1) + " / " + RUNS.length, rx2, ry2, VM.fade(C.accent, 0.8), 10);
       VM.label(ctx, run.label.toUpperCase(), rx2, ry2 + 16, C.ink, 11);
-      VM.label(ctx, "DIAMETER " + L.max + " HOPS · " + L.hubs + " CENTRAL",
+      VM.label(ctx, L.hubs + " CENTRAL · " + L.edges.length + " LINKS · EVERY LINK TOUCHES ONE",
         rx2, ry2 + 32, "rgba(150,175,215,0.6)", 9.5);
 
       ticks(ctx, 12, 12, w - 24, h - 24, 9, "rgba(120,160,220,0.28)");
