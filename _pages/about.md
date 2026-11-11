@@ -55,7 +55,7 @@ exchange of observational tasks.
 <ul class="metrics">
   <li><span class="metrics__n">{{ pubs | size }}</span><span class="metrics__k">Publications</span></li>
   <li><span class="metrics__n">{{ site.talks | size }}</span><span class="metrics__k">Talks</span></li>
-  <li><span class="metrics__n">{{ site.data.theses | size }}</span><span class="metrics__k">Theses supervised</span></li>
+  <li><span class="metrics__n">{% assign thesis_only = site.data.theses | where_exp: "t", "t.degree != 'Engineering project'" %}{{ thesis_only | size }}</span><span class="metrics__k">Theses supervised</span></li>
   <li><span class="metrics__n">{{ site.data.network.totals.coauthors }}</span><span class="metrics__k">Co&#8209;authors</span></li>
 </ul>
 

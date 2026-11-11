@@ -1,12 +1,57 @@
-# Supervised student theses - the single source for both the Projects pages
+# Supervised student theses and engineering projects - the single source for
+# both the Projects pages
 # (_portfolio/, grouped by `theme`) and the Thesis Supervision section of
 # _pages/teaching.html (grouped by `degree`).
 #
 # theme    : key from _data/thesis_themes.yml
 # degree   : "Master's" | "Semester" | "Bachelor's" - rendered as "<degree> theses"
+#            or "Engineering project" for group work with no degree attached,
+#            which both renderers special-case and the homepage count excludes
 # HTML entities are used for non-ASCII characters, matching the rest of the site.
 
 # --- Decentralised coordination and task allocation -------------------------
+
+- name: "Maneesh Manjunath"
+  degree: "Master's"
+  year: 2026
+  theme: coordination
+  title: "Effect of Central Nodes on Task Dissemination in Distributed Satellite Systems"
+  description: >-
+    Examined how a small number of central nodes changes the way a task spreads
+    through a distributed satellite system, and what that does to the time the
+    network needs before it has settled on which satellite acts.
+
+- name: "Am&eacute;lie-C&eacute;line Weseloh"
+  degree: "Semester"
+  year: 2026
+  theme: coordination
+  title: "Effect of Central Nodes on Task Allocation in Distributed Satellite Systems for Flood Detection and Monitoring"
+  description: >-
+    Took the central node question into a flood detection and monitoring scenario,
+    where observation requests are time critical and the satellites have to agree
+    quickly on which of them images the affected area.
+
+- name: "Norhen Tarhouni, Fiona Hoxha and Shubhada Shah"
+  degree: "Engineering project"
+  year: 2026
+  theme: coordination
+  title: "Decentralised Multi-Task Allocation for Satellite Constellations: Implementation and Experimental Validation on a Five-Node Testbed"
+  description: >-
+    Took decentralised multi-task allocation off the simulator and onto hardware.
+    The team implemented the scheme on a five-node testbed, where each node runs
+    on its own and the allocation has to be reached over the links between them,
+    so the behaviour could be validated experimentally rather than only in
+    simulation.
+
+- name: "Leonie Castle and Quirin Stebich"
+  degree: "Engineering project"
+  year: 2025
+  theme: coordination
+  title: "Design and Development of a Test Setup for a Collaborative Spacecraft Operations Network for Object Detection"
+  description: >-
+    Designed and built a laboratory test setup for a collaborative spacecraft
+    operations network, in which several nodes combine what each of them sees in
+    order to detect objects together rather than each one working alone.
 
 - name: "Marco Camporeale"
   degree: "Semester"
@@ -196,3 +241,26 @@
     ambient magnetic gradients in the SPS lab and tested coil-based and shielding
     approaches to reduce them. The findings set the conditions for building a full
     6U-sized cage.
+
+- name: "Justus Schmid"
+  degree: "Bachelor's"
+  year: 2026
+  theme: eventsat
+  title: "Gaussian Process Surrogates for Sensitivity and Worst-Case Analysis of Uncertain Contact Conductances in a CubeSat Thermal Model"
+  description: >-
+    Contact conductances between mounted parts are among the least well known
+    inputs to a CubeSat thermal model, and sweeping them directly is expensive.
+    This work fitted Gaussian process surrogates to the model so the parameter
+    space could be explored cheaply, then used them for sensitivity analysis and
+    to search for worst-case combinations.
+
+- name: "Meriam Boussaadia"
+  degree: "Bachelor's"
+  year: 2026
+  theme: eventsat
+  title: "Design, Validation and Testing of a Thermal Interface System for the NVIDIA Jetson Orin Nano in a CubeSat Payload Application"
+  description: >-
+    A Jetson Orin Nano carrying a CubeSat payload's onboard processing has to shed
+    its heat into the structure with no air to help it. This work designed a
+    thermal interface for that path, then validated and tested it against the
+    conditions the payload has to work in.

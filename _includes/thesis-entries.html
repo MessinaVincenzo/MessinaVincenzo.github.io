@@ -1,5 +1,6 @@
 {% comment %}
-  Renders the supervised theses of one research theme, newest first.
+  Renders the supervised theses and engineering projects of one research
+  theme, newest first.
   Usage: {% include thesis-entries.html theme="coordination" %}
   Data: _data/theses.yml, keyed on the `theme` column of _data/thesis_themes.yml.
 {% endcomment %}
@@ -14,7 +15,7 @@
     <h3 class="thesis-entry__title">{{ t.title }}</h3>
     <p class="thesis-entry__meta">
       <span class="thesis-entry__name">{{ t.name }}</span>
-      &middot; {{ t.degree }} thesis, {{ t.year }}{% if t.note %} &middot; {{ t.note }}{% endif %}
+      &middot; {% if t.degree == "Engineering project" %}Engineering project{% else %}{{ t.degree }} thesis{% endif %}{% if t.year %}, {{ t.year }}{% endif %}{% if t.note %} &middot; {{ t.note }}{% endif %}
     </p>
     <p class="thesis-entry__body">{{ t.description }}</p>
     {% if t.publication or t.more %}

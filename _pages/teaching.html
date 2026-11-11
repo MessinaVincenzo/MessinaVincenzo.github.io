@@ -20,18 +20,19 @@ author_profile: true
 
 <section class="thesis-supervision">
 
-  <h2 id="thesis-supervision">Thesis Supervision</h2>
+  <h2 id="thesis-supervision">Thesis and Project Supervision</h2>
 
-  <p>Master&rsquo;s, semester and bachelor&rsquo;s theses supervised at the Chair of
-  Spacecraft Systems. Each title links to the project it belongs to.</p>
+  <p>Master&rsquo;s, semester and bachelor&rsquo;s theses, and group engineering
+  projects, supervised at the Chair of Spacecraft Systems. Each title links to the
+  project it belongs to.</p>
 
-  {% assign degree_groups = "Master's,Semester,Bachelor's" | split: "," %}
+  {% assign degree_groups = "Master's,Semester,Bachelor's,Engineering project" | split: "," %}
 
   {% for d in degree_groups %}
     {% assign group = site.data.theses | where: "degree", d | sort: "year" | reverse %}
     {% if group.size > 0 %}
 
-      <h3 class="thesis-supervision__degree">{{ d }} theses</h3>
+      <h3 class="thesis-supervision__degree">{% if d == "Engineering project" %}Engineering projects{% else %}{{ d }} theses{% endif %}</h3>
 
       <ul class="thesis-list">
         {% for t in group %}
